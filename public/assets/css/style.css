@@ -8272,10 +8272,13 @@ textarea.form-control {
   margin: 0 10px 0 0;
   display: inline-block; }
   .ftco-footer-social li a {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 50px;
     width: 50px;
-    display: block;
-    float: left;
+
     background: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
     position: relative; }
@@ -8289,6 +8292,10 @@ textarea.form-control {
       transform: translate(-50%, -50%); }
     .ftco-footer-social li a:hover {
       color: #fff; }
+
+.block-23 i {
+  margin-right: 20px;
+}
 
 #map {
   width: 100%; }

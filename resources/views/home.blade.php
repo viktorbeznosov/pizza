@@ -63,21 +63,27 @@
                 <div class="info">
                     <div class="row no-gutters">
                         <div class="col-md-4 d-flex ftco-animate">
-                            <div class="icon"><span class="icon-phone"></span></div>
+                            <div class="icon">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                            </div>
                             <div class="text">
                                 <h3>000 (123) 456 7890</h3>
                                 <p>A small river named Duden flows</p>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex ftco-animate">
-                            <div class="icon"><span class="icon-my_location"></span></div>
+                            <div class="icon">
+                                <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                            </div>
                             <div class="text">
                                 <h3>198 West 21th Street</h3>
                                 <p>Suite 721 New York NY 10016</p>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex ftco-animate">
-                            <div class="icon"><span class="icon-clock-o"></span></div>
+                            <div class="icon">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            </div>
                             <div class="text">
                                 <h3>Open Monday-Friday</h3>
                                 <p>8:00am - 9:00pm</p>
@@ -87,9 +93,9 @@
                 </div>
                 <div class="social d-md-flex pl-md-5 p-4 align-items-center">
                     <ul class="social-icon">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li class="ftco-animate"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="ftco-animate"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -389,7 +395,7 @@
                         <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <div class="icon"><span class="flaticon-pizza-1"></span></div>
+                                    <div class="icon"><i class="mdi mdi-pizza"></i></div>
                                     <strong class="number" data-number="100">0</strong>
                                     <span>Pizza Branches</span>
                                 </div>
@@ -398,7 +404,7 @@
                         <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <div class="icon"><span class="flaticon-medal"></span></div>
+                                    <div class="icon"><i class="mdi mdi-medal"></i></div>
                                     <strong class="number" data-number="85">0</strong>
                                     <span>Number of Awards</span>
                                 </div>
@@ -407,7 +413,7 @@
                         <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <div class="icon"><span class="flaticon-laugh"></span></div>
+                                    <div class="icon"><i class="mdi mdi-emoticon-happy-outline"></i></div>
                                     <strong class="number" data-number="10567">0</strong>
                                     <span>Happy Customer</span>
                                 </div>
@@ -416,7 +422,7 @@
                         <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                             <div class="block-18 text-center">
                                 <div class="text">
-                                    <div class="icon"><span class="flaticon-chef"></span></div>
+                                    <div class="icon"><i class="mdi mdi-chef-hat"></i></div>
                                     <strong class="number" data-number="900">0</strong>
                                     <span>Staff</span>
                                 </div>
@@ -626,7 +632,7 @@
                             <div class="meta">
                                 <div><a href="#">Sept 10, 2018</a></div>
                                 <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
                             </div>
                             <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
                             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
@@ -641,7 +647,7 @@
                             <div class="meta">
                                 <div><a href="#">Sept 10, 2018</a></div>
                                 <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
                             </div>
                             <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
                             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
@@ -656,7 +662,7 @@
                             <div class="meta">
                                 <div><a href="#">Sept 10, 2018</a></div>
                                 <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
                             </div>
                             <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
                             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>

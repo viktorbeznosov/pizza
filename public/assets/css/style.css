@@ -7754,15 +7754,26 @@ h1, h2, h3, h4, h5,
           .ftco-intro .wrap .social .social-icon li a span {
             color: #fff;
             font-size: 20px; }
+.social-icon i {
+  color: #FFF;
+  font-size: 20px;
+}
+
   .ftco-intro .wrap h3 {
     font-size: 16px; }
   .ftco-intro .wrap .text {
     width: calc(100% - 40px); }
   .ftco-intro .wrap .icon {
     width: 40px; }
-    .ftco-intro .wrap .icon span {
-      color: #fac564;
-      font-size: 20px; }
+.ftco-intro .wrap .icon span {
+  color: #fac564;
+  font-size: 20px;
+}
+
+.ftco-intro .wrap .icon i {
+  color: #fac564;
+  font-size: 20px;
+}
 
 .ftco-about .one-half {
   width: 100%;
@@ -7816,6 +7827,10 @@ h1, h2, h3, h4, h5,
     font-size: 60px;
     color: #5c3d03;
     z-index: 1; }
+
+.services .icon i{
+  font-size: 60px;
+}
 
 .services h3 {
   font-size: 18px;
@@ -8498,6 +8513,15 @@ textarea.form-control {
       -ms-transform: translateY(-50%);
       transform: translateY(-50%);
       color: #fac564; }
+
+.ftco-counter .icon i{
+  color: #fac564;
+  font-size: 48px;
+}
+
+.ftco-counter .icon:hover i{
+  color: #FFF;
+}
   .ftco-counter .text strong.number {
     font-weight: 400;
     font-size: 30px;

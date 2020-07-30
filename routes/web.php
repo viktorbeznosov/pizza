@@ -18,5 +18,9 @@ Route::get('/blog/{id?}', 'BlogController@show')->name('blog');
 Route::get('/about', 'AboutController@show')->name('about');
 Route::get('/contact', 'ContactController@show')->name('contact');
 
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('/', 'Admin\IndexController@show')->name('admin');
+});
+
 
 Auth::routes();

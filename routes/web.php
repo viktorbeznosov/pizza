@@ -18,3 +18,7 @@ Route::get('/blog/{id?}', 'BlogController@show')->name('blog');
 Route::get('/about', 'AboutController@show')->name('about');
 Route::get('/contact', 'ContactController@show')->name('contact');
 
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

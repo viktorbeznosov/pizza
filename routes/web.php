@@ -18,8 +18,18 @@ Route::get('/blog/{id?}', 'BlogController@show')->name('blog');
 Route::get('/about', 'AboutController@show')->name('about');
 Route::get('/contact', 'ContactController@show')->name('contact');
 
-Route::group(['prefix' => 'admin'], function (){
-    Route::get('/', 'Admin\IndexController@show')->name('admin');
+Route::group(['prefix' => 'admin','as' => 'admin.'], function (){
+    Route::get('/', 'Admin\IndexController@show')->name('dashboard');
+    Route::resource('/cat','Admin\CategoriesController');
+    Route::resource('/products','Admin\ProductsController');
+    Route::resource('/blogs','Admin\BlogsController');
+    Route::group(['prefix' => 'comments','as' => 'comments.'], function (){
+        Route::get('/', 'Admin\CommentsController@index')->name('index');
+    });
+    Route::resource('/services','Admin\ServicesController');
+    Route::resource('/users','Admin\UsersController');
+    Route::resource('/admins','Admin\AdminsController');
+
 });
 
 

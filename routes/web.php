@@ -18,7 +18,13 @@ Route::get('/blog/{id?}', 'BlogController@show')->name('blog');
 Route::get('/about', 'AboutController@show')->name('about');
 Route::get('/contact', 'ContactController@show')->name('contact');
 
-Route::group(['prefix' => 'admin','as' => 'admin.'], function (){
+
+Route::get('/admin/login',['as' => 'admin.login','uses' => 'Admin\Auth\LoginController@showLoginForm']);
+Route::post('/admin/login',['uses' => 'Admin\Auth\LoginController@login'])->name('admin.post.login');
+Route::get('/admin/logout',['as' => 'admin.logout','uses' => 'Admin\Auth\LoginController@logout']);
+
+Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], function (){
+
     Route::get('/', 'Admin\IndexController@show')->name('dashboard');
     Route::resource('/cat','Admin\CategoriesController');
     Route::resource('/products','Admin\ProductsController');

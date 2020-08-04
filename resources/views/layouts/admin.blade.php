@@ -39,6 +39,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{ asset('assets/metronic/global/plugins/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/jqvmap/jqvmap/jqvmap.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/jstree/dist/themes/default/style.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('assets/metronic/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{{ asset('assets/metronic/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
@@ -60,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
-                <img src="../assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
+                <img src="{{ asset('assets/metronic/layouts/layout/img/logo.png') }}" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
             </div>
@@ -250,122 +253,11 @@ License: You must have a valid license purchased only from themeforest(the above
                     </ul>
                 </li>
                 <!-- END INBOX DROPDOWN -->
-                <!-- BEGIN TODO DROPDOWN -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <i class="icon-calendar"></i>
-                        <span class="badge badge-default"> 3 </span>
-                    </a>
-                    <ul class="dropdown-menu extended tasks">
-                        <li class="external">
-                            <h3>You have
-                                <span class="bold">12 pending</span> tasks</h3>
-                            <a href="app_todo.html">view all</a>
-                        </li>
-                        <li>
-                            <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">New release v1.2 </span>
-                                                    <span class="percent">30%</span>
-                                                </span>
-                                        <span class="progress">
-                                                    <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">40% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">Application deployment</span>
-                                                    <span class="percent">65%</span>
-                                                </span>
-                                        <span class="progress">
-                                                    <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">65% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">Mobile app release</span>
-                                                    <span class="percent">98%</span>
-                                                </span>
-                                        <span class="progress">
-                                                    <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">98% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">Database migration</span>
-                                                    <span class="percent">10%</span>
-                                                </span>
-                                        <span class="progress">
-                                                    <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">10% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">Web server upgrade</span>
-                                                    <span class="percent">58%</span>
-                                                </span>
-                                        <span class="progress">
-                                                    <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">58% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">Mobile development</span>
-                                                    <span class="percent">85%</span>
-                                                </span>
-                                        <span class="progress">
-                                                    <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">85% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                                <span class="task">
-                                                    <span class="desc">New UI release</span>
-                                                    <span class="percent">38%</span>
-                                                </span>
-                                        <span class="progress progress-striped">
-                                                    <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">38% Complete</span>
-                                                    </span>
-                                                </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END TODO DROPDOWN -->
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
+                        <img alt="" class="img-circle" src="{{ asset('assets/metronic/layouts/layout/img/avatar3_small.jpg') }}" />
                         <span class="username username-hide-on-mobile"> Nick </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -396,8 +288,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <i class="icon-lock"></i> Lock Screen </a>
                         </li>
                         <li>
-                            <a href="page_user_login_1.html">
-                                <i class="icon-key"></i> Log Out </a>
+{{--                            <form action="{{ route('admin.logout') }}" method="post">--}}
+                                <a href="{{ route('admin.logout') }}">
+                                    <i class="icon-key"></i>
+                                    Log Out
+                                </a>
+{{--                            </form>--}}
+
                         </li>
                     </ul>
                 </li>
@@ -464,7 +361,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
-                <li class="nav-item start active">
+                <li class="nav-item start @if(in_array(Route::current()->getName(),['admin.dashboard'])) active @endif">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link">
                         <i class="icon-home"></i>
                         <span class="title">Dashboard</span>
@@ -474,44 +371,44 @@ License: You must have a valid license purchased only from themeforest(the above
                 <li class="heading">
                     <h3 class="uppercase">Features</h3>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.cat.index'])) active @endif">
                     <a href="{{ route('admin.cat.index') }}" class="nav-link">
                         <i class="fa fa-cutlery"></i>
                         <span class="title">Категории</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.services.index'])) active @endif">
                     <a href="{{ route('admin.services.index') }}" class="nav-link">
                         <i class="fa fa-cogs"></i>
                         <span class="title">Сервисы</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.blogs.index'])) active @endif">
                     <a href="{{ route('admin.blogs.index') }}" class="nav-link">
                         <i class="fa fa-copyright"></i>
                         <span class="title">Блоги</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.comments.index'])) active @endif">
                     <a href="{{ route('admin.comments.index') }}" class="nav-link">
                         <i class="fa fa-comment-o"></i>
                         <span class="title">Коментарии</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="fa fa-user"></i>
                         <span class="title">Пользователи</span>
                         <span class="arrow"></span>
                     </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item  ">
+                    <ul class="sub-menu" style="@if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) display:block; @endif">
+                        <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index'])) active @endif">
                             <a href="{{ route('admin.users.index') }}" class="nav-link ">
                                 <i class="fa fa-user"></i>
                                 <span class="title">Пользователи</span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
+                        <li class="nav-item @if(in_array(Route::current()->getName(),['admin.admins.index'])) active @endif">
                             <a href="{{ route('admin.admins.index') }}" class="nav-link ">
                                 <i class="fa fa-user-secret"></i>
                                 <span class="title">Админы</span>
@@ -1145,6 +1042,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/global/plugins/jstree/dist/jstree.min.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('assets/metronic/global/scripts/datatable.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="{{ asset('assets/metronic/global/scripts/app.min.js') }}" type="text/javascript"></script>
@@ -1152,6 +1053,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/metronic/pages/scripts/dashboard.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/ui-tree.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>

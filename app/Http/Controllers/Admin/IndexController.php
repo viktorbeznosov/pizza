@@ -10,11 +10,10 @@ class IndexController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('isAdmin');
+//        $this->middleware('isAdmin');
     }
 
     public function show(){
-//        dd( Auth::guard('admin')->user());
         return view('admin.dashboard');
     }
 }

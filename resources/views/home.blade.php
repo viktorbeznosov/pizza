@@ -124,39 +124,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 f  tco-animate">
-                    <div class="media d-block text-center block-6 services">
-                        <div class="icon d-flex justify-content-center align-items-center mb-5">
-                            <i class="mdi mdi-food"></i>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Healthy Foods</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 ftco-animate">
-                    <div class="media d-block text-center block-6 services">
-                        <div class="icon d-flex justify-content-center align-items-center mb-5">
-                            <i class="mdi mdi-bike"></i>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Fastest Delivery</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                @foreach($services as $service)
+                    <div class="col-md-4 ftco-animate">
+                        <div class="media d-block text-center block-6 services">
+                            <div class="icon d-flex justify-content-center align-items-center mb-5">
+                                <i class="{{ $service->icon }}"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3 class="heading">{{ $service->name }}</h3>
+                                <p>{{ $service->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 ftco-animate">
-                    <div class="media d-block text-center block-6 services">
-                        <div class="icon d-flex justify-content-center align-items-center mb-5">
-                            <i class="mdi mdi-pizza"></i>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Original Recipes</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

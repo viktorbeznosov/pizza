@@ -10,7 +10,7 @@
 
                     <div class="col-md-7 col-sm-12 text-center ftco-animate">
                         <h1 class="mb-3 mt-5 bread">Services</h1>
-                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ route('home') }}">Home</a></span> <span>Services</span></p>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{ route('home') }}">Home</a></span> <span>{{ $title }}</span></p>
                     </div>
 
                 </div>
@@ -29,37 +29,19 @@
                 </div>
             </div>
             <div class="row">
+                @foreach($services as $service)
                 <div class="col-md-4 ftco-animate">
                     <div class="media d-block text-center block-6 services">
                         <div class="icon d-flex justify-content-center align-items-center mb-5">
-                            <i class="mdi mdi-food"></i>
+                            <i class="{{ $service->icon }}"></i>
                         </div>
                         <div class="media-body">
-                            <h3 class="heading">Healthy Foods</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                            <h3 class="heading">{{ $service->name }}</h3>
+                            <p>{{ $service->description }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 ftco-animate">
-                    <div class="media d-block text-center block-6 services">
-                        <div class="icon d-flex justify-content-center align-items-center mb-5">
-                            <i class="mdi mdi-bike"></i>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Fastest Delivery</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 ftco-animate">
-                    <div class="media d-block text-center block-6 services">
-                        <div class="icon d-flex justify-content-center align-items-center mb-5"><i class="mdi mdi-pizza"></i></div>
-                        <div class="media-body">
-                            <h3 class="heading">Original Recipes</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

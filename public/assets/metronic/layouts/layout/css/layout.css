@@ -2246,3 +2246,13 @@ Page Loading
 th.center, td.center {
   text-align: center;
 }
+
+th.middle, td.middle{
+    vertical-align: middle!important;
+}
+
+.table-services td i{
+    font-size: 20px;
+}
+
+

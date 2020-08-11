@@ -30,7 +30,7 @@
             <div class="row d-flex">
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/image_2.jpg') }}');">
+                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_2.jpg') }}');">
                         </a>
                         <div class="text py-4 d-block">
                             <div class="meta">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/image_2.jpg') }}');">
+                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_2.jpg') }}');">
                         </a>
                         <div class="text py-4 d-block">
                             <div class="meta">
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/image_3.jpg') }}');">
+                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_3.jpg') }}');">
                         </a>
                         <div class="text py-4 d-block">
                             <div class="meta">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/image_4.jpg') }}');">
+                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_4.jpg') }}');">
                         </a>
                         <div class="text py-4 d-block">
                             <div class="meta">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/image_5.jpg') }}');">
+                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_5.jpg') }}');">
                         </a>
                         <div class="text py-4 d-block">
                             <div class="meta">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/image_6.jpg') }}');">
+                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_6.jpg') }}');">
                         </a>
                         <div class="text py-4 d-block">
                             <div class="meta">

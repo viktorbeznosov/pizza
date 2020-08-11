@@ -8,7 +8,7 @@ use App\Service;
 class ServicesController extends Controller
 {
     public function show(){
-        $services = Service::all();
+        $services = Service::all();        
         $data = array(
             'title' => 'Services',
             'services' => $services

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Service;
 
 class ServicesController extends Controller
 {
@@ -14,7 +15,13 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        return view('admin.services');
+        $services = Service::all();
+        $data = array(
+            'title' => 'Сервисы',
+            'services' => $services
+        );
+
+        return view('admin.services', $data);
     }
 
     /**

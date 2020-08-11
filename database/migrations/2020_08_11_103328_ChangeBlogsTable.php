@@ -13,7 +13,7 @@ class ChangeBlogsTable extends Migration
      */
     public function up()
     {
-        Schema::table('Blogs', function (Blueprint $table) {
+        Schema::table('blogs', function (Blueprint $table) {
             $table->string('image')->after('text')->nullable()->default(NULL);
             $table->text('body')->after('text')->nullable()->default(NULL);
         });
@@ -26,7 +26,7 @@ class ChangeBlogsTable extends Migration
      */
     public function down()
     {
-        Schema::table('Blogs', function (Blueprint $table) {
+        Schema::table('blogs', function (Blueprint $table) {
             //
         });
     }

@@ -89,7 +89,7 @@
                                         </label>
                                     </td>
                                     <td class="center">
-                                        <img alt="" class="img-circle img-category" src="{{ asset($category->image) }}" />
+                                        <img alt="" class="img-circle img-category" src="@if($category->image){{ asset($category->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
                                     </td>
                                     <td class="center"> {{ $category->name }} </td>
                                     <td class="hidden-xs">

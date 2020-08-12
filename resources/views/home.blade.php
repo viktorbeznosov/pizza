@@ -154,7 +154,7 @@
             <div class="row no-gutters d-flex">
                 <div class="col-lg-4 d-flex ftco-animate">
                     <div class="services-wrap d-flex">
-                        <a href="#" class="img" style="background-image: url({{ asset('assets/images/pizza-1.jpg') }});"></a>
+                        <a href="#" class="img" style="background-image: url({{ asset('assets/images/products/pizza-1.jpg') }});"></a>
                         <div class="text p-4">
                             <h3>Italian Pizza</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia </p>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-lg-4 d-flex ftco-animate">
                     <div class="services-wrap d-flex">
-                        <a href="#" class="img" style="background-image: url({{ asset('assets/images/pizza-2.jpg') }});"></a>
+                        <a href="#" class="img" style="background-image: url({{ asset('assets/images/products/pizza-2.jpg') }});"></a>
                         <div class="text p-4">
                             <h3>Greek Pizza</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="col-lg-4 d-flex ftco-animate">
                     <div class="services-wrap d-flex">
-                        <a href="#" class="img" style="background-image: url({{ asset('assets/images/pizza-3.jpg') }});"></a>
+                        <a href="#" class="img" style="background-image: url({{ asset('assets/images/products/pizza-3.jpg') }});"></a>
                         <div class="text p-4">
                             <h3>Caucasian Pizza</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
@@ -185,7 +185,7 @@
 
                 <div class="col-lg-4 d-flex ftco-animate">
                     <div class="services-wrap d-flex">
-                        <a href="#" class="img order-lg-last" style="background-image: url({{ asset('assets/images/pizza-4.jpg') }});"></a>
+                        <a href="#" class="img order-lg-last" style="background-image: url({{ asset('assets/images/products/pizza-4.jpg') }});"></a>
                         <div class="text p-4">
                             <h3>American Pizza</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia </p>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="col-lg-4 d-flex ftco-animate">
                     <div class="services-wrap d-flex">
-                        <a href="#" class="img order-lg-last" style="background-image: url({{ asset('assets/images/pizza-5.jpg') }});"></a>
+                        <a href="#" class="img order-lg-last" style="background-image: url({{ asset('assets/images/products/pizza-5.jpg') }});"></a>
                         <div class="text p-4">
                             <h3>Tomatoe Pie</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
@@ -205,7 +205,7 @@
                 </div>
                 <div class="col-lg-4 d-flex ftco-animate">
                     <div class="services-wrap d-flex">
-                        <a href="#" class="img order-lg-last" style="background-image: url({{ asset('assets/images/pizza-6.jpg') }});"></a>
+                        <a href="#" class="img order-lg-last" style="background-image: url({{ asset('assets/images/products/pizza-6.jpg') }});"></a>
                         <div class="text p-4">
                             <h3>Margherita</h3>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
@@ -227,7 +227,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-1.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-1.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Italian Pizza</span></h3>
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-2.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-2.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Hawaiian Pizza</span></h3>
@@ -251,7 +251,7 @@
                         </div>
                     </div>
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-3.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-3.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Greek Pizza</span></h3>
@@ -263,7 +263,7 @@
                         </div>
                     </div>
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-4.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-4.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Bacon Crispy Thins</span></h3>
@@ -278,7 +278,7 @@
 
                 <div class="col-md-6">
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-5.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-5.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Hawaiian Special</span></h3>
@@ -290,7 +290,7 @@
                         </div>
                     </div>
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-6.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-6.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Ultimate Overload</span></h3>
@@ -302,7 +302,7 @@
                         </div>
                     </div>
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-7.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-7.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Bacon Pizza</span></h3>
@@ -314,7 +314,7 @@
                         </div>
                     </div>
                     <div class="pricing-entry d-flex ftco-animate">
-                        <div class="img" style="background-image: url({{ asset('assets/images/pizza-8.jpg') }});"></div>
+                        <div class="img" style="background-image: url({{ asset('assets/images/products/pizza-8.jpg') }});"></div>
                         <div class="desc pl-3">
                             <div class="d-flex text align-items-center">
                                 <h3><span>Ham &amp; Pineapple</span></h3>
@@ -423,7 +423,10 @@
                     <div class="row">
                         <div class="col-md-12 nav-link-wrap mb-5">
                             <div class="nav ftco-animate nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Pizza</a>
+                                @foreach($categories as $category)
+
+                                @endforeach
+                                <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">{{ $category->name }}</a>
 
                                 <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Drinks</a>
 
@@ -440,7 +443,7 @@
                                     <div class="row">
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/pizza-1.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/pizza-1.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -451,7 +454,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/pizza-2.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/pizza-2.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -462,7 +465,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/pizza-3.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/pizza-3.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -478,7 +481,7 @@
                                     <div class="row">
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/drink-1.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/drink-1.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Lemonade Juice</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -489,7 +492,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/drink-2.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/drink-2.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Pineapple Juice</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -500,7 +503,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/drink-3.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/drink-3.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Soda Drinks</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -516,7 +519,7 @@
                                     <div class="row">
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/burger-1.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/burger-1.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -527,7 +530,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/burger-2.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/burger-2.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -538,7 +541,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/burger-3.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/burger-3.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -554,7 +557,7 @@
                                     <div class="row">
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/pasta-1.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/pasta-1.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -565,7 +568,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/pasta-2.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/pasta-2.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
@@ -576,7 +579,7 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="menu-wrap">
-                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/pasta-3.jpg') }});"></a>
+                                                <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset('assets/images/products/pasta-3.jpg') }});"></a>
                                                 <div class="text">
                                                     <h3><a href="#">Itallian Pizza</a></h3>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>

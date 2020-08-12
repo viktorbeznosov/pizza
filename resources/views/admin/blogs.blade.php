@@ -50,29 +50,13 @@
             </div>
             <!-- END PAGE BAR -->
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title"> Managed Datatables
-                <small>managed datatable samples</small>
-            </h3>
+            <h3 class="page-title"> {{ $title }} </h3>
             <!-- END PAGE TITLE-->
             <!-- END PAGE HEADER-->
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
                     <div class="portlet light bordered">
-                        <div class="portlet-title">
-                            <div class="caption font-dark">
-                                <i class="icon-settings font-dark"></i>
-                                <span class="caption-subject bold uppercase"> Managed Table</span>
-                            </div>
-                            <div class="actions">
-                                <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                    <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
-                                        <input type="radio" name="options" class="toggle" id="option1">Actions</label>
-                                    <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
-                                        <input type="radio" name="options" class="toggle" id="option2">Settings</label>
-                                </div>
-                            </div>
-                        </div>
                         <div class="portlet-body">
                             <div class="table-toolbar">
                                 <div class="row">
@@ -156,7 +140,7 @@
                                                     tooltip="Remove"
                                                     data-toggle="modal"
                                                     data-target="#basic"
-                                                    data-page="1"
+                                                    data-page="{{ $blog->id }}"
                                             >
                                                 <span class="label label-sm label-danger">Удалить</span>
                                             </a>
@@ -183,4 +167,24 @@
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
+
+    <!-- MODAL -->
+    <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Modal Title</h4>
+                </div>
+                <div class="modal-body"> Modal body goes here </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn green">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 @endsection

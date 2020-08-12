@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Product;
 
 class CategoriesController extends Controller
 {
@@ -32,7 +33,11 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        $data = array(
+            'title' => 'Добавление категории',
+        );
+
+        return view('admin.category', $data);
     }
 
     /**
@@ -43,7 +48,10 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd(array(
+            'title' => 'store',
+            'data' => $request->all()
+        ));
     }
 
     /**
@@ -54,7 +62,16 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        
+        $category = Category::find($id);
+        $products = Product::where('cat_id', $id)->get();
+
+        $data = array(
+            'title' => $category->name,
+            'category' => $category,
+            'products' => $products
+        );
+
+        return view('admin.products', $data);
     }
 
     /**
@@ -65,7 +82,14 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+
+        $data = array(
+            'title' => $category->name,
+            'category' => $category
+        );
+
+        return view('admin.category', $data);
     }
 
     /**
@@ -77,7 +101,10 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd(array(
+            'title' => 'update',
+            'data' => $request->all()
+        ));
     }
 
     /**

@@ -2257,8 +2257,14 @@ th.middle, td.middle{
 
 .table-blogs img,
 .table-users img,
-.table-admins img{
+.table-admins img,
+.table-products img{
   width: 40px;
+  height: 40px;
+}
+
+.min-height-300{
+  min-height: 300px;
 }
 
 

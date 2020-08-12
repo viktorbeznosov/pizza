@@ -36,9 +36,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.cat.create') }}" id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <button id="sample_editable_1_new" class="btn sbold green"> Add New
                                                 <i class="fa fa-plus"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column table-products" id="sample_1">
                                 <thead>
                                 <tr>
                                     <th>
@@ -80,59 +80,55 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($categories as $category)
+                                @foreach($products as $product)
                                     <tr class="odd gradeX">
-                                    <td>
-                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                            <input type="checkbox" class="checkboxes" value="1" />
-                                            <span></span>
-                                        </label>
-                                    </td>
-                                    <td class="center">
-                                        <a href="{{ route('admin.cat.show', $category->id) }}">
-                                            <img alt="" class="img-circle img-category" src="@if($category->image){{ asset($category->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
-                                        </a>
-                                    </td>
-                                    <td class="center">
-                                        <a href="{{ route('admin.cat.show', $category->id) }}">
-                                            {{ $category->name }}
-                                        </a>
-                                    </td>
-                                    <td class="hidden-xs">
-                                        <p>{{ $category->description }}</p>
-                                    </td>
-                                    <td class="center">
-                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a
-                                                    href="{{ route('admin.cat.edit', $category->id) }}"
-                                                    class="btn btn-transparent btn-xs"
-                                                    tooltip-placement="top"
-                                                    tooltip="Edit"
-                                            >
-                                                <span class="label label-sm label-success">Редактировать</span>
-                                            </a>
-                                            <a
-                                                    href="#"
-                                                    class="btn btn-transparent btn-xs tooltips"
-                                                    tooltip-placement="top"
-                                                    tooltip="Remove"
-                                                    data-toggle="modal"
-                                                    data-target="#basic"
-                                                    data-page="{{ $category->id }}"
-                                            >
-                                                <span class="label label-sm label-danger">Удалить</span>
-                                            </a>
-                                        </div>
-                                        <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                                <i class="icon-wrench"></i>
-                                            </a>
-                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                                <i class="icon-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                <input type="checkbox" class="checkboxes" value="1" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td class="center middle">
+                                            <img alt="" class="img-circle img-category" src="@if($product->image){{ asset($product->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
+                                        </td>
+                                        <td class="center middle">
+                                            {{ $product->name }}
+                                        </td>
+                                        <td class="hidden-xs center middle">
+                                            <p>{{ $product->description }}</p>
+                                        </td>
+                                        <td class="center middle">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                <a
+                                                        href="javascript:void(0)"
+                                                        class="btn btn-transparent btn-xs"
+                                                        tooltip-placement="top"
+                                                        tooltip="Edit"
+                                                >
+                                                    <span class="label label-sm label-success">Редактировать</span>
+                                                </a>
+                                                <a
+                                                        href="#"
+                                                        class="btn btn-transparent btn-xs tooltips"
+                                                        tooltip-placement="top"
+                                                        tooltip="Remove"
+                                                        data-toggle="modal"
+                                                        data-target="#basic"
+                                                        data-page="{{ $product->id }}"
+                                                >
+                                                    <span class="label label-sm label-danger">Удалить</span>
+                                                </a>
+                                            </div>
+                                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                    <i class="icon-wrench"></i>
+                                                </a>
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>

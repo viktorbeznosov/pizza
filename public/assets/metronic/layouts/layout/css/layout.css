@@ -2255,7 +2255,9 @@ th.middle, td.middle{
     font-size: 20px;
 }
 
-.table-blogs img{
+.table-blogs img,
+.table-users img,
+.table-admins img{
   width: 40px;
 }
 

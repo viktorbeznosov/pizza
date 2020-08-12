@@ -132,7 +132,7 @@
                                         </label>
                                     </td>
                                     <td class="center middle hidden-xs">
-                                        <img alt="" class="img-circle" src="{{ asset($blog->admin->image) }}" />
+                                        <img alt="" class="img-circle" src="@if($blog->image){{ asset($blog->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
                                     </td>
                                     <td class="center middle hidden-xs"> {{ $blog->admin->name }} </td>
                                     <td class="center middle">

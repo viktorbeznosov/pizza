@@ -122,10 +122,39 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd(array(
-            'title' => 'update',
-            'data' => $request->all()
-        ));
+        $input = $request->except('_token','_method');
+        $category = Category::find($id);
+        if (isset($category)){
+            $messages = array(
+                'required' => 'Поле :attribute обязательно к заполнению',
+                'unique' => 'Поле :attribute должно быть уникальным'
+            );
+            $validator = Validator::make($input, array(
+                'name' => 'required|max:255',
+            ),$messages);
+            if($validator->fails()){
+                return redirect()->route('admin.cat.create')->withErrors($validator)->withInput();
+            }
+
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $input['image'] = 'assets/images/products/' . time() . '_' . $file->getClientOriginalName();
+                if (isset($category->image) && is_file(public_path() . '/' . $category->image)){
+                    unlink(public_path() . '/' . $category->image);
+                }                
+                $file->move(public_path() . '/assets/images/products/', $input['image']);
+            }
+            $category->fill($input);
+            if ($category->save()){
+                return redirect()->route('admin.cat.edit', $category->id)->with('status','Категория сохранена');
+            }
+            
+        } else {
+            // Abort 404
+        }
+        
+
+        
     }
 
     /**
@@ -136,6 +165,6 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }

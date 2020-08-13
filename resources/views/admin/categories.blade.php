@@ -88,20 +88,20 @@
                                             <span></span>
                                         </label>
                                     </td>
-                                    <td class="center">
+                                    <td class="center middle">
                                         <a href="{{ route('admin.cat.show', $category->id) }}">
                                             <img alt="" class="img-circle img-category" src="@if($category->image){{ asset($category->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
                                         </a>
                                     </td>
-                                    <td class="center">
+                                    <td class="center middle">
                                         <a href="{{ route('admin.cat.show', $category->id) }}">
                                             {{ $category->name }}
                                         </a>
                                     </td>
-                                    <td class="hidden-xs">
-                                        <p>{{ $category->description }}</p>
+                                    <td class="hidden-xs center middle">
+                                        {{ $category->description }}
                                     </td>
-                                    <td class="center">
+                                    <td class="center middle">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a
                                                     href="{{ route('admin.cat.edit', $category->id) }}"
@@ -118,7 +118,7 @@
                                                     tooltip="Remove"
                                                     data-toggle="modal"
                                                     data-target="#basic"
-                                                    data-page="{{ $category->id }}"
+                                                    data-category="{{ $category->id }}"
                                             >
                                                 <span class="label label-sm label-danger">Удалить</span>
                                             </a>
@@ -152,12 +152,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Modal Title</h4>
+                    <h4 class="modal-title">Удаление категории</h4>
                 </div>
-                <div class="modal-body"> Modal body goes here </div>
+                <div class="modal-body"> Вы действительно хотите удалить категорию в месте со всеми товарами </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save changes</button>
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Закрыть</button>
+                    <form action="" id="category-delete" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                    
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -169,6 +174,24 @@
         .img-category{
             width: 30px ;
         }
+        
+        .modal-footer{
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        #category-delete button[type="submit"]{
+            margin-left: 10px;
+        }
     </style>
+    
+    <script>
+        $(document).ready(function(){
+            $('a[data-toggle="modal"]').on('click', function(){
+                var cat_id = $(this).data('category');
+                $('#category-delete').attr('action','/admin/cat/' + cat_id);
+            });
+        });
+    </script>    
 
 @endsection

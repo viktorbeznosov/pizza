@@ -54,15 +54,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Left Icon</label>
+                                <label>Название</label>
                                 <div class="input-icon">
                                     <i class="fa fa-bell-o font-green"></i>
-                                    <input name="name" type="text" class="form-control" placeholder="Left icon" value="@if(isset($category)){{ $category->name }}@endif">
+                                    <input name="name" type="text" class="form-control" placeholder="название" value="@if(isset($category)){{ $category->name }}@endif">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Textarea</label>
-                                <textarea name="description" class="form-control" rows="3">@if(isset($category)){{ $category->description }}@endif</textarea>
+                                <label>Описание</label>
+                                <textarea name="description" class="form-control" rows="3" placeholder="описание">@if(isset($category)){{ $category->description }}@endif</textarea>
                             </div>
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->

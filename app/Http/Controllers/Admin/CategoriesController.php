@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
 
+use Illuminate\Support\Facades\Validator;
+
 class CategoriesController extends Controller
 {
     /**
@@ -48,10 +50,29 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        dd(array(
-            'title' => 'store',
-            'data' => $request->all()
-        ));
+        $input = $request->except('_token');
+        
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+            'unique' => 'Поле :attribute должно быть уникальным'
+        );
+        $validator = Validator::make($input, array(
+            'name' => 'required|max:255',
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.cat.create')->withErrors($validator)->withInput();
+        }
+        
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $input['image'] = 'assets/images/products/' . time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path() . '/assets/images/products/', $input['image']);
+        }
+        $category = new Category();
+        $category->fill($input);
+        if ($category->save()){
+            return redirect()->route('admin.cat.index')->with('status','Категория добавлена');
+        }
     }
 
     /**

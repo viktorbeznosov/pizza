@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
+
+use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
@@ -22,9 +25,13 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($cat_id)
     {
-        //
+        $data = array(
+            'title' => 'Добавление продукта',
+        );
+        
+        return view('admin.product', $data);
     }
 
     /**
@@ -35,7 +42,31 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+        
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+            'unique' => 'Поле :attribute должно быть уникальным',
+            'numeric' => 'Поле :attribute должно быть числом'
+        );
+        $validator = Validator::make($input, array(
+            'name' => 'required|max:255',
+            'price' => 'required|numeric'
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.products.create')->withErrors($validator)->withInput();
+        }
+        
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $input['image'] = 'assets/images/products/' . time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path() . '/assets/images/products/', $input['image']);
+        }
+        $product = new Product();
+        $product->fill($input);
+        if ($product->save()){
+            return redirect()->route('admin.products.index')->with('status','Продукт добавлен');
+        }
     }
 
     /**
@@ -55,9 +86,16 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $cat_id)
     {
-        //
+        die();
+        $product = Product::find($id);
+        $data = array(
+            'title' => $product->name,
+            'product' => $product
+        );
+        
+        return view('admin.product', $data);
     }
 
     /**
@@ -69,7 +107,38 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->except('_token','_method');
+        $product = Product::find($id);
+        if (isset($product)){
+            $messages = array(
+               'required' => 'Поле :attribute обязательно к заполнению',
+               'unique' => 'Поле :attribute должно быть уникальным',
+               'numeric' => 'Поле :attribute должно быть числом'
+            );
+            $validator = Validator::make($input, array(
+                'name' => 'required|max:255',
+                'price' => 'required|numeric'
+            ),$messages);
+            if($validator->fails()){
+                return redirect()->route('admin.products.create')->withErrors($validator)->withInput();
+            }
+
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $input['image'] = 'assets/images/products/' . time() . '_' . $file->getClientOriginalName();
+                if (isset($category->image) && is_file(public_path() . '/' . $product->image)){
+                    unlink(public_path() . '/' . $product->image);
+                }                
+                $file->move(public_path() . '/assets/images/products/', $input['image']);
+            }
+            $product->fill($input);
+            if ($product->save()){
+                return redirect()->route('admin.products.edit', $product->id)->with('status','Продукт добавлен');
+            }
+            
+        } else {
+            // Abort 404
+        }
     }
 
     /**

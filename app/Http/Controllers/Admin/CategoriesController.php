@@ -65,8 +65,8 @@ class CategoriesController extends Controller
         
         if($request->hasFile('image')){
             $file = $request->file('image');
-            $input['image'] = 'assets/images/products/' . time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path() . '/assets/images/products/', $input['image']);
+            $input['image'] = 'assets/images/categories/' . time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path() . '/assets/images/categories/', $input['image']);
         }
         $category = new Category();
         $category->fill($input);
@@ -138,11 +138,11 @@ class CategoriesController extends Controller
 
             if($request->hasFile('image')){
                 $file = $request->file('image');
-                $input['image'] = 'assets/images/products/' . time() . '_' . $file->getClientOriginalName();
+                $input['image'] = 'assets/images/categories/' . time() . '_' . $file->getClientOriginalName();
                 if (isset($category->image) && is_file(public_path() . '/' . $category->image)){
                     unlink(public_path() . '/' . $category->image);
                 }                
-                $file->move(public_path() . '/assets/images/products/', $input['image']);
+                $file->move(public_path() . '/assets/images/categories/', $input['image']);
             }
             $category->fill($input);
             if ($category->save()){

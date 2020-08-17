@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.cat.create') }}" id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('admin.cat.create') }}" id="sample_editable_1_new" class="btn sbold green"> Создать новую
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>

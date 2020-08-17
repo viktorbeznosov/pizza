@@ -36,9 +36,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <button id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('admin.products.create', $category->id) }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
                                                 <i class="fa fa-plus"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -100,7 +100,7 @@
                                         <td class="center middle">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
                                                 <a
-                                                        href="javascript:void(0)"
+                                                        href="{{ route('admin.products.edit', $product->id, $category->id) }}"
                                                         class="btn btn-transparent btn-xs"
                                                         tooltip-placement="top"
                                                         tooltip="Edit"
@@ -120,7 +120,7 @@
                                                 </a>
                                             </div>
                                             <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="{{ route('admin.products.edit', $product->id, $category->id) }}">
                                                     <i class="icon-wrench"></i>
                                                 </a>
                                                 <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">

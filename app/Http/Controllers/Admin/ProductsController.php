@@ -35,10 +35,9 @@ class ProductsController extends Controller
     }
     
     public function productCatCreate($catId){
-        dump($catId);
-        
         $data = array(
             'title' => 'Добавление продукта',
+            'catId' => $catId
         );
         
         return view('admin.product', $data);
@@ -53,7 +52,6 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $input = $request->except('_token');
-        
         $messages = array(
             'required' => 'Поле :attribute обязательно к заполнению',
             'unique' => 'Поле :attribute должно быть уникальным',
@@ -64,7 +62,7 @@ class ProductsController extends Controller
             'price' => 'required|numeric'
         ),$messages);
         if($validator->fails()){
-            return redirect()->route('admin.products.create')->withErrors($validator)->withInput();
+            return redirect()->route('admin.products.product_cat_create', $input['cat_id'])->withErrors($validator)->withInput();
         }
         
         if($request->hasFile('image')){
@@ -75,7 +73,7 @@ class ProductsController extends Controller
         $product = new Product();
         $product->fill($input);
         if ($product->save()){
-            return redirect()->route('admin.products.index')->with('status','Продукт добавлен');
+            return redirect()->route('admin.cat.show', $product->cat_id)->with('status','Продукт добавлен');
         }
     }
 
@@ -108,8 +106,6 @@ class ProductsController extends Controller
     }
     
     public function productCatEdit($id, $catId){
-        dump($id . " " .$catId );
-        
         $product = Product::find($id);
         $category = \App\Category::find($catId);
         $data = array(
@@ -157,7 +153,7 @@ class ProductsController extends Controller
             }
             $product->fill($input);
             if ($product->save()){
-                return redirect()->route('admin.products.edit', $product->id)->with('status','Продукт добавлен');
+                return redirect()->route('admin.products.product_cat_edit', array('id' => $product->id, 'catId' => $input['cat_id']))->with('status','Продукт добавлен');
             }
             
         } else {
@@ -173,6 +169,12 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $cat_id = $product->cat_id;
+        if (file_exists(public_path($product->image)) && $product->image != ''){
+            unlink(public_path($product->image));
+        }
+        $product->delete();
+        return redirect()->route('admin.cat.show', $cat_id)->with('status','Продукт удален');
     }
 }

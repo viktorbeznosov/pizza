@@ -165,6 +165,19 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        $category = Category::find($id);
+        $products = Product::where('cat_id', $id)->get();
+        foreach ($products as $product){
+            if (file_exists(public_path($product->image)) && $product->image != ''){
+                unlink(public_path($product->image));
+            }
+            $product->delete();
+        }
+        if (file_exists(public_path($category->image)) && $category->image != ''){
+            unlink(public_path($category->image));
+        }
+        $category->delete();
+        return redirect()->route('admin.cat.index')->with('status','Категория удалена');
+
     }
 }

@@ -5,6 +5,25 @@
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
+
+            <!-- ALERTS -->
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <!-- END ALERTS -->
+
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN PAGE BAR -->
 
@@ -14,6 +33,7 @@
             <!-- END PAGE TITLE-->
             <!-- END PAGE HEADER-->
             <form action="@if(isset($category)){{ route('admin.products.update', $product->id) }}@else{{ route('admin.products.store') }}@endif" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="cat_id" value="@if(isset($category)){{ $category->id }}@else{{ $catId }}@endif">
                 {{ csrf_field() }}
                 @if(isset($category))
                     {{ method_field('PUT') }}

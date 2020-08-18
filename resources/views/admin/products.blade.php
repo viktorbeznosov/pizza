@@ -5,6 +5,25 @@
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
+
+            <!-- ALERTS -->
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <!-- END ALERTS -->
+
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
@@ -114,7 +133,7 @@
                                                         tooltip="Remove"
                                                         data-toggle="modal"
                                                         data-target="#basic"
-                                                        data-page="{{ $product->id }}"
+                                                        data-product="{{ $product->id }}"
                                                 >
                                                     <span class="label label-sm label-danger">Удалить</span>
                                                 </a>
@@ -123,7 +142,15 @@
                                                 <a class="btn btn-circle btn-icon-only btn-default" href="{{ route('admin.products.product_cat_edit', ['id' => $product->id, 'catId' => $category->id]) }}">
                                                     <i class="icon-wrench"></i>
                                                 </a>
-                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                <a
+                                                    class="btn btn-circle btn-icon-only btn-default"
+                                                    href="javascript:;"
+                                                    tooltip-placement="top"
+                                                    tooltip="Remove"
+                                                    data-toggle="modal"
+                                                    data-target="#basic"
+                                                    data-product="{{ $product->id }}"
+                                                >
                                                     <i class="icon-trash"></i>
                                                 </a>
                                             </div>
@@ -153,7 +180,11 @@
                 <div class="modal-body"> Modal body goes here </div>
                 <div class="modal-footer">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save changes</button>
+                    <form action="" id="product-delete" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -165,6 +196,24 @@
         .img-category{
             width: 30px ;
         }
+
+        .modal-footer{
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #product-delete button[type="submit"]{
+            margin-left: 10px;
+        }
     </style>
+
+    <script>
+        $(document).ready(function(){
+            $('a[data-toggle="modal"]').on('click', function(){
+                var product_id = $(this).data('product');
+                $('#product-delete').attr('action','/admin/products/' + product_id);
+            });
+        });
+    </script>
 
 @endsection

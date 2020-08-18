@@ -25,8 +25,18 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($cat_id)
+    public function create()
     {
+        $data = array(
+            'title' => 'Добавление продукта',
+        );
+        
+        return view('admin.product', $data);
+    }
+    
+    public function productCatCreate($catId){
+        dump($catId);
+        
         $data = array(
             'title' => 'Добавление продукта',
         );
@@ -86,9 +96,8 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $cat_id)
+    public function edit($id)
     {
-        die();
         $product = Product::find($id);
         $data = array(
             'title' => $product->name,
@@ -97,6 +106,21 @@ class ProductsController extends Controller
         
         return view('admin.product', $data);
     }
+    
+    public function productCatEdit($id, $catId){
+        dump($id . " " .$catId );
+        
+        $product = Product::find($id);
+        $category = \App\Category::find($catId);
+        $data = array(
+            'title' => $product->name,
+            'product' => $product,
+            'category' => $category
+        );
+        
+        return view('admin.product', $data);        
+    }
+    
 
     /**
      * Update the specified resource in storage.

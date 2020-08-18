@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.products.create', $category->id) }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
+                                            <a href="{{ route('admin.products.product_cat_create', $category->id) }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -100,12 +100,12 @@
                                         <td class="center middle">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
                                                 <a
-                                                        href="{{ route('admin.products.edit', $product->id, $category->id) }}"
+                                                        href="{{ route('admin.products.product_cat_edit', ['id' => $product->id, 'catId' => $category->id]) }}"
                                                         class="btn btn-transparent btn-xs"
                                                         tooltip-placement="top"
                                                         tooltip="Edit"
                                                 >
-                                                    <span class="label label-sm label-success">Редактировать</span>
+                                                    <span class="label label-sm label-success">Редактировать </span>
                                                 </a>
                                                 <a
                                                         href="#"
@@ -120,7 +120,7 @@
                                                 </a>
                                             </div>
                                             <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                                <a class="btn btn-circle btn-icon-only btn-default" href="{{ route('admin.products.edit', $product->id, $category->id) }}">
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="{{ route('admin.products.product_cat_edit', ['id' => $product->id, 'catId' => $category->id]) }}">
                                                     <i class="icon-wrench"></i>
                                                 </a>
                                                 <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">

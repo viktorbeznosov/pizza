@@ -32,6 +32,10 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::group(['prefix' => 'comments','as' => 'comments.'], function (){
         Route::get('/', 'Admin\CommentsController@index')->name('index');
     });
+    Route::group(['prefix' => 'products', 'as' => 'products.'], function(){
+        Route::get('/edit/{id?}/{catId?}', 'Admin\ProductsController@productCatEdit' )->name('product_cat_edit');
+        Route::get('/create/{catId}', 'Admin\ProductsController@productCatCreate' )->name('product_cat_create');
+    });
     Route::resource('/services','Admin\ServicesController');
     Route::resource('/users','Admin\UsersController');
     Route::resource('/admins','Admin\AdminsController');

@@ -106,7 +106,16 @@
                                 </div>
                             </div>
 
-
+                            <label for="select2-single-input-sm" class="control-label">col-md-3</label>
+                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+                                
+                                    <option value="mdi mdi-food">mdi mdi-food</option>                                
+                                    <option value="mdi mdi-bike">mdi mdi-bike</option>
+                                    <option value="mdi mdi-pizza">mdi mdi-pizza</option>
+                                    <option value="mdi-briefcase-variant">mdi-briefcase-variant</option>
+                                    <option value="mdi-rocket-launch">mdi-rocket-launch</option>
+                                
+                            </select>
 
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
@@ -119,4 +128,21 @@
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
+    
+    <script> 
+        function format (state) {
+            if (!state.id) { return state.text; }
+//            return '<i class="fa fa-lg '+state.id.toLowerCase()+'"></i> '+state.text;
+            return '<i class="fa fa-circle"></i> '+state.text;
+        }       
+        
+        $(document).ready(function(){
+            $('#select2-single-input-sm').select2({
+                formatResult: format,
+                formatSelection: format,
+                escapeMarkup: function(m) { return m; }
+            });         
+        });
+    </script>    
+    
 @endsection

@@ -31,7 +31,11 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        //
+        $data = array(
+            'title' => 'Добавление сервиса',
+        );
+
+        return view('admin.service', $data);
     }
 
     /**
@@ -64,7 +68,14 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::find($id);
+
+        $data = array(
+            'title' => $service->name,
+            'service' => $service
+        );
+
+        return view('admin.service', $data);
     }
 
     /**
@@ -87,6 +98,6 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }

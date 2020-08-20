@@ -98,22 +98,14 @@
                                 </div>
                                 <div class="actions">
                                     <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                        <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
+<!--                                        <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
                                             <input type="radio" name="options" class="toggle" id="option1">Actions</label>
                                         <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
-                                            <input type="radio" name="options" class="toggle" id="option2">Settings</label>
+                                            <input type="radio" name="options" class="toggle" id="option2">Settings</label>-->
+                                        <a class="btn btn-success" data-toggle="modal" href="#large">Управление</a>
                                     </div>
                                 </div>
                             </div>
-
-                            <label for="select2-single-input-sm" class="control-label">col-md-3</label>
-                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
-                                
-                                    <option value="mdi mdi-food">mdi mdi-food</option>                                
-                                    <option value="mdi mdi-bike">mdi mdi-bike</option>
-                                    <option value="mdi mdi-pizza">mdi mdi-pizza</option>
-                                
-                            </select>
                             
                             <label for="icons-select" class="control-label">Fontawesome Icons</label>
                             
@@ -138,9 +130,77 @@
     </div>
     <!-- END CONTENT -->
     
+    <!-- /.modal -->
+    <div class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Modal Title</h4>
+                </div>
+                <div class="modal-body"> 
+                    <div class="form-group">
+                        <label>Имеющиеся иконки</label>
+                        <div class="input-group">
+                            <div class="icheck-list">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <label>
+                                            <input type="checkbox" class="icheck">  
+                                            <span class="mdi mdi-food" style="font-size: 30px;"></span>
+                                            mdi mdi-food                                            
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" class="icheck">  
+                                            <span class="mdi mdi-bike" style="font-size: 30px;"></span>
+                                            mdi mdi-bike                                           
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" class="icheck">  
+                                            <span class="mdi mdi-pizza" style="font-size: 30px;"></span>
+                                            mdi mdi-pizza                                           
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" class="icheck">  
+                                            <span class="mdi mdi-briefcase-variant" style="font-size: 30px;"></span>
+                                            mdi mdi-briefcase-variant                                          
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" class="icheck">  
+                                            <span class="mdi mdi-rocket-launch" style="font-size: 30px;"></span>
+                                            mdi mdi-rocket-launch                                         
+                                        </label> 
+                                        <label>
+                                            <input type="checkbox" class="icheck">  
+                                            <span class="mdi mdi-cart" style="font-size: 30px;"></span>
+                                            mdi mdi-cart                                         
+                                        </label>                                          
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label>Добавить новую иконку</label>
+                         <input name="name" type="text" class="form-control" placeholder="" value="">
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn green">Добавить</button>
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
     <script> 
         $(document).ready(function(){
-            $('#select2-single-input-sm').select2();         
+      
         });
     </script>    
     

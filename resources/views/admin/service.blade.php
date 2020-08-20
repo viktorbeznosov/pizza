@@ -112,10 +112,19 @@
                                     <option value="mdi mdi-food">mdi mdi-food</option>                                
                                     <option value="mdi mdi-bike">mdi mdi-bike</option>
                                     <option value="mdi mdi-pizza">mdi mdi-pizza</option>
-                                    <option value="mdi-briefcase-variant">mdi-briefcase-variant</option>
-                                    <option value="mdi-rocket-launch">mdi-rocket-launch</option>
                                 
                             </select>
+                            
+                            <label for="icons-select" class="control-label">Fontawesome Icons</label>
+                            
+                                <select id="icons-select" class="bs-select form-control" data-show-subtext="true">
+                                    <option data-icon="mdi mdi-food">mdi mdi-food</option>
+                                    <option data-icon="mdi mdi-bike">mdi mdi-bike</option>
+                                    <option data-icon="mdi mdi-pizza">mdi mdi-pizza</option>
+                                    <option data-icon="mdi mdi-briefcase-variant">mdi-briefcase-variant</option>
+                                    <option data-icon="mdi mdi-rocket-launch">mdi-rocket-launch</option>
+                                </select>
+                                                    
 
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
@@ -130,18 +139,8 @@
     <!-- END CONTENT -->
     
     <script> 
-        function format (state) {
-            if (!state.id) { return state.text; }
-//            return '<i class="fa fa-lg '+state.id.toLowerCase()+'"></i> '+state.text;
-            return '<i class="fa fa-circle"></i> '+state.text;
-        }       
-        
         $(document).ready(function(){
-            $('#select2-single-input-sm').select2({
-                formatResult: format,
-                formatSelection: format,
-                escapeMarkup: function(m) { return m; }
-            });         
+            $('#select2-single-input-sm').select2();         
         });
     </script>    
     

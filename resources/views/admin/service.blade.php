@@ -110,11 +110,9 @@
                             <label for="icons-select" class="control-label">Fontawesome Icons</label>
                             
                                 <select id="icons-select" class="bs-select form-control" data-show-subtext="true">
-                                    <option data-icon="mdi mdi-food">mdi mdi-food</option>
-                                    <option data-icon="mdi mdi-bike">mdi mdi-bike</option>
-                                    <option data-icon="mdi mdi-pizza">mdi mdi-pizza</option>
-                                    <option data-icon="mdi mdi-briefcase-variant">mdi-briefcase-variant</option>
-                                    <option data-icon="mdi mdi-rocket-launch">mdi-rocket-launch</option>
+                                    @foreach($icons as $icon)
+                                        <option data-icon="{{ $icon }}" @if($icon == $service->icon) selected @endif>{{ $icon }}</option>
+                                    @endforeach
                                 </select>
                                                     
 

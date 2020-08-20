@@ -69,10 +69,12 @@ class ServicesController extends Controller
     public function edit($id)
     {
         $service = Service::find($id);
+        $icons = config('service_icons');
 
         $data = array(
             'title' => $service->name,
-            'service' => $service
+            'service' => $service,
+            'icons' => $icons
         );
 
         return view('admin.service', $data);

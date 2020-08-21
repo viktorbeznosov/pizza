@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Service;
 
 class ServicesController extends Controller
@@ -31,8 +32,10 @@ class ServicesController extends Controller
      */
     public function create()
     {
+        $icons = config('service_icons');
         $data = array(
             'title' => 'Добавление сервиса',
+            'icons' => $icons
         );
 
         return view('admin.service', $data);
@@ -46,7 +49,25 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+        
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+            'unique' => 'Поле :attribute должно быть уникальным'
+        );
+        
+        $validator = Validator::make($input, array(
+            'name' => 'required|max:255',
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.services.create')->withErrors($validator)->withInput();
+        }
+        
+        $service = new Service();
+        $service->fill($input);
+        if ($service->save()){
+            return redirect()->route('admin.services.index')->with('status','Сервис добавлен');
+        }
     }
 
     /**
@@ -89,7 +110,25 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->except('_token');
+                
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+            'unique' => 'Поле :attribute должно быть уникальным'
+        );
+        
+        $validator = Validator::make($input, array(
+            'name' => 'required|max:255',
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.services.edit', $id)->withErrors($validator)->withInput();
+        }
+        
+        $service = Service::find($id);
+        $service->fill($input);
+        if ($service->save()){
+            return redirect()->route('admin.services.edit', $id)->with('status','Сервис сохранен');
+        }
     }
 
     /**
@@ -100,6 +139,9 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        $service = Service::find($id);
+        $service->delete();
+        
+        return redirect()->route('admin.services.index')->with('status','Сервис удален');
     }
 }

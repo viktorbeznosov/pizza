@@ -109,9 +109,9 @@
                             
                             <label for="icons-select" class="control-label">Fontawesome Icons</label>
                             
-                                <select id="icons-select" class="bs-select form-control" data-show-subtext="true">
+                                <select name="icon" id="icons-select" class="bs-select form-control" data-show-subtext="true">
                                     @foreach($icons as $icon)
-                                        <option data-icon="{{ $icon }}" @if($icon == $service->icon) selected @endif>{{ $icon }}</option>
+                                        <option data-icon="{{ $icon }}" @if(isset($service) && $icon == $service->icon) selected @endif>{{ $icon }}</option>
                                     @endforeach
                                 </select>
                                                     

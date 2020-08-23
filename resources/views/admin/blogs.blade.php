@@ -81,9 +81,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <button id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('admin.blogs.create') }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
                                                 <i class="fa fa-plus"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -145,7 +145,7 @@
                                     <td class="center middle">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a
-                                                    href="javascript:void(0)"
+                                                    href="{{ route('admin.blogs.edit', $blog->id) }}"
                                                     class="btn btn-transparent btn-xs"
                                                     tooltip-placement="top"
                                                     tooltip="Edit"
@@ -159,7 +159,7 @@
                                                     tooltip="Remove"
                                                     data-toggle="modal"
                                                     data-target="#basic"
-                                                    data-page="{{ $blog->id }}"
+                                                    data-blog="{{ $blog->id }}"
                                             >
                                                 <span class="label label-sm label-danger">Удалить</span>
                                             </a>
@@ -195,15 +195,44 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Modal Title</h4>
                 </div>
-                <div class="modal-body"> Modal body goes here </div>
+                <div class="modal-body">Вы действительно хотите удалить блог</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save changes</button>
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Закрыть</button>
+                    <form action="" id="blog-delete" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <style>
+        .img-category{
+            width: 30px ;
+        }
+
+        .modal-footer{
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #blog-delete button[type="submit"]{
+            margin-left: 10px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $('a[data-toggle="modal"]').on('click', function(){
+                var blog_id = $(this).data('blog');
+                $('#blog-delete').attr('action','/admin/blogs/' + blog_id);
+            });
+        });
+    </script>
 
 @endsection

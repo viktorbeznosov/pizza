@@ -23,117 +23,76 @@
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
                 <div class="col-md-7 heading-section ftco-animate text-center">
-                    <h2 class="mb-4">Read our blog</h2>
+                    <h2 class="mb-4">{{ $title }}</h2>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                 </div>
             </div>
             <div class="row d-flex">
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_2.jpg') }}');">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="#">Sept 10, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
+                @foreach($blogs as $blog)
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry align-self-stretch">
+                            <a href="{{ route('blog', $blog->id) }}" class="block-20" style="background-image: url('{{ asset($blog->image) }}');">
+                            </a>
+                            <div class="text py-4 d-block">
+                                <div class="meta">
+                                    <div><a href="{{ route('blog', $blog->id) }}">{{ $blog->crated_at }}</a></div>
+                                    <div><a href="{{ route('blog', $blog->id) }}">{{ $blog->admin->name }}</a></div>
+                                    <div><a href="{{ route('blog', $blog->id) }}" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
+                                </div>
+                                <p>{{ $blog->text }}</p>
                             </div>
-                            <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_2.jpg') }}');">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="#">Sept 10, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_3.jpg') }}');">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="#">Sept 10, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_4.jpg') }}');">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="#">Sept 10, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_5.jpg') }}');">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="#">Sept 10, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('assets/images/blogs/image_6.jpg') }}');">
-                        </a>
-                        <div class="text py-4 d-block">
-                            <div class="meta">
-                                <div><a href="#">Sept 10, 2018</a></div>
-                                <div><a href="#">Admin</a></div>
-                                <div><a href="#" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
-                            </div>
-                            <h3 class="heading mt-2"><a href="#">The Delicious Pizza</a></h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
             <div class="row mt-5">
                 <div class="col text-center">
+
+                    <div class="pagination-wrapper">
+
+                    </div>
+
                     <div class="block-27">
-                        <ul>
-                            <li><a href="#">&lt;</a></li>
-                            <li class="active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&gt;</a></li>
-                        </ul>
+                        <a href="{{ $blogs->previousPageUrl() }}">&lt;</a>
+                        {{ $blogs->links() }}
+                        <a href="{{ $blogs->nextPageUrl() }}">&gt;</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        .pagination{
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination li:first-child,
+        .pagination li:last-child{
+            display: none;
+        }
+
+        .block-27{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block-27 a{
+            color: #fac564;
+            text-align: center;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            border: 1px solid #bf7e06;
+        }
+
+        .block-27 ul li{
+            margin: 0;
+        }
+    </style>
 @endsection

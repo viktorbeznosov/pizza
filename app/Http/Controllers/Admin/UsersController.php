@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -30,7 +33,11 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $data = array(
+            'title' => 'Добавление пользователя',
+        );
+
+        return view('admin.user', $data);
     }
 
     /**
@@ -41,7 +48,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+        $input['password'] = bcrypt($input['name']);
+
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+            'unique' => 'Поле :attribute должно быть уникальным'
+        );
+        $validator = Validator::make($input, array(
+            'name' => 'required|max:255|unique:users',
+            'email' => 'required|max:255|unique:users'
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.users.create')->withErrors($validator)->withInput();
+        }
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $input['image'] = 'assets/images/users/' . time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path() . '/assets/images/users/', $input['image']);
+        }
+        $user = new User();
+        $user->fill($input);
+        if ($user->save()){
+            return redirect()->route('admin.users.index')->with('status','Пользователь добавлен');
+        }
     }
 
     /**
@@ -63,7 +94,14 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        $data = array(
+            'title' => $user->name,
+            'user' => $user
+        );
+
+        return view('admin.user', $data);
     }
 
     /**
@@ -75,7 +113,38 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->except('_token','_method');
+        $user = User::find($id);
+        if (isset($user)){
+            $messages = array(
+                'required' => 'Поле :attribute обязательно к заполнению',
+                'unique' => 'Поле :attribute должно быть уникальным'
+            );
+            $validator = Validator::make($input, array(
+                'name' => 'required|max:255',
+                'email' => 'required|max:255'
+            ),$messages);
+            if($validator->fails()){
+                return redirect()->route('admin.users.create')->withErrors($validator)->withInput();
+            }
+
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $input['image'] = 'assets/images/users/' . time() . '_' . $file->getClientOriginalName();
+                if (isset($user->image) && is_file(public_path() . '/' . $user->image)){
+                    unlink(public_path() . '/' . $user->image);
+                }
+                $file->move(public_path() . '/assets/images/users/', $input['image']);
+            }
+            $user->fill($input);
+            if ($user->save()){
+                return redirect()->route('admin.users.edit', $user->id)->with('status','Пользователь сохранен');
+            }
+
+        } else {
+            // Abort 404
+        }
+
     }
 
     /**
@@ -86,6 +155,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if (file_exists(public_path($user->image)) && $user->image != ''){
+            unlink(public_path($user->image));
+        }
+        $user->delete();
+        return redirect()->route('admin.users.index')->with('status','Пользователь удален');
     }
 }

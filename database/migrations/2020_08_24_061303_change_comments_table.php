@@ -14,8 +14,10 @@ class ChangeCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->string('name',100)->nullable()->default(NULL);
-            $table->string('email',100)->nullable()->default(NULL);
+            $table->integer('parent')->after('id');
+            $table->integer('blog_id')->after('parent');
+            $table->string('name',100)->after('user_id')->nullable()->default(NULL);
+            $table->string('email',100)->after('name')->nullable()->default(NULL);
         });
     }
 

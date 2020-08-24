@@ -50,7 +50,8 @@
                     <div class="pt-5 mt-5">
                         <h3 class="mb-5">6 Comments</h3>
                         <ul class="comment-list">
-                            <li class="comment">
+                            @include('comments', $comments)
+<!--                            <li class="comment">
                                 <div class="vcard bio">
                                     <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                 </div>
@@ -82,9 +83,8 @@
                                             </div>
 
                                         </form>
-                                    </div>                                    
-                                    
-                                </div>
+                                    </div>                                   
+                                </div>                                    
                             </li>
 
                             <li class="comment">
@@ -276,7 +276,7 @@
                                     </div>                                    
                                     
                                 </div>
-                            </li>
+                            </li>-->
                         </ul>
                         <!-- END comment-list -->
                     </div>

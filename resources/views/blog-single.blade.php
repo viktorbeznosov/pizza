@@ -55,10 +55,35 @@
                                     <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
-                                    <h3>John Doe</h3>
+                                    <h3>John Doe 1</h3>
                                     <div class="meta">June 27, 2018 at 2:21pm</div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
+                                    <p><a href="javascript:void(0)" class="reply">Reply</a></p>
+                                    
+                                    <div class="comment-form-wrap">
+                                        <h3>Leave a comment</h3>
+                                        <form action="{{ route('comment') }}" method="post">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="name">Name *</label>
+                                                <input type="text" name="name" class="form-control" id="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email *</label>
+                                                <input type="email" name="email" class="form-control" id="email">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <textarea name="text" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                            </div>
+
+                                        </form>
+                                    </div>                                    
+                                    
                                 </div>
                             </li>
 
@@ -67,10 +92,35 @@
                                     <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
-                                    <h3>John Doe</h3>
+                                    <h3>John Doe 2</h3>
                                     <div class="meta">June 27, 2018 at 2:21pm</div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
+                                    <p><a href="javascript:void(0)" class="reply">Reply</a></p>
+                                    
+                                    <div class="comment-form-wrap">
+                                        <h3>Leave a comment</h3>
+                                        <form action="{{ route('comment') }}" method="post">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="name">Name *</label>
+                                                <input type="text" name="name" class="form-control" id="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email *</label>
+                                                <input type="email" name="email" class="form-control" id="email">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <textarea name="text" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                            </div>
+
+                                        </form>
+                                    </div>                                    
+                                    
                                 </div>
 
                                 <ul class="children">
@@ -79,10 +129,35 @@
                                             <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                         </div>
                                         <div class="comment-body">
-                                            <h3>John Doe</h3>
+                                            <h3>John Doe 3</h3>
                                             <div class="meta">June 27, 2018 at 2:21pm</div>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
+                                            <p><a href="javascript:void(0)" class="reply">Reply</a></p>
+                                            
+                                            <div class="comment-form-wrap">
+                                                <h3>Leave a comment</h3>
+                                                <form action="{{ route('comment') }}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <div class="form-group">
+                                                        <label for="name">Name *</label>
+                                                        <input type="text" name="name" class="form-control" id="name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email *</label>
+                                                        <input type="email" name="email" class="form-control" id="email">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="message">Message</label>
+                                                        <textarea name="text" class="form-control"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                                    </div>
+
+                                                </form>
+                                            </div>                                            
+                                            
                                         </div>
 
 
@@ -92,10 +167,35 @@
                                                     <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                                 </div>
                                                 <div class="comment-body">
-                                                    <h3>John Doe</h3>
+                                                    <h3>John Doe 4</h3>
                                                     <div class="meta">June 27, 2018 at 2:21pm</div>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                    <p><a href="#" class="reply">Reply</a></p>
+                                                    <p><a href="javascript:void(0)" class="reply">Reply</a></p>
+                                                    
+                                                    <div class="comment-form-wrap">
+                                                        <h3>Leave a comment</h3>
+                                                        <form action="{{ route('comment') }}" method="post">
+                                                            {{ csrf_field() }}
+                                                            <div class="form-group">
+                                                                <label for="name">Name *</label>
+                                                                <input type="text" name="name" class="form-control" id="name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email">Email *</label>
+                                                                <input type="email" name="email" class="form-control" id="email">
+                                                            </div>
+ 
+                                                            <div class="form-group">
+                                                                <label for="message">Message</label>
+                                                                <textarea name="text" class="form-control"></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                                            </div>
+
+                                                        </form>
+                                                    </div>                                                    
+                                                    
                                                 </div>
 
                                                 <ul class="children">
@@ -104,10 +204,34 @@
                                                             <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                                         </div>
                                                         <div class="comment-body">
-                                                            <h3>John Doe</h3>
+                                                            <h3>John Doe 5</h3>
                                                             <div class="meta">June 27, 2018 at 2:21pm</div>
                                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                            <p><a href="#" class="reply">Reply</a></p>
+                                                            <p><a href="javascript:void(0)" class="reply">Reply</a></p>
+                                                            
+                                                            <div class="comment-form-wrap">
+                                                                <h3>Leave a comment</h3>
+                                                                <form action="{{ route('comment') }}" method="post">
+                                                                    {{ csrf_field() }}
+                                                                    <div class="form-group">
+                                                                        <label for="name">Name *</label>
+                                                                        <input type="text" name="name" class="form-control" id="name">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="email">Email *</label>
+                                                                        <input type="email" name="email" class="form-control" id="email">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="message">Message</label>
+                                                                        <textarea name="text" class="form-control"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>                                                            
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -122,47 +246,45 @@
                                     <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
-                                    <h3>John Doe</h3>
+                                    <h3>John Doe 6</h3>
                                     <div class="meta">June 27, 2018 at 2:21pm</div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
+                                    <p><a href="javascript:void(0)" class="reply">Reply</a></p>
+                                    
+                                    <div class="comment-form-wrap">
+                                        <h3>Leave a comment</h3>
+                                        <form action="{{ route('comment') }}" method="post">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="name">Name *</label>
+                                                <input type="text" name="name" class="form-control" id="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email *</label>
+                                                <input type="email" name="email" class="form-control" id="email">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <textarea name="text" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                            </div>
+
+                                        </form>
+                                    </div>                                    
+                                    
                                 </div>
                             </li>
                         </ul>
                         <!-- END comment-list -->
-
-                        <div class="comment-form-wrap pt-5">
-                            <h3 class="mb-5">Leave a comment</h3>
-                            <form action="#">
-                                <div class="form-group">
-                                    <label for="name">Name *</label>
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email *</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="website">Website</label>
-                                    <input type="url" class="form-control" id="website">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                                </div>
-
-                            </form>
-                        </div>
                     </div>
 
                 </div> <!-- .col-md-8 -->
                 <div class="col-md-4 sidebar ftco-animate">
                     <div class="sidebar-box">
-                        <form action="#" class="search-form">
+                        <form action="" class="search-form">
                             <div class="form-group">
                                 <div class="icon">
                                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -243,5 +365,24 @@
             </div>
         </div>
     </section> <!-- .section -->
+    
+    <style>
+        .about-author img{
+            max-width: 200px;
+        }
+        
+        .comment-form-wrap{
+            display: none;
+        }
+    </style>
+    
+    <script>
+        $(document).ready(function(){
+            $('.comment-body .reply').on('click', function(){
+                $('.comment-body .comment-form-wrap').fadeOut(200);
+                $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
+            });
+        });
+    </script>
 
 @endsection

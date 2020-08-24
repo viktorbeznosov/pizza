@@ -52,12 +52,14 @@
                     <div class="pagination-wrapper">
 
                     </div>
-
-                    <div class="block-27">
-                        <a href="{{ $blogs->previousPageUrl() }}">&lt;</a>
-                        {{ $blogs->links() }}
-                        <a href="{{ $blogs->nextPageUrl() }}">&gt;</a>
-                    </div>
+                    
+                    @if (count($blogs) > $blogs->total())
+                        <div class="block-27">
+                            <a href="{{ $blogs->previousPageUrl() }}">&lt;</a>                        
+                            {{ $blogs->links() }}
+                            <a href="{{ $blogs->nextPageUrl() }}">&gt;</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

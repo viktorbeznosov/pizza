@@ -29,6 +29,8 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/materialdesignicons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
+    
+    <script src="{{ asset('assets/metronic/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
 </head>
 <body>
 

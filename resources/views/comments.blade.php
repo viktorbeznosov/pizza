@@ -1,26 +1,30 @@
 @foreach($comments as $comment)
 <li class="comment">
     <div class="vcard bio">
-        <img src="{{ asset('assets/images/person_1.jpg') }}" alt="Image placeholder">
+        <img src="@if(isset($comment->user)){{ asset($comment->user->image) }}@else {{ asset('assets/images/no-image.png') }} @endif" alt="Image placeholder">
     </div>
     <div class="comment-body">
-        <h3>John Doe 1</h3>
-        <div class="meta">June 27, 2018 at 2:21pm</div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+        <h3>@if(isset($comment->user)){{ $comment->user->name }}@else {{ $comment->name }} @endif</h3>
+        <div class="meta">@if(isset($comment->created_at)) {{ $comment->created_at->format('d.m.Y') }} @endif</div>
+        <p>{{ $comment->text }}</p>
         <p><a href="javascript:void(0)" class="reply">Reply</a></p>
 
         <div class="comment-form-wrap">
             <h3>Leave a comment</h3>
             <form action="{{ route('comment') }}" method="post">
                 {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" name="name" class="form-control" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" name="email" class="form-control" id="email">
-                </div>
+                <input type="hidden" name="parent" value="{{ $comment->id }}">
+                <input type="hidden" name="block_id" value="{{ $blog->id }}">
+                @if(!Auth::user())
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" name="name" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" name="email" class="form-control" id="email">
+                    </div>
+                @endif
 
                 <div class="form-group">
                     <label for="message">Message</label>
@@ -31,12 +35,12 @@
                 </div>
 
             </form>
-        </div>                                    
+        </div>
 
     </div>
-    @if(count($comment->getChilds()) > 0)
+    @if($comment->hasChildren())
         <ul class="children">
-            @include('comments', $comment->getChilds())
+            @include('comments', ['comments' => $comment->getChildren(), 'blog' => $blog])
         </ul>
     @endif
 

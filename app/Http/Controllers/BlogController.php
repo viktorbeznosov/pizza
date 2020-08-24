@@ -13,11 +13,13 @@ class BlogController extends Controller
         if ($id){
             $blog = Blog::find($id);
             $comments = Comment::where("blog_id",$id)->where('parent', 0)->get();
+            $blogComments = Comment::where('blog_id', $id)->get();
 
             $data = array(
                 'title' => $blog->title,
                 'blog' => $blog,
-                'comments' => $comments
+                'comments' => $comments,
+                'comments_count' => count($blogComments)
             );
 
             return view('blog-single', $data);

@@ -29,8 +29,11 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/materialdesignicons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
+    <link href="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
     
     <script src="{{ asset('assets/metronic/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/metronic/pages/scripts/ui-toastr.min.js') }}" type="text/javascript"></script>
 </head>
 <body>
 

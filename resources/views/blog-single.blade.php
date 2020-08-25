@@ -62,10 +62,10 @@
 
                     <div class="comment-form-wrap blog-reply-form">
                         <h3>Leave a comment</h3>
-                        <form action="{{ route('comment') }}" method="post">
+                        <form action="{{ route('comment') }}" name="comments" method="post">
                             {{ csrf_field() }}
                             <input type="hidden" name="parent" value="0">
-                            <input type="hidden" name="block_id" value="{{ $blog->id }}">
+                            <input type="hidden" name="blog_id" value="{{ $blog->id }}">
                             @if(!Auth::user())
                                 <div class="form-group">
                                     <label for="name">Name *</label>
@@ -197,6 +197,10 @@
             font-weight: 400;
             border-radius: 4px;
         }
+        
+        .toast-warning{
+            background: #fac564;
+        }
     </style>
     
     <script>
@@ -212,6 +216,33 @@
                 $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
                 $('.blog-reply a').fadeIn(200);
             });
+            
+            
+            $('form[name="comments"]').on('submit', function(){
+                var error = false;
+
+                var inputName = $(this).find('input[name="name"]');
+                var inputEmail = $(this).find('input[name="email"]')
+                if (inputName.length > 0 && inputEmail.length >0){
+                    if (!inputName.val() || inputName.val() == ''){
+                        toastr.warning('Введите ваше имя');
+                        error = 1;
+                    }
+                    if (!inputEmail.val() || inputEmail.val() == ''){
+                        toastr.warning('Введите ваш email');
+                        error = 1;
+                    }
+                }
+                if (!$(this).find('textarea[name="text"]').val() || $(this).find('textarea[name="text"]').val() == ''){
+                    toastr.warning('Введите текст');
+                    error = 1;
+                }
+                if(error){
+                    return false;
+                }
+
+            });
+           
         });
     </script>
 

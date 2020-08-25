@@ -11,10 +11,10 @@
 
         <div class="comment-form-wrap">
             <h3>Leave a comment</h3>
-            <form action="{{ route('comment') }}" method="post">
+            <form action="{{ route('comment') }}" name="comments" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="parent" value="{{ $comment->id }}">
-                <input type="hidden" name="block_id" value="{{ $blog->id }}">
+                <input type="hidden" name="blog_id" value="{{ $blog->id }}">
                 @if(!Auth::user())
                     <div class="form-group">
                         <label for="name">Name *</label>

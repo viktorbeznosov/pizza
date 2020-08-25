@@ -53,6 +53,28 @@
                 <li class="nav-item @if(Route::current()->getName() == 'blog') active @endif"><a href="{{ route('blog') }}" class="nav-link">Blog</a></li>
                 <li class="nav-item @if(Route::current()->getName() == 'about') active @endif"><a href="{{ route('about') }}" class="nav-link">About</a></li>
                 <li class="nav-item @if(Route::current()->getName() == 'contact') active @endif"><a href="{{ route('contact') }}" class="nav-link">Contact</a></li>
+                <li class="nav-item nav-account">
+                    @if(Auth::user())
+                    <a href="javascript:void(0)" class="nav-link">
+                        {{ Auth::user()->email }}
+                    </a>
+                        <ul class="nav-account-dropdown">
+                            <li>
+                                <a href="javascript:void(0)">Account</a>
+                            </li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="post" class="nav-link form-logout">
+                                    {{ csrf_field() }}
+                                    <input type="submit" value="Logout">
+                                </form>
+                            </li>
+                        </ul>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-link">
+                            Login
+                        </a>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>
@@ -161,6 +183,15 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="{{ asset('assets/js/google-map.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script>
+    $(document).ready(function (){
+        $('.nav-account').on('mouseover', function(){
+            $(this).find('.nav-account-dropdown').slideDown(200);
+        }).on('mouseleave', function (){
+            $(this).find('.nav-account-dropdown').slideUp(200);
+        });
+    });
+</script>
 
 </body>
 </html>

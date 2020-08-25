@@ -9004,3 +9004,27 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+/* -------------------------------------------- Custom Styles ----------------------------------------------- */
+.form-logout input{
+  background: inherit;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.form-logout input:hover{
+  color: #fac564;
+}
+
+.nav-account{
+  position: relative;
+}
+
+.nav-account .nav-account-dropdown{
+  display: none;
+  list-style-type: none;
+  position: absolute;
+  background: #121618 !important;
+  z-index: 3;
+}

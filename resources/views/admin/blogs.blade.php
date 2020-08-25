@@ -135,11 +135,15 @@
                                         </label>
                                     </td>
                                     <td class="center middle hidden-xs">
-                                        <img alt="" class="img-circle" src="@if($blog->image){{ asset($blog->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
+                                        <a href="{{ route('admin.blogs.show', $blog->id) }}">
+                                            <img alt="" class="img-circle" src="@if($blog->image){{ asset($blog->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
+                                        </a>
                                     </td>
                                     <td class="center middle hidden-xs"> {{ $blog->admin->name }} </td>
                                     <td class="center middle">
-                                        {{ $blog->title }}
+                                        <a href="{{ route('admin.blogs.show', $blog->id) }}">
+                                            {{ $blog->title }}
+                                        </a>
                                     </td>
                                     <td class="center middle hidden-xs"> @if(isset($blog->created_at)){{ $blog->created_at->format('d.m.Y') }}@endif </td>
                                     <td class="center middle">

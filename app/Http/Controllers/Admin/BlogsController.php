@@ -7,6 +7,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Blog;
+use App\Comment;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -87,7 +88,15 @@ class BlogsController extends Controller
      */
     public function show($id)
     {
-        //
+        $comments = Comment::where('blog_id', $id)->where('parent',0)->get();
+        $blog = Blog::find($id);
+        $data = array(
+            'title' => $blog->title,
+            'blog' => $blog,
+            'comments' => $comments
+        );
+
+        return view('admin.comments', $data);
     }
 
     /**

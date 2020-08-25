@@ -400,12 +400,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         <span class="title">Блоги</span>
                     </a>
                 </li>
-                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.comments.index'])) active @endif">
-                    <a href="{{ route('admin.comments.index') }}" class="nav-link">
-                        <i class="fa fa-comment-o"></i>
-                        <span class="title">Коментарии</span>
-                    </a>
-                </li>
+{{--                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.comments.index'])) active @endif">--}}
+{{--                    <a href="{{ route('admin.comments.index') }}" class="nav-link">--}}
+{{--                        <i class="fa fa-comment-o"></i>--}}
+{{--                        <span class="title">Коментарии</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="fa fa-user"></i>

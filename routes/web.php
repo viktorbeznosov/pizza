@@ -31,7 +31,10 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::resource('/products','Admin\ProductsController');
     Route::resource('/blogs','Admin\BlogsController');
     Route::group(['prefix' => 'comments','as' => 'comments.'], function (){
-        Route::get('/', 'Admin\CommentsController@index')->name('index');
+        Route::get('/{blog_id?}', 'Admin\CommentsController@index')->name('index');
+        Route::get('/edit/{id}', 'Admin\CommentsController@edit')->name('edit');
+        Route::post('/update/{id}','Admin\CommentsController@update')->name('update');
+        Route::delete('/{id}','Admin\CommentsController@destroy')->name('destroy');
     });
     Route::group(['prefix' => 'products', 'as' => 'products.'], function(){
         Route::get('/edit/{id?}/{catId?}', 'Admin\ProductsController@productCatEdit' )->name('product_cat_edit');

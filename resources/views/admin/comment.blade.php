@@ -32,7 +32,7 @@
             <h3 class="page-title"> {{ $title }} </h3>
             <!-- END PAGE TITLE-->
             <!-- END PAGE HEADER-->
-            <form action="{{ route('admin.comments.update', $comment->id) }}" enctype="multipart/form-data" method="post">
+            <form name="comment-update" action="{{ route('admin.comments.update', $comment->id) }}" enctype="multipart/form-data" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="comment_id" value="{{ $comment->id }}">
                 <div class="row">
@@ -71,17 +71,41 @@
                                 </div>
                             </div>
                             @if(isset($comment))
+                                @if(isset($comment->created_at))
+                                    <div class="form-group">
+                                        <label>Дата</label>
+                                        <div class="input-icon">
+                                            <i class="fa fa-calendar font-green" aria-hidden="true"></i>
+                                            <span class="form-control"> {{ $comment->created_at->format('d.m.Y') }} </span>
+                                        </div>
+                                    </div>  
+                                @endif
+                            
                                 <div class="form-group">
                                     <label>Автор</label>
                                     <div class="input-icon">
                                         <i class="fa fa-user font-green"></i>
-                                        <span class="form-control">@if(isset($comment->user)) {{ $comment->user->name }} @else {{ $comment->name }} @endif</span>
+                                        <span class="form-control">
+                                            @if(isset($comment->user)) 
+                                                <a href="{{ route('admin.users.edit', $comment->user->id) }}">{{ $comment->user->name }}</a> 
+                                            @else 
+                                                {{ $comment->name }} 
+                                            @endif
+                                        </span>
                                     </div>
                                 </div>
+                            
+                                <div class="form-group">
+                                    <label>Блог</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-comment font-green" aria-hidden="true"></i>
+                                        <span class="form-control"> {{ $comment->blog->title }} </span>
+                                    </div>
+                                </div>                            
                             @endif
 
                             <div class="form-group">
-                                <label>Описание</label>
+                                <label>Текст</label>
                                 <textarea name="text" class="form-control" rows="3" placeholder="описание">@if(isset($comment)){{ $comment->text }}@endif</textarea>
                             </div>
                         </div>
@@ -94,7 +118,7 @@
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="icon-settings font-dark"></i>
-                                    <span class="caption-subject font-dark sbold uppercase">Фото</span>
+                                    <span class="caption-subject font-dark sbold uppercase">Еще какие-то данные</span>
                                 </div>
                                 <div class="actions">
                                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -105,21 +129,78 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                    @if(isset($comment->user))
+                                        <img src="{{ asset($comment->user->image) }}" alt="" />
+                                    @else
+                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                    @endif
+                                </div>
+                            </div>                            
+                            
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
-
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Сохранить</button>
+                <span 
+                    id="comment-delete-button" 
+                    class="btn btn-danger"
+                    data-toggle="modal"
+                    data-target="#basic"
+                    data-comment="{{ $comment->id }}"
+                >
+                    Удалить
+                </span>
             </form>
         </div>
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
+    
+        <!-- MODAL -->
+    <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Удаление категории</h4>
+                </div>
+                <div class="modal-body"> Вы действительно хотите удалить категорию в месте со всеми товарами </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Закрыть</button>
+                    <form action="{{ route('admin.comments.destroy', $comment->id) }}" name="comment-delete" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <style>
         textarea[name="text"]{
             min-height: 110px;
         }
+        
+        .modal-footer{
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        form[name="comment-delete"] button[type="submit"]{
+            margin-left: 10px;
+        }        
     </style>
+    
+    <script>
+        $(document).ready(function(){
+
+        })
+    </script>
 @endsection

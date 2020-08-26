@@ -65,8 +65,7 @@
             </div>
             <!-- END PAGE BAR -->
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title"> Tree View
-                <small>interactive tree view</small>
+            <h3 class="page-title"> Коментарии
             </h3>
             <!-- END PAGE TITLE-->
             <!-- END PAGE HEADER-->

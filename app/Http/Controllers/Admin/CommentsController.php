@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Comment;
 
+use Illuminate\Support\Facades\Validator;
+
 class CommentsController extends Controller
 {
     public function index($blog_id = false){
@@ -28,10 +30,31 @@ class CommentsController extends Controller
     }
 
     public function update(Request $request){
-        dd($request->all());
+        $input = $request->except('_token');
+        $comment = Comment::find($input['comment_id']);
+        
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+        );
+        $validator = Validator::make($input, array(
+            'text' => 'required',
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.comments.edit', $comment->id)->withErrors($validator)->withInput();
+        }
+        
+        $comment->fill($input);
+        if ($comment->save()){
+            return redirect()->route('admin.comments.edit', $comment->id)->with('status','Коментарий изменен');
+        }
     }
 
     public function destroy($id){
-        dd($id);
+        $comment = Comment::find($id);
+        $blog_id = $comment->blog_id;
+        $comment->delete();
+        //Удалить все дочерние комменты!
+        
+        return redirect()->route('admin.comments.index', $blog_id)->with('status','Коментарий удален');
     }
 }

@@ -11,7 +11,7 @@
 
         <div class="comment-form-wrap">
             <h3>Leave a comment</h3>
-            <form action="{{ route('comment') }}" name="comments" method="post">
+            <form action="{{ route('comment') }}" name="comments" method="post" class="added-form">
                 {{ csrf_field() }}
                 <input type="hidden" name="parent" value="{{ $comment->id }}">
                 <input type="hidden" name="blog_id" value="{{ $blog->id }}">

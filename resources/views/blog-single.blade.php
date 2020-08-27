@@ -62,7 +62,7 @@
 
                     <div class="comment-form-wrap blog-reply-form">
                         <h3>Leave a comment</h3>
-                        <form action="{{ route('comment') }}" name="comments" method="post">
+                        <form action="{{ route('comment') }}" name="comments" method="post" class="added-form">
                             {{ csrf_field() }}
                             <input type="hidden" name="parent" value="0">
                             <input type="hidden" name="blog_id" value="{{ $blog->id }}">
@@ -205,20 +205,9 @@
     </style>
     
     <script>
-        $(document).ready(function(){
-            $('.blog-reply a').on('click', function (){
-                $('.comment-form-wrap').fadeOut(200);
-                $('.blog-reply-form').fadeIn(200);
-                $('.blog-reply a').fadeOut(200);
-            });
 
-            $('.comment-body .reply').on('click', function(){
-                $('.comment-form-wrap').fadeOut(200);
-                $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
-                $('.blog-reply a').fadeIn(200);
-            });
-            
-            $('form[name="comments"]').on('submit', function(event){
+        function commentFormSubmit(elem){
+            $(elem).on('submit', function(event){
                 event.preventDefault();
                 var error = false;
 
@@ -244,11 +233,11 @@
                     toastr.warning('Введите текст');
                     error = 1;
                 }
-                
+
                 if(error){
                     return false;
                 }
-                
+
                 data = {
                     name: inputName.val(),
                     email: inputEmail.val(),
@@ -256,16 +245,25 @@
                     parent: parent,
                     blog_id: blog_id,
                     _token: token
-                }               
-                
+                }
+
                 $.ajax({
                     url: url,
                     method: 'POST',
                     data: data,
                     dataType: 'JSON',
                     success: (response) => {
-                        if (response.auth == 0){
-                            var authTpl = `
+                        addComment(response, event.target);
+                    }
+                });
+            });
+
+            $(elem).removeClass('added-form');
+        }
+
+        function addComment(response, elem){
+            if (response.auth == 0){
+                var authTpl = `
                                 <div class="form-group">
                                     <label for="name">Name *</label>
                                     <input type="text" name="name" class="form-control" id="name">
@@ -275,12 +273,12 @@
                                     <input type="email" name="email" class="form-control" id="email">
                                 </div>
                             `;
-                        } else {
-                            authTpl = '';
-                        }
+            } else {
+                authTpl = '';
+            }
 
-                        
-                        var commentTpl = `
+
+            var commentTpl = `
                             <li class="comment">
                                <div class="vcard bio">
                                    <img src="/`+response.image+`" alt="Image placeholder">
@@ -293,7 +291,7 @@
 
                                    <div class="comment-form-wrap">
                                        <h3>Leave a comment</h3>
-                                       <form action="http://pizza.loc/comment" name="comments" method="post">
+                                       <form action="http://pizza.loc/comment" name="comments" method="post" class="added-form">
                                            <input type="hidden" name="_token" value="`+response.token+`">
                                            <input type="hidden" name="parent" value="`+response.parent+`">
                                            <input type="hidden" name="blog_id" value="`+response.blog_id+`">
@@ -311,31 +309,46 @@
 
                                </div>
 
-                           </li>                       
+                           </li>
                         `;
-                        
-                        console.log(response);
-                        $(this).hide(200);
-                        toastr.info('Коментарий добавлен');
-                        if(response.parent == 0){
-                            $('.comment-list').append(commentTpl);
-                        } else {
-                            if ($(this).closest('.comment').find('.children').length == 0) {
-                                $(this).closest('.comment').append('<ul class="children">' + commentTpl + '</ul>');
-                            } else {
-                                $(this).closest('.comment').find('.children').append(commentTpl);
-                            }
-                        }
-                        $('.reply-added').on('click', function(){
-                            $('.comment-form-wrap').fadeOut(200);
-                            $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
-                            $('.blog-reply a').fadeIn(200);
-                        });  
-                        $('.reply-added').removeClass('reply-added')
-                    }
-                  });
+
+            console.log(response);
+            $(elem).closest('.comment-form-wrap').hide(200);
+            toastr.info('Коментарий добавлен');
+            if(response.parent == 0){
+                $('.comment-list').append(commentTpl);
+            } else {
+                if ($(elem).closest('.comment').find('.children').length == 0) {
+                    $(elem).closest('.comment').append('<ul class="children">' + commentTpl + '</ul>');
+                } else {
+                    $(elem).closest('.comment').find('.children').append(commentTpl);
+                }
+            }
+            $('.reply-added').on('click', function(){
+                $('.comment-form-wrap').fadeOut(200);
+                $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
+                $('.blog-reply a').fadeIn(200);
             });
-           
+            $('.reply-added').removeClass('reply-added');
+
+            commentFormSubmit('.added-form');
+        }
+
+        $(document).ready(function(){
+            $('.blog-reply a').on('click', function (){
+                $('.comment-form-wrap').fadeOut(200);
+                $('.blog-reply-form').fadeIn(200);
+                $('.blog-reply a').fadeOut(200);
+            });
+
+            $('.comment-body .reply').on('click', function(){
+                $('.comment-form-wrap').fadeOut(200);
+                $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
+                $('.blog-reply a').fadeIn(200);
+            });
+
+            commentFormSubmit('.added-form');
+
         });
     </script>
 

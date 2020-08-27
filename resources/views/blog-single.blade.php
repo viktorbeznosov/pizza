@@ -198,7 +198,8 @@
             border-radius: 4px;
         }
         
-        .toast-warning{
+        .toast-warning,
+        .toast-info{
             background: #fac564;
         }
     </style>
@@ -262,9 +263,75 @@
                     method: 'POST',
                     data: data,
                     dataType: 'JSON',
-                    success: function(response){
-//                        var result = JSON.parse(response);
+                    success: (response) => {
+                        if (response.auth == 0){
+                            var authTpl = `
+                                <div class="form-group">
+                                    <label for="name">Name *</label>
+                                    <input type="text" name="name" class="form-control" id="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" name="email" class="form-control" id="email">
+                                </div>
+                            `;
+                        } else {
+                            authTpl = '';
+                        }
+
+                        
+                        var commentTpl = `
+                            <li class="comment">
+                               <div class="vcard bio">
+                                   <img src="/`+response.image+`" alt="Image placeholder">
+                               </div>
+                               <div class="comment-body">
+                                   <h3>`+response.name+`</h3>
+                                   <div class="meta"> `+response.created_at+` </div>
+                                   <p>`+response.text+`</p>
+                                   <p><a href="javascript:void(0)" class="reply reply-added">Reply</a></p>
+
+                                   <div class="comment-form-wrap">
+                                       <h3>Leave a comment</h3>
+                                       <form action="http://pizza.loc/comment" name="comments" method="post">
+                                           <input type="hidden" name="_token" value="`+response.token+`">
+                                           <input type="hidden" name="parent" value="`+response.parent+`">
+                                           <input type="hidden" name="blog_id" value="`+response.blog_id+`">
+                                           ` + authTpl + `
+                                           <div class="form-group">
+                                               <label for="message">Message</label>
+                                               <textarea name="text" class="form-control"></textarea>
+                                           </div>
+                                           <div class="form-group">
+                                               <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                                           </div>
+
+                                       </form>
+                                   </div>
+
+                               </div>
+
+                           </li>                       
+                        `;
+                        
                         console.log(response);
+                        $(this).hide(200);
+                        toastr.info('Коментарий добавлен');
+                        if(response.parent == 0){
+                            $('.comment-list').append(commentTpl);
+                        } else {
+                            if ($(this).closest('.comment').find('.children').length == 0) {
+                                $(this).closest('.comment').append('<ul class="children">' + commentTpl + '</ul>');
+                            } else {
+                                $(this).closest('.comment').find('.children').append(commentTpl);
+                            }
+                        }
+                        $('.reply-added').on('click', function(){
+                            $('.comment-form-wrap').fadeOut(200);
+                            $(this).closest('.comment-body').find('.comment-form-wrap').fadeIn(200);
+                            $('.blog-reply a').fadeIn(200);
+                        });  
+                        $('.reply-added').removeClass('reply-added')
                     }
                   });
             });

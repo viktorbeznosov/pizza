@@ -15,11 +15,22 @@ class CommentsController extends Controller
         if (Auth::user()){
             $input['user_id'] = Auth::user()->id;
         }
-        
+                
         $comment = new Comment();
         $comment->fill($input);
+        
         if ($comment->save()){
-            return redirect()->route('blog', $input['blog_id'])->with('status','Коментарий добавлен');
+            $image = Auth::user() ? Auth::user()->image : 'assets/images/no-image.png';
+            $name = Auth::user() ? Auth::user()->name : $input['name'];
+            $response = array(
+                'id' => $comment->id,
+                'parent' => $comment->parent,
+                'text' => $comment->text,
+                'name' => $name,
+                'image' => $image
+            );
+            print_r(json_encode($response, JSON_UNESCAPED_UNICODE));
+//            return redirect()->route('blog', $input['blog_id'])->with('status','Коментарий добавлен');
         }
     }
     

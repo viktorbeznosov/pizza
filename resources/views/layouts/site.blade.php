@@ -4,6 +4,7 @@
     <title>Pizza - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
@@ -185,6 +186,13 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script>
     $(document).ready(function (){
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });          
+        
         $('.nav-account').on('mouseover', function(){
             $(this).find('.nav-account-dropdown').slideDown(200);
         }).on('mouseleave', function (){

@@ -5,7 +5,7 @@
     </div>
     <div class="comment-body">
         <h3>@if(isset($comment->user)){{ $comment->user->name }}@else {{ $comment->name }} @endif</h3>
-        <div class="meta">@if(isset($comment->created_at)) {{ $comment->created_at->format('d.m.Y') }} @endif</div>
+        <div class="meta">@if(isset($comment->created_at)) {{ $comment->created_at->format('d.m.Y H:i') }} @endif</div>
         <p>{{ $comment->text }}</p>
         <p><a href="javascript:void(0)" class="reply">Reply</a></p>
 

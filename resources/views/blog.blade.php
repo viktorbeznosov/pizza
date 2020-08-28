@@ -37,7 +37,7 @@
                                 <div class="meta">
                                     <div><a href="{{ route('blog', $blog->id) }}">{{ $blog->crated_at }}</a></div>
                                     <div><a href="{{ route('blog', $blog->id) }}">{{ $blog->admin->name }}</a></div>
-                                    <div><a href="{{ route('blog', $blog->id) }}" class="meta-chat"><i class="mdi mdi-chat"></i> 3</a></div>
+                                    <div><a href="{{ route('blog', $blog->id) }}" class="meta-chat"><i class="mdi mdi-chat"></i> {{ $blog->comments_count() }}</a></div>
                                 </div>
                                 <p>{{ $blog->text }}</p>
                             </div>

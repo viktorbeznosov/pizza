@@ -27,7 +27,7 @@ class CommentsController extends Controller
                 'id' => $comment->id,
                 'parent' => $comment->parent,
                 'text' => $comment->text,
-                'created_at' => $comment->created_at->format('d.m.Y'),
+                'created_at' => $comment->created_at->format('d.m.Y H:i'),
                 'blog_id' => $comment->blog_id,
                 'name' => $name,
                 'image' => $image,

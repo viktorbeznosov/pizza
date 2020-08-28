@@ -293,7 +293,7 @@
                                        <h3>Leave a comment</h3>
                                        <form action="http://pizza.loc/comment" name="comments" method="post" class="added-form">
                                            <input type="hidden" name="_token" value="`+response.token+`">
-                                           <input type="hidden" name="parent" value="`+response.parent+`">
+                                           <input type="hidden" name="parent" value="`+response.id+`">
                                            <input type="hidden" name="blog_id" value="`+response.blog_id+`">
                                            ` + authTpl + `
                                            <div class="form-group">
@@ -314,6 +314,7 @@
 
             console.log(response);
             $(elem).closest('.comment-form-wrap').hide(200);
+            $(elem)[0].reset();
             toastr.info('Коментарий добавлен');
             if(response.parent == 0){
                 $('.comment-list').append(commentTpl);

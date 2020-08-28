@@ -12,7 +12,7 @@ class BlogController extends Controller
     public function show($id = false){
         if ($id){
             $blog = Blog::find($id);
-            $comments = Comment::where("blog_id",$id)->where('parent', 0)->get();
+            $comments = Comment::where("blog_id",$id)->where('parent', 0)->orderBy('created_at', 'asc')->get();
             $blogComments = Comment::where('blog_id', $id)->get();
 
             $data = array(

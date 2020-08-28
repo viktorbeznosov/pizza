@@ -317,12 +317,12 @@
             $(elem)[0].reset();
             toastr.info('Коментарий добавлен');
             if(response.parent == 0){
-                $('.comment-list').append(commentTpl);
+                $('.comment-list').prepend(commentTpl);
             } else {
                 if ($(elem).closest('.comment').find('.children').length == 0) {
-                    $(elem).closest('.comment').append('<ul class="children">' + commentTpl + '</ul>');
+                    $(elem).closest('.comment').prepend('<ul class="children">' + commentTpl + '</ul>');
                 } else {
-                    $(elem).closest('.comment').find('.children').append(commentTpl);
+                    $(elem).closest('.comment').find('.children').prepend(commentTpl);
                 }
             }
             $('.reply-added').on('click', function(){

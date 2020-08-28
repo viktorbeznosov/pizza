@@ -17,8 +17,8 @@ class Comment extends Model
     }
 
     public function getChildren(){
-        $children = Comment::where('parent', $this->id)->get();
-        
+        $children = Comment::orderBy('created_at', 'desc')->where('parent', $this->id)->get();
+
         return $children;
     }
 

@@ -320,7 +320,7 @@
                 $('.comment-list').prepend(commentTpl);
             } else {
                 if ($(elem).closest('.comment').find('.children').length == 0) {
-                    $(elem).closest('.comment').prepend('<ul class="children">' + commentTpl + '</ul>');
+                    $(elem).closest('.comment').append('<ul class="children">' + commentTpl + '</ul>');
                 } else {
                     $(elem).closest('.comment').find('.children').prepend(commentTpl);
                 }

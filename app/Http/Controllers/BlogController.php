@@ -12,8 +12,10 @@ class BlogController extends Controller
     public function show($id = false){
         if ($id){
             $blog = Blog::find($id);
-            $comments = Comment::where("blog_id",$id)->where('parent', 0)->orderBy('created_at', 'asc')->get();
+//            $comments = Comment::where("blog_id",$id)->where('parent', 0)->orderBy('created_at', 'desc')->get();
+            $comments = Comment::orderBy('created_at', 'desc')->where("blog_id",$id)->where('parent', 0)->get();
             $blogComments = Comment::where('blog_id', $id)->get();
+
 
             $data = array(
                 'title' => $blog->title,

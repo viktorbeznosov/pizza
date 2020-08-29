@@ -81,9 +81,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <button id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('admin.admins.create') }}" id="sample_editable_1_new" class="btn sbold green"> Создать нового
                                                 <i class="fa fa-plus"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -140,7 +140,7 @@
                                     </td>
                                     <td class="center middle"> {{ $admin->name }} </td>
                                     <td class="center middle">
-                                        <a href="{{ $admin->mail }}"> {{ $admin->mail }} </a>
+                                        <a href="{{ $admin->email }}"> {{ $admin->email }} </a>
                                     </td>
                                     <td class="center middle">
                                         <span class="label label-sm label-success"> Approved </span>
@@ -149,7 +149,7 @@
                                     <td class="center middle">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a
-                                                    href="javascript:void(0)"
+                                                    href="{{ route('admin.admins.edit', $admin->id) }}"
                                                     class="btn btn-transparent btn-xs"
                                                     tooltip-placement="top"
                                                     tooltip="Edit"
@@ -163,7 +163,7 @@
                                                     tooltip="Remove"
                                                     data-toggle="modal"
                                                     data-target="#basic"
-                                                    data-page="{{ $admin->id }}"
+                                                    data-admin="{{ $admin->id }}"
                                             >
                                                 <span class="label label-sm label-danger">Удалить</span>
                                             </a>
@@ -172,7 +172,15 @@
                                             <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                                                 <i class="icon-wrench"></i>
                                             </a>
-                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                            <a
+                                               class="btn btn-circle btn-icon-only btn-default"
+                                               href="javascript:;"
+                                               tooltip-placement="top"
+                                               tooltip="Remove"
+                                               data-toggle="modal"
+                                               data-target="#basic"
+                                               data-admin="{{ $admin->id }}"
+                                            >
                                                 <i class="icon-trash"></i>
                                             </a>
                                         </div>
@@ -202,12 +210,36 @@
                 <div class="modal-body"> Modal body goes here </div>
                 <div class="modal-footer">
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn green">Save changes</button>
+                    <form action="" id="admin-delete" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <style>
+        .modal-footer{
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #admin-delete button[type="submit"]{
+            margin-left: 10px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $('a[data-toggle="modal"]').on('click', function(){
+                var admin_id = $(this).data('admin');
+                $('#admin-delete').attr('action','/admin/admins/' + admin_id);
+            });
+        });
+    </script>
 
 @endsection

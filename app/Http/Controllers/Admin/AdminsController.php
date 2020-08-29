@@ -6,7 +6,11 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Admin;
+use App\Role;
+use App\Permission;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Gate;
 
 class AdminsController extends Controller
 {
@@ -94,6 +98,9 @@ class AdminsController extends Controller
     public function edit($id)
     {
         $admin = Admin::find($id);
+
+//        dump(Gate::forUser($admin)->allows('CREATE_SERVICES'));
+//        dump($admin->hasPermissions('CREATE_SERVICES'));
 
         $data = array(
             'title' => $admin->name,

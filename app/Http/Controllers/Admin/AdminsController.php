@@ -101,7 +101,7 @@ class AdminsController extends Controller
     {
         $admin = Admin::find($id);
 
-//        dump(Gate::forUser(Auth::guard('admin')->user())->allows('DELETE_ADMINS'));
+        dump(Gate::forUser(Auth::guard('admin')->user())->allows('DELETE_ADMINS', $admin));
 //        dump($admin->hasPermissions('CREATE_SERVICES'));
 //        dump(GateHelper::all('CREATE_SERVICES','CREATE_BLOGS'));
 

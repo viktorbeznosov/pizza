@@ -11,6 +11,7 @@ use App\Permission;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Gate;
+use App\Helpers\GateHelper;
 
 class AdminsController extends Controller
 {

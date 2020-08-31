@@ -36,4 +36,3 @@ class GateHelper {
 
 
 }
->>>>>>> 2c756bcb9c7501d102a37e8385168e7d6b99d57d

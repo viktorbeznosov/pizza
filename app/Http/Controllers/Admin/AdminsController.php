@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Blog;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -101,9 +102,10 @@ class AdminsController extends Controller
     {
         $admin = Admin::find($id);
 
-        dump(Gate::forUser(Auth::guard('admin')->user())->allows('DELETE_ADMINS', $admin));
+//        dump(Gate::forUser(Auth::guard('admin')->user())->allows('VIEW_ADMINS', $admin));
 //        dump($admin->hasPermissions('CREATE_SERVICES'));
-//        dump(GateHelper::all('CREATE_SERVICES','CREATE_BLOGS'));
+//        dump(GateHelper::all('DELETE_ADMINS','UPDATE_ADMINS', array('user' => $admin)));
+//        return view('admin.404', array('title' => ''))->withErrors('Access Denied');
 
         $data = array(
             'title' => $admin->name,

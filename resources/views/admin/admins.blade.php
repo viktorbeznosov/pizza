@@ -1,3 +1,4 @@
+@inject('GateHelper', 'App\Helpers\GateHelper')
 @extends('layouts.admin')
 
 @section('content')
@@ -147,6 +148,7 @@
                                     </td>
                                     <td class="center middle"> @if(isset($admin->created_at)){{ $admin->created_at->format('d.m.Y') }}@endif </td>
                                     <td class="center middle">
+                                        @if($GateHelper->all('UPDATE_ADMINS','DELETE_ADMINS', array('user' => $admin)))
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a
                                                     href="{{ route('admin.admins.edit', $admin->id) }}"
@@ -168,6 +170,7 @@
                                                 <span class="label label-sm label-danger">Удалить</span>
                                             </a>
                                         </div>
+
                                         <div class="visible-xs visible-sm hidden-md hidden-lg">
                                             <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                                                 <i class="icon-wrench"></i>
@@ -184,6 +187,7 @@
                                                 <i class="icon-trash"></i>
                                             </a>
                                         </div>
+                                        @endif
                                     </td>
                                 </tr>
                                     @endforeach

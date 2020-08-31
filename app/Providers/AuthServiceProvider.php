@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 use App\Admin;
 use App\Permission;
+use App\Blog;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,11 +31,19 @@ class AuthServiceProvider extends ServiceProvider
 
         $permissions = Permission::all();
         foreach ($permissions as $permission){
-            if ($permission->name == 'DELETE_ADMINS'){
-                //Админ не может удалить самого себя
-                Gate::define($permission->name, function (Admin $admin, Admin $user) use ($permission){
+            if (in_array($permission->name, array('UPDATE_ADMINS','DELETE_ADMINS'))) {
+                //Админ не может удалить и редактировать самого себя
+                Gate::define($permission->name, function (Admin $admin, Admin $user) use ($permission) {
                     return $admin->hasPermissions($permission->name) && $admin->id != $user->id;
-                });                
+                });
+            } else if (in_array($permission->name, array('VIEW_BLOGS','UPDATE_BLOGS','DELETE_BLOGS'))) {
+                Gate::define($permission->name, function (Admin $admin, Blog $blog = NULL) use ($permission) {
+                    if ($admin->hasRoles('Blogger') && $blog != NULL){
+                        return $admin->hasPermissions($permission->name) && $admin->id == $blog->admin_id;
+                    } else {
+                        return $admin->hasPermissions($permission->name);
+                    }
+                });
             } else {
                 Gate::define($permission->name, function (Admin $admin) use ($permission){
                     return $admin->hasPermissions($permission->name);

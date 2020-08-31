@@ -1,3 +1,4 @@
+@inject('GateHelper', 'App\Helpers\GateHelper')
 @extends('layouts.admin')
 
 @section('content')
@@ -127,57 +128,59 @@
                                 </thead>
                                 <tbody>
                                     @foreach($blogs as $blog)
-                                        <tr class="odd gradeX">
-                                    <td>
-                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                            <input type="checkbox" class="checkboxes" value="1" />
-                                            <span></span>
-                                        </label>
-                                    </td>
-                                    <td class="center middle hidden-xs">
-                                        <a href="{{ route('admin.blogs.show', $blog->id) }}">
-                                            <img alt="" class="img-circle" src="@if(isset($blog->image)){{ asset($blog->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
-                                        </a>
-                                    </td>
-                                    <td class="center middle hidden-xs"> {{ $blog->admin->name }} </td>
-                                    <td class="center middle">
-                                        <a href="{{ route('admin.blogs.show', $blog->id) }}">
-                                            {{ $blog->title }}
-                                        </a>
-                                    </td>
-                                    <td class="center middle hidden-xs"> @if(isset($blog->created_at)){{ $blog->created_at->format('d.m.Y') }}@endif </td>
-                                    <td class="center middle">
-                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a
-                                                    href="{{ route('admin.blogs.edit', $blog->id) }}"
-                                                    class="btn btn-transparent btn-xs"
-                                                    tooltip-placement="top"
-                                                    tooltip="Edit"
-                                            >
-                                                <span class="label label-sm label-success">Редактировать</span>
-                                            </a>
-                                            <a
-                                                    href="#"
-                                                    class="btn btn-transparent btn-xs tooltips"
-                                                    tooltip-placement="top"
-                                                    tooltip="Remove"
-                                                    data-toggle="modal"
-                                                    data-target="#basic"
-                                                    data-blog="{{ $blog->id }}"
-                                            >
-                                                <span class="label label-sm label-danger">Удалить</span>
-                                            </a>
-                                        </div>
-                                        <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                                <i class="icon-wrench"></i>
-                                            </a>
-                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                                <i class="icon-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        @if($GateHelper->all('VIEW_BLOGS', array('blog' => $blog)))
+                                            <tr class="odd gradeX">
+                                                <td>
+                                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                        <input type="checkbox" class="checkboxes" value="1" />
+                                                        <span></span>
+                                                    </label>
+                                                </td>
+                                                <td class="center middle hidden-xs">
+                                                    <a href="{{ route('admin.blogs.show', $blog->id) }}">
+                                                        <img alt="" class="img-circle" src="@if(isset($blog->image)){{ asset($blog->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
+                                                    </a>
+                                                </td>
+                                                <td class="center middle hidden-xs"> {{ $blog->admin->name }} </td>
+                                                <td class="center middle">
+                                                    <a href="{{ route('admin.blogs.show', $blog->id) }}">
+                                                        {{ $blog->title }}
+                                                    </a>
+                                                </td>
+                                                <td class="center middle hidden-xs"> @if(isset($blog->created_at)){{ $blog->created_at->format('d.m.Y') }}@endif </td>
+                                                <td class="center middle">
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        <a
+                                                                href="{{ route('admin.blogs.edit', $blog->id) }}"
+                                                                class="btn btn-transparent btn-xs"
+                                                                tooltip-placement="top"
+                                                                tooltip="Edit"
+                                                        >
+                                                            <span class="label label-sm label-success">Редактировать</span>
+                                                        </a>
+                                                        <a
+                                                                href="#"
+                                                                class="btn btn-transparent btn-xs tooltips"
+                                                                tooltip-placement="top"
+                                                                tooltip="Remove"
+                                                                data-toggle="modal"
+                                                                data-target="#basic"
+                                                                data-blog="{{ $blog->id }}"
+                                                        >
+                                                            <span class="label label-sm label-danger">Удалить</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                            <i class="icon-wrench"></i>
+                                                        </a>
+                                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                            <i class="icon-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

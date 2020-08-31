@@ -11,6 +11,7 @@ use App\Permission;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\GateHelper;
 
 class AdminsController extends Controller
@@ -100,8 +101,9 @@ class AdminsController extends Controller
     {
         $admin = Admin::find($id);
 
-//        dump(Gate::forUser($admin)->allows('CREATE_SERVICES'));
+        dump(Gate::forUser(Auth::guard('admin')->user())->allows('DELETE_ADMINS', $admin));
 //        dump($admin->hasPermissions('CREATE_SERVICES'));
+//        dump(GateHelper::all('CREATE_SERVICES','CREATE_BLOGS'));
 
         $data = array(
             'title' => $admin->name,

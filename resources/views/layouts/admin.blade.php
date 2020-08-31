@@ -1,3 +1,4 @@
+@inject('GateHelper', 'App\Helpers\GateHelper')
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
@@ -269,7 +270,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <img alt="" class="img-circle" src="{{ asset(Auth::guard('admin')->user()->image) }}" />
-                        <span class="username username-hide-on-mobile"> Nick </span>
+                        <span class="username username-hide-on-mobile"> {{ Auth::guard('admin')->user()->name }} </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
@@ -372,61 +373,66 @@ License: You must have a valid license purchased only from themeforest(the above
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
-                <li class="nav-item start @if(in_array(Route::current()->getName(),['admin.dashboard'])) active @endif">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                        <i class="icon-home"></i>
-                        <span class="title">Dashboard</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
+                @if($GateHelper->all('VIEW_DASHBOARD'))
+                    <li class="nav-item start @if(in_array(Route::current()->getName(),['admin.dashboard'])) active @endif">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                            <i class="icon-home"></i>
+                            <span class="title">Dashboard</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                @endif    
                 <li class="heading">
                     <h3 class="uppercase">Features</h3>
                 </li>
-                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.cat.index'])) active @endif">
-                    <a href="{{ route('admin.cat.index') }}" class="nav-link">
-                        <i class="fa fa-cutlery"></i>
-                        <span class="title">Категории</span>
-                    </a>
-                </li>
-                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.services.index'])) active @endif">
-                    <a href="{{ route('admin.services.index') }}" class="nav-link">
-                        <i class="fa fa-cogs"></i>
-                        <span class="title">Сервисы</span>
-                    </a>
-                </li>
-                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.blogs.index'])) active @endif">
-                    <a href="{{ route('admin.blogs.index') }}" class="nav-link">
-                        <i class="fa fa-copyright"></i>
-                        <span class="title">Блоги</span>
-                    </a>
-                </li>
-{{--                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.comments.index'])) active @endif">--}}
-{{--                    <a href="{{ route('admin.comments.index') }}" class="nav-link">--}}
-{{--                        <i class="fa fa-comment-o"></i>--}}
-{{--                        <span class="title">Коментарии</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-                <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) open @endif">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="fa fa-user"></i>
-                        <span class="title">Пользователи</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu" style="@if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) display:block; @endif">
-                        <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index'])) active @endif">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link ">
-                                <i class="fa fa-user"></i>
-                                <span class="title">Пользователи</span>
-                            </a>
-                        </li>
-                        <li class="nav-item @if(in_array(Route::current()->getName(),['admin.admins.index'])) active @endif">
-                            <a href="{{ route('admin.admins.index') }}" class="nav-link ">
-                                <i class="fa fa-user-secret"></i>
-                                <span class="title">Админы</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if($GateHelper->all('VIEW_CATEGORIES'))
+                    <li class="nav-item @if(in_array(Route::current()->getName(),['admin.cat.index'])) active @endif">
+                        <a href="{{ route('admin.cat.index') }}" class="nav-link">
+                            <i class="fa fa-cutlery"></i>
+                            <span class="title">Категории</span>
+                        </a>
+                    </li>
+                @endif
+                @if($GateHelper->all('VIEW_SERVICES'))
+                    <li class="nav-item @if(in_array(Route::current()->getName(),['admin.services.index'])) active @endif">
+                        <a href="{{ route('admin.services.index') }}" class="nav-link">
+                            <i class="fa fa-cogs"></i>
+                            <span class="title">Сервисы</span>
+                        </a>
+                    </li>
+                @endif
+                @if($GateHelper->all('VIEW_BLOGS'))
+                    <li class="nav-item @if(in_array(Route::current()->getName(),['admin.blogs.index'])) active @endif">
+                        <a href="{{ route('admin.blogs.index') }}" class="nav-link">
+                            <i class="fa fa-copyright"></i>
+                            <span class="title">Блоги</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if($GateHelper->any('VIEW_USERS','VIEW_ADMINS'))
+                    <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) open @endif">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="title">Пользователи</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu" style="@if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) display:block; @endif">
+                            <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index'])) active @endif">
+                                <a href="{{ route('admin.users.index') }}" class="nav-link ">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">Пользователи</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if(in_array(Route::current()->getName(),['admin.admins.index'])) active @endif">
+                                <a href="{{ route('admin.admins.index') }}" class="nav-link ">
+                                    <i class="fa fa-user-secret"></i>
+                                    <span class="title">Админы</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
             <!-- END SIDEBAR MENU -->
             <!-- END SIDEBAR MENU -->

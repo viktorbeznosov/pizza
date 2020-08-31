@@ -30,9 +30,16 @@ class AuthServiceProvider extends ServiceProvider
 
         $permissions = Permission::all();
         foreach ($permissions as $permission){
-            Gate::define($permission->name, function (Admin $admin) use ($permission){
-                return $admin->hasPermissions($permission->name);
-            });
+            if ($permission->name == 'DELETE_ADMINS'){
+                //Админ не может удалить самого себя
+                Gate::define($permission->name, function (Admin $admin, Admin $user) use ($permission){
+                    return $admin->hasPermissions($permission->name) && $admin->id != $user->id;
+                });                
+            } else {
+                Gate::define($permission->name, function (Admin $admin) use ($permission){
+                    return $admin->hasPermissions($permission->name);
+                });                
+            }
         }
 
     }

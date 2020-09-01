@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class MenuController extends Controller
 {
     public function show(){
-        return view('menu');
+        $categories = Category::all();
+        $data = array(
+            'title' => 'Menu',
+            'categories' => $categories
+        );
+        
+        return view('menu', $data);
     }
 }

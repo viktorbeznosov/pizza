@@ -39,8 +39,10 @@ class AdminsController extends Controller
      */
     public function create()
     {
+        $roles = Role::all();
         $data = array(
             'title' => 'Добавление пользователя',
+            'roles' => $roles
         );
 
         return view('admin.admin', $data);
@@ -76,6 +78,11 @@ class AdminsController extends Controller
         }
         $admin = new Admin();
         $admin->fill($input);
+        if (isset($input['roles'])){
+            foreach ($input['roles'] as $role_id){
+                $admin->roles()->attach($role_id);
+            } 
+        }     
         if ($admin->save()){
             return redirect()->route('admin.admins.index')->with('status','Пользователь добавлен');
         }
@@ -101,6 +108,11 @@ class AdminsController extends Controller
     public function edit($id)
     {
         $admin = Admin::find($id);
+        $roles = Role::all();
+        $adminRolesIds = array();
+        foreach ($admin->roles()->get() as $role){
+            $adminRolesIds[] = $role->id;
+        }
 
 //        dump(Gate::forUser(Auth::guard('admin')->user())->allows('VIEW_ADMINS', $admin));
 //        dump($admin->hasPermissions('CREATE_SERVICES'));
@@ -109,7 +121,9 @@ class AdminsController extends Controller
 
         $data = array(
             'title' => $admin->name,
-            'admin' => $admin
+            'admin' => $admin,
+            'roles' => $roles,
+            'adminRolesIds' => $adminRolesIds
         );
 
         return view('admin.admin', $data);
@@ -148,6 +162,21 @@ class AdminsController extends Controller
                 $file->move(public_path() . '/assets/images/admins/', $input['image']);
             }
             $admin->fill($input);
+            if (isset($input['roles'])){
+                foreach ($input['roles'] as $role_id){
+                    
+                    if (!$admin->hasAnyRole(Role::find($role_id)->name)){
+                        $admin->roles()->attach($role_id);
+                    }                    
+                }
+                foreach ($admin->roles()->get() as $role){
+                    if(!in_array($role->id, $input['roles'])){
+                        $admin->roles()->detach($role->id);
+                    }
+                }
+            } else {
+                $admin->roles()->detach();
+            }
             if ($admin->save()){
                 return redirect()->route('admin.admins.edit', $admin->id)->with('status','Пользователь сохранен');
             }

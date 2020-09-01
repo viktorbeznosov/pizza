@@ -21,7 +21,7 @@
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
-        @endif
+            @endif
         <!-- END ALERTS -->
 
             <!-- BEGIN PAGE HEADER-->
@@ -86,6 +86,34 @@
                                     <i class="fa fa-bell-o font-green"></i>
                                     <input name="email" type="text" class="form-control" placeholder="email" value="@if(isset($admin)){{ $admin->email }}@endif">
                                 </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="select2-button-addons-multiple-input-group-sm" class="control-label">Роли</label>
+                                <div class="input-group input-group-sm select2-bootstrap-prepend">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-select2-open="select2-button-addons-multiple-input-group-sm">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                    <select name="roles[]" id="select2-button-addons-multiple-input-group-sm" class="form-control select2-multiple" multiple>
+                                        @foreach($roles as $role)
+                                            <option 
+                                                value="{{ $role->id }}"
+                                                @if(isset($adminRolesIds))
+                                                    @if(in_array($role->id, $adminRolesIds))
+                                                        selected
+                                                    @endif
+                                                @endif    
+                                            >
+                                                {{ $role->name }}
+                                            </option>
+                                        @endforeach
+<!--                                        <option value="AK">Alaska</option>
+                                        <option value="HI" selected="selected">Hawaii</option>
+                                        <option value="CA">California</option> -->
+                                    </select>
+                                </div>                                                                
                             </div>
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->

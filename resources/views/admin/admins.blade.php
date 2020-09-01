@@ -144,7 +144,14 @@
                                         <a href="{{ $admin->email }}"> {{ $admin->email }} </a>
                                     </td>
                                     <td class="center middle">
-                                        <span class="label label-sm label-success"> Approved </span>
+                                        @if(count($admin->roles()->get()) > 0)
+                                            @foreach($admin->roles()->get() as $role)
+                                                <span class="label label-sm label-success label-role">
+                                                    {{ $role->name }}
+                                                </span>    
+                                            @endforeach
+                                            
+                                        @endif
                                     </td>
                                     <td class="center middle"> @if(isset($admin->created_at)){{ $admin->created_at->format('d.m.Y') }}@endif </td>
                                     <td class="center middle">
@@ -234,6 +241,10 @@
 
         #admin-delete button[type="submit"]{
             margin-left: 10px;
+        }
+        
+        .label-role{
+            margin: 3px;
         }
     </style>
 

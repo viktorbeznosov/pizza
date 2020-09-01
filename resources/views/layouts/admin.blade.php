@@ -409,6 +409,15 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                     </li>
                 @endif
+                
+                @if($GateHelper->all('VIEW_BLOGS'))
+                    <li class="nav-item @if(in_array(Route::current()->getName(),['admin.orders.index'])) active @endif">
+                        <a href="{{ route('admin.orders.index') }}" class="nav-link">
+                            <i class="fa fa-copyright"></i>
+                            <span class="title">Заказы</span>
+                        </a>
+                    </li>
+                @endif
 
                 @if($GateHelper->any('VIEW_USERS','VIEW_ADMINS'))
                     <li class="nav-item @if(in_array(Route::current()->getName(),['admin.users.index', 'admin.admins.index'])) open @endif">

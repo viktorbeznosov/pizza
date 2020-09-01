@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::resource('/cat','Admin\CategoriesController');
     Route::resource('/products','Admin\ProductsController');
     Route::resource('/blogs','Admin\BlogsController');
+    Route::resource('/orders','Admin\OrdersController');
     Route::group(['prefix' => 'comments','as' => 'comments.'], function (){
         Route::get('/{blog_id?}', 'Admin\CommentsController@index')->name('index');
         Route::get('/edit/{id}', 'Admin\CommentsController@edit')->name('edit');

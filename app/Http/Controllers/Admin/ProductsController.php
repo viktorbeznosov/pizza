@@ -128,6 +128,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->except('_token','_method');
+        $input['hot'] = isset($input['hot']) ? 1 : 0;
         $product = Product::find($id);
         if (isset($product)){
             $messages = array(
@@ -153,7 +154,7 @@ class ProductsController extends Controller
             }
             $product->fill($input);
             if ($product->save()){
-                return redirect()->route('admin.products.product_cat_edit', array('id' => $product->id, 'catId' => $input['cat_id']))->with('status','Продукт добавлен');
+                return redirect()->route('admin.products.product_cat_edit', array('id' => $product->id, 'catId' => $input['cat_id']))->with('status','Продукт сохранен');
             }
             
         } else {

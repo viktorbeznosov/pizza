@@ -91,6 +91,29 @@
                                 <label>Описание</label>
                                 <textarea name="description" class="form-control" rows="3" placeholder="описание">@if(isset($product)){{ $product->description }}@endif</textarea>
                             </div>
+                            
+                            <div class="form-group form-md-checkboxes">
+                                <label for="form_control_1">Варианты</label>
+                                <div class="md-checkbox-inline">
+                                    <div class="md-checkbox">
+                                        <input 
+                                            type="checkbox" 
+                                            id="checkbox2_4" 
+                                            name="hot" 
+                                            value="@if(isset($product)){{ $product->hot }}@endif" 
+                                            class="md-check" 
+                                            @if(isset($product) && $product->hot == 1) checked @endif
+                                        >
+                                        <label for="checkbox2_4">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> Hot </label>
+                                    </div> 
+                                </div>
+                            </div>
+                            
+                            
+                            
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
 
@@ -130,7 +153,6 @@
                                     <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
                                 </div>
                             </div>
-
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
 
@@ -142,4 +164,14 @@
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
+    
+    <script>
+        $(document).ready(function(){
+            $('input[type="checkbox"]').on('change', function(){
+                var val = $(this).val() == 0 ? 1 : 0; 
+                $(this).val(val);
+            })
+        })
+    </script>
+    
 @endsection

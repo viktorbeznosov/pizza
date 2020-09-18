@@ -112,6 +112,7 @@
                                         </td>
                                         <td class="center middle">
                                             {{ $product->name }}
+                                            @if($product->hot == 1)<span class="label label-sm label-warning">Hot </span>@endif
                                         </td>
                                         <td class="hidden-xs center middle">
                                             <p>{{ $product->description }}</p>

@@ -23,58 +23,37 @@
     <section class="ftco-section ftco-degree-bg">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 ftco-animate">
-
-                    <div class="about-author d-flex">
+                <div class="col-md-4 sidebar ftco-animate">
+                    <div class="product d-flex">
                         <div class="bio align-self-md-center mr-5">
                             <img src="{{ asset($product->image) }}" alt="Image placeholder" class="img-fluid mb-4">
                         </div>
+                    </div>
+                </div>                
+                <div class="col-md-8 ftco-animate">
+
+                    <div class="about-author d-flex">
                         <div class="desc align-self-md-center">
                             <h3>{{ $product->name }}</h3>
                             <p>{{ $product->description }}</p>
                         </div>
                     </div>
-
-
-
-                    <div class="blog-reply">
-                        <a href="javascript:void(0)" class="reply">Reply</a>
+                    <div class="d-flex text align-items-center product-order">
+                        <p class="price"><span>{{ $product->price }} р.</span> </p>
+                        <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a>
                     </div>
-
-
-
                 </div> <!-- .col-md-8 -->
-                <div class="col-md-4 sidebar ftco-animate">
-                    <div class="sidebar-box">
-                        <form action="" class="search-form">
-                            <div class="form-group">
-                                <div class="icon">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="sidebar-box ftco-animate">
-                        <div class="categories">
-                            <h3>Categories</h3>
-                            <li><a href="#">Tour <span>(12)</span></a></li>
-                            <li><a href="#">Hotel <span>(22)</span></a></li>
-                            <li><a href="#">Coffee <span>(37)</span></a></li>
-                            <li><a href="#">Drinks <span>(42)</span></a></li>
-                            <li><a href="#">Foods <span>(14)</span></a></li>
-                            <li><a href="#">Travel <span>(140)</span></a></li>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section> <!-- .section -->
     
     <style>
-        .about-author img{
-            max-width: 200px;
+        .product-order{
+            justify-content: space-between;
+        }
+        
+        .product img{
+            max-width: 350px;
         }
 
         .comment-body .comment-form-wrap{

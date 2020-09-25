@@ -32,9 +32,9 @@
                 @foreach($hot as $item)
                     <div class="col-lg-4 d-flex ftco-animate">
                         <div class="services-wrap d-flex">
-                            <a href="#" class="img" style="background-image: url({{ asset($item->image) }});"></a>
+                            <a href="{{ route('menu', $item->id) }}" class="img" style="background-image: url({{ asset($item->image) }});"></a>
                             <div class="text p-4">
-                                <h3>{{ $item->name }}</h3>
+                                <h3><a href="{{ route('menu', $item->id) }}">{{ $item->name }}</a></h3>
                                 <p>{{ $item->description }}</p>
                                 <p class="price"><span>{{ $item->price }} р.</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
                             </div>
@@ -58,10 +58,10 @@
                     @for($i = 0; $i < count($pizza); $i++)
                         @if(($i % 2) == 0) 
                             <div class="pricing-entry d-flex ftco-animate">
-                                <div class="img" style="background-image: url({{ asset($pizza[$i]->image) }});"></div>
+                                <a href="{{ route('menu', $pizza[$i]->id) }}"><div class="img" style="background-image: url({{ asset($pizza[$i]->image) }});"></div></a>
                                 <div class="desc pl-3">
                                     <div class="d-flex text align-items-center">
-                                        <h3><span>{{ $pizza[$i]->name }}</span></h3>
+                                        <h3><span><a href="{{ route('menu', $pizza[$i]->id) }}">{{ $pizza[$i]->name }}</a></span></h3>
                                         <span class="price">{{ $pizza[$i]->price }} р.</span>
                                     </div>
                                     <div class="d-block">
@@ -77,10 +77,10 @@
                     @for($i = 0; $i < count($pizza); $i++)
                         @if(($i % 2) == 1)                    
                             <div class="pricing-entry d-flex ftco-animate">
-                                <div class="img" style="background-image: url({{ asset($pizza[$i]->image) }});"></div>
+                                <a href="{{ route('menu', $pizza[$i]->id) }}"><div class="img" style="background-image: url({{ asset($pizza[$i]->image) }});"></div></a>
                                 <div class="desc pl-3">
                                     <div class="d-flex text align-items-center">
-                                        <h3><span>{{ $pizza[$i]->name }}</span></h3>
+                                        <h3><span><a href="{{ route('menu', $pizza[$i]->id) }}">{{ $pizza[$i]->name }}</a></span></h3>
                                         <span class="price">{{ $pizza[$i]->price }} р.</span>
                                     </div>
                                     <div class="d-block">

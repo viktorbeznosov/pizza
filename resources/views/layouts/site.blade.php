@@ -61,7 +61,7 @@
                     </a>
                         <ul class="nav-account-dropdown">
                             <li>
-                                <a href="javascript:void(0)">Account</a>
+                                <a href="{{ route('account') }}">Account</a>
                             </li>
                             <li>
                                 <form action="{{ route('logout') }}" method="post" class="nav-link form-logout">

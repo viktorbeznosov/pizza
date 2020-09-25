@@ -17,6 +17,7 @@ Route::get('/services', 'ServicesController@show')->name('services');
 Route::get('/blog/{id?}', 'BlogController@show')->name('blog');
 Route::get('/about', 'AboutController@show')->name('about');
 Route::get('/contact', 'ContactController@show')->name('contact');
+Route::get('/account', 'AccountController@show')->name('account');
 Route::post('/comment', 'CommentsController@store')->name('comment');
 
 

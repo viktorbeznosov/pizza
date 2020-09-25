@@ -22,7 +22,6 @@ class MenuController extends Controller
                     'title' => $product->name,
                     'product' => $product
                 );
-                dump($product->id);
                 return view('product', $data);
             }
         } else {

@@ -3,6 +3,25 @@
 @section('content')
     <section class="ftco-section ftco-degree-bg">
         <div class="container">
+
+            <!-- ALERTS -->
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+        <!-- END ALERTS -->
+
             <div class="row">
                 <div class="col-md-4 sidebar ftco-animate">
                     <div class="product d-flex">
@@ -52,4 +71,16 @@
             </div>
         </div>
     </section> <!-- .section -->
+
+    <style>
+        .ftco-section{
+            padding: 0;
+        }
+
+        .alert-danger{
+            color: #000;
+            background-color: #fac564;
+            border-color: #fac564;
+        }
+    </style>
 @endsection

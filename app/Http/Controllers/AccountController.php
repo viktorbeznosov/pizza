@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\User;
 
 class AccountController extends Controller
 {
     public function show(){
-        
         $user = Auth::user();
         $data = array(
             'title' => 'Личный кабинет',
@@ -38,10 +38,14 @@ class AccountController extends Controller
             'confirm_pass' => 'same:password'
         ),$messages);
         if($validator->fails()){
-            dd($validator->errors());
             return redirect()->route('account')->withErrors($validator)->withInput();
         }
+
+        $user = User::find(Auth::user()->id);
+        $user->fill($input);
+        if ($user->save()){
+            return redirect()->route('account')->with('status','Данные сохранены');
+        }
             
-        dd($input);
     }
 }

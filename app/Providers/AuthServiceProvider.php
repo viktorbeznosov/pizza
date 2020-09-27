@@ -47,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
             } else {
                 Gate::define($permission->name, function (Admin $admin) use ($permission){
                     return $admin->hasPermissions($permission->name);
-                });                
+                });
             }
         }
 

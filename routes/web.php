@@ -18,6 +18,7 @@ Route::get('/blog/{id?}', 'BlogController@show')->name('blog');
 Route::get('/about', 'AboutController@show')->name('about');
 Route::get('/contact', 'ContactController@show')->name('contact');
 Route::get('/account', 'AccountController@show')->name('account');
+Route::get('/cart', 'CartController@show')->name('cart');
 Route::post('/account', 'AccountController@update')->name('account_update');
 Route::post('/comment', 'CommentsController@store')->name('comment');
 

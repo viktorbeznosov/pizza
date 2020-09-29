@@ -80,7 +80,7 @@
         </div>
     </div>
     <div class="cart">
-        <a href="javascript:void(0)">
+        <a href="{{ route('cart') }}">
             <i class="mdi mdi-cart"></i>
             <span class="cart-count" class="count">2</span>
         </a>

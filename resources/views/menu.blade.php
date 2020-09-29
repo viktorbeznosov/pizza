@@ -30,13 +30,13 @@
         <div class="container-wrap">
             <div class="row no-gutters d-flex">
                 @foreach($hot as $item)
-                    <div class="col-lg-4 d-flex ftco-animate">
+                    <div class="col-lg-4 d-flex ftco-animate product" data-id="{{ $item->id }}">
                         <div class="services-wrap d-flex">
-                            <a href="{{ route('menu', $item->id) }}" class="img" style="background-image: url({{ asset($item->image) }});"></a>
+                            <a href="{{ route('menu', $item->id) }}" class="img" data-image="{{ asset($item->image) }}" style="background-image: url({{ asset($item->image) }});"></a>
                             <div class="text p-4">
-                                <h3><a href="{{ route('menu', $item->id) }}">{{ $item->name }}</a></h3>
+                                <h3><a href="{{ route('menu', $item->id) }}" class="name">{{ $item->name }}</a></h3>
                                 <p>{{ $item->description }}</p>
-                                <p class="price"><span>{{ $item->price }} р.</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
+                                <p><span class="price">{{ $item->price }} р.</span> <a href="javascript:void(0)" class="ml-2 btn btn-white btn-outline-white order">Order</a></p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                 <div class="desc pl-3">
                                     <div class="d-flex text align-items-center">
                                         <h3><span><a href="{{ route('menu', $pizza[$i]->id) }}">{{ $pizza[$i]->name }}</a></span></h3>
-                                        <span class="price">{{ $pizza[$i]->price }} р.</span>
+                                        <span class="price">{{ $pizza[$i]->price }}</span> р.
                                     </div>
                                     <div class="d-block">
                                         <p>{{ $pizza[$i]->description }}</p>
@@ -138,4 +138,24 @@
             </div>
         </div>
     </section>
+
+<script>
+    $(document).ready(function(){
+        $('.order').on('click', function(){
+            var id = $(this).closest('.product').data('id');
+            var name = $(this).closest('.product').find('.name').html();
+            var price = priceFormat($(this).closest('.product').find('.price').html());
+            var image = $(this).closest('.product').find('.img').data('image')
+            
+            var item = {
+                'id': id,
+                'name': name,
+                'price': price,
+                'image' : image
+            }
+            
+            addToCart(item);
+        })
+    });
+</script>
 @endsection

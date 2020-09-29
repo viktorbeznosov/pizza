@@ -62,7 +62,7 @@
                                 <div class="desc pl-3">
                                     <div class="d-flex text align-items-center">
                                         <h3><span><a href="{{ route('menu', $pizza[$i]->id) }}">{{ $pizza[$i]->name }}</a></span></h3>
-                                        <span class="price">{{ $pizza[$i]->price }}</span> р.
+                                        <span class="price">{{ $pizza[$i]->price }}  р.</span>
                                     </div>
                                     <div class="d-block">
                                         <p>{{ $pizza[$i]->description }}</p>
@@ -116,14 +116,14 @@
                                     <div class="tab-pane fade show @if($category->id == 1) active @endif" id="v-pills-{{ $category->id }}" role="tabpanel" aria-labelledby="v-pills-{{ $category->id }}-tab">
                                     <div class="row">
                                         @foreach($category->products()->get() as $product)
-                                            <div class="col-md-4 text-center">
+                                            <div class="col-md-4 text-center product-item" data-id="{{ $product->id }}">
                                                 <div class="menu-wrap">
-                                                    <a href="#" class="menu-img img mb-4" style="background-image: url({{ asset($product->image) }});"></a>
+                                                    <a href="#" class="menu-img img mb-4" data-image="{{ asset($product->image) }}" style="background-image: url({{ asset($product->image) }});"></a>
                                                     <div class="text">
-                                                        <h3><a href="#">{{ $product->name }}</a></h3>
+                                                        <h3><a href="#" class="name">{{ $product->name }}</a></h3>
                                                         <p>{{ $product->description }}</p>
-                                                        <p class="price"><span>${{ $product->price }}</span></p>
-                                                        <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                                                        <p><span class="price">{{ $product->price }} р.</span></p>
+                                                        <p><a href="javascript:void(0)" class="btn btn-white btn-outline-white btn-order">Add to cart</a></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,12 +139,18 @@
         </div>
     </section>
 
+    <style>
+        .toast-success{
+            background: #fac564;
+        }
+    </style>
+
 <script>
     $(document).ready(function(){
         $('.order').on('click', function(){
             var id = $(this).closest('.product').data('id');
             var name = $(this).closest('.product').find('.name').html();
-            var price = priceFormat($(this).closest('.product').find('.price').html());
+            var price = floatFormat(priceFormat($(this).closest('.product').find('.price').html()));
             var image = $(this).closest('.product').find('.img').data('image')
             
             var item = {
@@ -155,7 +161,23 @@
             }
             
             addToCart(item);
-        })
+        });
+
+        $('.btn-order').on('click', function () {
+            var id = $(this).closest('.product-item').data('id');
+            var name = $(this).closest('.product-item').find('.name').html();
+            var price = floatFormat(priceFormat($(this).closest('.product-item').find('.price').html()));
+            var image = $(this).closest('.product-item').find('.menu-img').data('image');
+
+            var item = {
+                'id': id,
+                'name': name,
+                'price': price,
+                'image' : image
+            }
+
+            addToCart(item)
+        });
     });
 </script>
 @endsection

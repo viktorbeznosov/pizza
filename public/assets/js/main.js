@@ -18,6 +18,11 @@
 	  verticalOffset: 0
   });
 
+  //Cart
+  var cart = getCart();
+  var cartTotal = cart.total ? cart.total : 0;
+  $('.cart').find('span').html(cartTotal);
+
   // Scrollax
   $.Scrollax();
 
@@ -314,9 +319,14 @@ priceFormat = function(data){
     return price_sep;
 };
 
+floatFormat = function (data) {
+	var floatNum = data.replace(/(\D)/g, ".");
+
+	return parseFloat(floatNum);
+}
+
 function addToCart(cartItem){
     var cartItems = (localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : [];
-    console.log(cartItems);
     if (cartItems.length == 0){
         cartItems = {
             total: 1,
@@ -346,10 +356,13 @@ function addToCart(cartItem){
         if (!considence){
             cartItems.items.push(cartItem);
             cartItems.total += 1;
-            cartItems.totalPrice += cartItem.price
+            cartItems.totalPrice += cartItem.price;
+            cartItem.quantity = 1;
         }
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }
+
+    $('.cart').find('span').html(cartItems.total);
 
     toastr.options = {
         "closeButton": true

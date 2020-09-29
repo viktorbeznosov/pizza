@@ -9028,3 +9028,24 @@ textarea.form-control {
   background: #121618 !important;
   z-index: 3;
 }
+
+.cart{
+    width: 100px;
+    position: relative;
+}
+
+.cart i{
+    font-size: 25px;
+}
+
+.cart-count{
+    position: absolute;
+    right: 65px;
+    bottom: 5px;
+    border-radius: 10px;
+    padding: 3px 5px 2px;
+    line-height: 1;
+    font-size: 10px;
+    background: #FF4500	;
+    color: white;
+}

@@ -35,7 +35,7 @@
                             <a href="{{ route('menu', $item->id) }}" class="img" data-image="{{ asset($item->image) }}" style="background-image: url({{ asset($item->image) }});"></a>
                             <div class="text p-4">
                                 <h3><a href="{{ route('menu', $item->id) }}" class="name">{{ $item->name }}</a></h3>
-                                <p>{{ $item->description }}</p>
+                                <p class="description">{{ $item->description }}</p>
                                 <p><span class="price">{{ $item->price }} р.</span> <a href="javascript:void(0)" class="ml-2 btn btn-white btn-outline-white order">Order</a></p>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                         <span class="price">{{ $pizza[$i]->price }}  р.</span>
                                     </div>
                                     <div class="d-block">
-                                        <p>{{ $pizza[$i]->description }}</p>
+                                        <p class="description">{{ $pizza[$i]->description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                         <span class="price">{{ $pizza[$i]->price }} р.</span>
                                     </div>
                                     <div class="d-block">
-                                        <p>{{ $pizza[$i]->description }}</p>
+                                        <p class="description">{{ $pizza[$i]->description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                                                     <a href="#" class="menu-img img mb-4" data-image="{{ asset($product->image) }}" style="background-image: url({{ asset($product->image) }});"></a>
                                                     <div class="text">
                                                         <h3><a href="#" class="name">{{ $product->name }}</a></h3>
-                                                        <p>{{ $product->description }}</p>
+                                                        <p class="description">{{ $product->description }}</p>
                                                         <p><span class="price">{{ $product->price }} р.</span></p>
                                                         <p><a href="javascript:void(0)" class="btn btn-white btn-outline-white btn-order">Add to cart</a></p>
                                                     </div>
@@ -151,13 +151,15 @@
             var id = $(this).closest('.product').data('id');
             var name = $(this).closest('.product').find('.name').html();
             var price = floatFormat(priceFormat($(this).closest('.product').find('.price').html()));
-            var image = $(this).closest('.product').find('.img').data('image')
+            var image = $(this).closest('.product').find('.img').data('image');
+            var description = $(this).closest('.product').find('.description').html();
             
             var item = {
                 'id': id,
                 'name': name,
                 'price': price,
-                'image' : image
+                'image' : image,
+                'description': description
             }
             
             addToCart(item);
@@ -168,12 +170,14 @@
             var name = $(this).closest('.product-item').find('.name').html();
             var price = floatFormat(priceFormat($(this).closest('.product-item').find('.price').html()));
             var image = $(this).closest('.product-item').find('.menu-img').data('image');
+            var description = $(this).closest('.product-item').find('.description').html();
 
             var item = {
                 'id': id,
                 'name': name,
                 'price': price,
-                'image' : image
+                'image' : image,
+                'description' : description
             }
 
             addToCart(item)

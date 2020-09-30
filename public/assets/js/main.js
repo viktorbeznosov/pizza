@@ -326,6 +326,7 @@ floatFormat = function (data) {
 }
 
 function addToCart(cartItem){
+    console.log(cartItem);
     var cartItems = (localStorage.getItem('cart')) ? JSON.parse(localStorage.getItem('cart')) : [];
     if (cartItems.length == 0){
         cartItems = {
@@ -337,6 +338,7 @@ function addToCart(cartItem){
                     'name': cartItem.name,
                     'image' : cartItem.image,
                     'price': cartItem.price,
+                    'description': cartItem.description,
                     'quantity': 1
                 }
             ]

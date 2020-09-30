@@ -90,50 +90,25 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="order-goods-item d-flex">
-            
-                <img src="http://pizza.loc/assets/images/products/pizza-1.jpg" class="img" alt="">
-                <div class="text description">
-                    <h3>Itallian Pizza</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>  
-                    <span>400 р.</span>
-                </div>
-                <div class="dec-inc d-flex">
-                    <div class="basket_num_buttons">-</div>
-                    <input type="text" value="1">
-                    <div class="basket_num_buttons">+</div>
-                </div>
-                <div class="delete">
-                    <!--<img src="{{ asset('assets/images/delete.jpg') }}" alt="">-->
-                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
-                </div>
-           
-        </div>
-        
-        <div class="order-goods-item d-flex">
-            
-                <img src="http://pizza.loc/assets/images/products/pizza-1.jpg" class="img" alt="">
-                <div class="text description">
-                    <h3>Itallian Pizza</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>  
-                    <span>400 р.</span>
-                </div>
-                <div class="dec-inc d-flex">
-                    <div class="basket_num_buttons">-</div>
-                    <input type="text" value="1">
-                    <div class="basket_num_buttons">+</div>
-                </div>
-                <div class="delete">
-                    <!--<img src="{{ asset('assets/images/delete.jpg') }}" alt="">-->
-                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
-                </div>
-           
-        </div>        
+    <div class="container items">
+       
+    </div>
+    <div class="order-wrapper d-flex">
+        <button class="btn btn-primary py-3 px-5">Order</button>
     </div>
 </section>
 
 <style>
+    .order-wrapper{
+        justify-content: center;
+    }
+    
+    .btn.btn-primary {
+        background: #fac564;
+        border: 1px solid #fac564;
+        color: #000;
+    }    
+    
     .order-goods-item{
         margin-top: 10px;
     }
@@ -149,7 +124,7 @@
     }
     
     .description{
-        flex-basis: 30%;
+        flex-basis: 60%;
     }
     
     .dec-inc{
@@ -158,6 +133,7 @@
     }
     
     .dec-inc input{
+        background: #fff;
         text-align: center;
         font-weight: 600;
         width: 35px;
@@ -165,6 +141,7 @@
     }
     
     .delete{
+        cursor: pointer;
         margin-left: 20px;
         align-self: center;
     }
@@ -174,6 +151,7 @@
     }
     
     .basket_num_buttons {
+        cursor: pointer;
         width: 35px;
         height: 35px;
         font-weight: 600;
@@ -189,13 +167,38 @@
 </style>
 
 <script>
+    function cartItemTpl(item){
+        var tpl = `
+            <div class="order-goods-item d-flex" data-id="`+item.id+`">
+                <img src="` + item.image + `" class="img" alt="">
+                <div class="text description">
+                    <h3>`+item.name+`</h3>
+                    <p>`+item.description+`</p>  
+                    <span>`+item.price+` р.</span>
+                </div>
+                <div class="dec-inc d-flex">
+                    <div class="basket_num_buttons">-</div>
+                    <input type="text" value="`+item.quantity+`" disabled>
+                    <div class="basket_num_buttons">+</div>
+                </div>
+                <div class="delete">
+                    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+                </div>           
+            </div>
+        `
+        
+        return tpl;
+    }
+    
     $(document).ready(function(){
         var cart = getCart();
-       
+        
         if (cart.length == 0){
-            
+            $('.order-wrapper').hide();
         } else {
-
+            cart.items.forEach(function (item) {
+                $('.items').append(cartItemTpl(item));
+            });
         }       
     });
 </script>

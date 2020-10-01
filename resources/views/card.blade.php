@@ -93,9 +93,12 @@
     <div class="container items">
        
     </div>
-    <div class="order-wrapper d-flex">
-        <button class="btn btn-primary py-3 px-5">Order</button>
-    </div>
+    <form action="{{ route('cart') }}" method="post">
+        <div class="order-wrapper d-flex">
+            <input type="submit" value="Order" class="btn btn-primary py-3 px-5">
+        </div>
+    </form>
+
 </section>
 
 <style>
@@ -177,15 +180,15 @@
                     <span>`+item.price+` р.</span>
                 </div>
                 <div class="dec-inc d-flex">
-                    <div class="basket_num_buttons">-</div>
+                    <div class="basket_num_buttons minus">-</div>
                     <input type="text" value="`+item.quantity+`" disabled>
-                    <div class="basket_num_buttons">+</div>
+                    <div class="basket_num_buttons plus">+</div>
                 </div>
                 <div class="delete">
                     <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
                 </div>           
             </div>
-        `
+        `;        
         
         return tpl;
     }
@@ -193,11 +196,26 @@
     $(document).ready(function(){
         var cart = getCart();
         
-        if (cart.length == 0){
-            $('.order-wrapper').hide();
+        if (cart.length == 0){ 
+            $('.order-wrapper').remove();
         } else {
             cart.items.forEach(function (item) {
                 $('.items').append(cartItemTpl(item));
+                $('div[data-id="'+item.id+'"').find('.delete').on('click', function(){
+                    removeFromCart($(this));
+                });
+                
+                $('div[data-id="'+item.id+'"').find('.plus').on('click', function(){
+                    cartItemInc($(this));
+                });
+                var count = $('div[data-id="'+item.id+'"').find('input[type="text"]').val();
+                
+                if (count > 1){
+                    $('div[data-id="'+item.id+'"').find('.minus').on('click', function(){
+                        cartItemDec($(this));
+                    });
+                }
+                
             });
         }       
     });

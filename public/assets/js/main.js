@@ -391,22 +391,18 @@ function removeFromCart(item){
         }
     });
     localStorage.setItem('cart', JSON.stringify(cart));
+    $('.cart-count').html(cart.total);
     if (cart.items.length == 0){
+        $('.cart-count').html('0');
         localStorage.clear();
-        $('.right-block-cart-price').html('Корзина');
-        $('.right-block-cart-count').html('Пуста');
-        $('.order-confirm .result').find('span:last-child').html('');
-        $('.order-confirm').hide();
-    } else {
-        $('.right-block-cart-price').html(cart.totalPrice + ' руб.');
-        $('.right-block-cart-count').html(cart.total + ' ' + predmet(cart.total));
-        $('.order-confirm .result').find('span:last-child').html(cart.totalPrice + ' руб.');
-    }
+        $('.order-wrapper').remove();
+    } 
 }
 
 //Decreese good quantity in cart
 function cartItemDec(item){
-    var count = item.closest('.good-quantity').find('.quantity-operate-count').val();
+    var count = item.closest('.order-goods-item').find('input[type="text"]').val();
+    
     if (count > 1){
         var goodId = item.closest('.order-goods-item').data('id');
 
@@ -418,21 +414,18 @@ function cartItemDec(item){
                 cart.total -= 1;
                 cart.totalPrice -= item.price;
                 item.quantity -= 1;
-                self.closest('.order-goods-item').find('.good-result').html('').html(priceFormat(item.price * item.quantity) + ' руб');
+                $(self).closest('.order-goods-item').find('input[type="text"]').val(item.quantity);
             }
         });
         localStorage.setItem('cart', JSON.stringify(cart));
-        $('.right-block-cart-price').html(priceFormat(cart.totalPrice) + ' руб.');
-        $('.right-block-cart-count').html(cart.total + ' ' + predmet(cart.total));
 
         count--;
-        item.closest('.good-quantity').find('.quantity-operate-count').val(count);
-        $('.order-confirm .result').find('span:last-child').html(priceFormat(cart.totalPrice) + ' руб.');
+        $('.cart-count').html(cart.total);
     }
 }
 
 function cartItemInc(item){
-    var count = item.closest('.good-quantity').find('.quantity-operate-count').val();
+    var count = item.closest('.order-goods-item').find('input[type="text"]').val();
     var goodId = item.closest('.order-goods-item').data('id');
 
     //Inc item quantity
@@ -443,15 +436,12 @@ function cartItemInc(item){
             cart.total += 1;
             cart.totalPrice += item.price;
             item.quantity += 1;
-            self.closest('.order-goods-item').find('.good-result').html('').html(priceFormat(item.price * item.quantity) + ' руб');
+            $(self).closest('.order-goods-item').find('input[type="text"]').val(item.quantity);
         }
     });
     localStorage.setItem('cart', JSON.stringify(cart));
-    $('.right-block-cart-price').html(priceFormat(cart.totalPrice) + ' руб.');
-    $('.right-block-cart-count').html(cart.total + ' ' + predmet(cart.total));
 
     count++;
-    item.closest('.good-quantity').find('.quantity-operate-count').val(count);
-    $('.order-confirm .result').find('span:last-child').html(priceFormat(cart.totalPrice) + ' руб.');
+    $('.cart-count').html(cart.total);
 }
 

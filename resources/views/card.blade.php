@@ -93,8 +93,10 @@
     <div class="container items">
        
     </div>
-    <form action="{{ route('cart') }}" method="post">
+    <form action="{{ route('order') }}" method="post" name="order">
+        {{ csrf_field() }}
         <div class="order-wrapper d-flex">
+            <input type="hidden" name="cart">
             <input type="submit" value="Order" class="btn btn-primary py-3 px-5">
         </div>
     </form>
@@ -217,7 +219,14 @@
                 }
                 
             });
-        }       
+        }
+
+        $('form[name="order"]').on('submit', function(){
+            var cart = getCart();
+            cart = JSON.stringify(cart);
+            $(this).find('input[name="cart"]').val(cart);
+//            localStorage.clear();
+        });
     });
 </script>
 @endsection

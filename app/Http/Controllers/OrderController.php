@@ -15,7 +15,7 @@ class OrderController extends Controller
         $cart = json_decode($request->get('cart'));
 //        dump($cart->items);die();
 
-        $order = new Foo();
+        $order = new Order();
         dd($order);
         $order->user_id = $request->user()->id;
         $order->status_id = 1;

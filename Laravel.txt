@@ -1,0 +1,743 @@
+composer global require "laravel/installer"
+
+echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
+source ~/.bashrc
+
+laravel new <my_project>
+
+или
+
+composer create-project --prefer-dist laravel/laravel <my_project> "5.4.*"
+
+Ошибки:
+	php artisan vendor:publish --tag=laravel-errors - опубликовать стрнаицы ошибок
+
+====================================================================================
+<my_folder>/public - все там
+
+.htaccess (в корне)
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*) public/$1 [L]
+
+====================================================================================
+
+models: 	app/
+controllers: 	app/Http/Contollers/
+views: 		resources/views/
+routes:		routes/web.php
+
+Настройки:
+.ENV
+config/
+	config/app.php
+
+Пространство имен:
+	php artisan app:name <Name space>
+
+Маршруты:
+	php artisan route:list - список маршрутов
+
+	routes/web.php
+
+	Route::get('/', function () {
+	    return view('welcome');
+	});
+
+	Route::post('/comments', function () {
+	    print_r($_POST);
+	});
+
+	Route::match(['get','post'], '/comments', function(){
+	    print_r($_POST);
+	});
+
+	Route::any('/comments', function(){
+	    print_r($_POST);
+	});
+	
+	параметризированный запрос
+	Route::get('/page/{id}', function ($id) {
+	    echo $id;
+	});
+
+	Route::get('/page/{id?}', function ($id = 10) {
+	    echo $id;	
+	});
+
+	Параметризированный запрос с условием
+	Route::get('user/{id}', function ($id) {
+	    //
+	})->where('id', '[0-9]+');
+
+	Route::get('user/{id}/{name}', function ($id, $name) {
+	    //
+	})->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
+
+	Глобальные ограничения - RouteServiceProvider:
+	public function boot()
+	{
+	    Route::pattern('id', '[0-9]+');
+	    //Route::patterns(['id' => '[0-9]+', 'name' => '[a-z]+']');
+
+	    parent::boot();
+	}
+
+	Именованный маршрут
+	Route::get('/page/{id?}', function ($id = 10) {
+	    return view('welcome');
+	})->name('home');
+
+	Route::get('page/create', function(){
+	   return redirect()->route('home', array('id' => 25));
+	});
+
+	Группировка маршрутов с префиксом
+	Route::prefix('admin')->group(function () {
+
+	    Route::get('page/create', function(){
+		return redirect()->route('page', array('id' => 25));
+	    });
+
+	    Route::get('page/edit', function(){
+		echo 'page/edit';
+	    });
+
+	});
+
+	Текущий маршрут
+	$route = Route::current();
+	echo $route->getName();
+	echo $route->getParameter('param_name');
+	print_r($route->parameters());
+
+
+
+Консоль:
+php artisan
+	php artisan list - список команд
+	php artisan help <comand name> - помощь по команде
+	php artisan app:name <new name spase> - установить корневой пространство имен
+	php artisan key:generate - сгенерировать новый ключ приложения
+	php artisan make - создать сущность
+		php artisan make:controller <directory>\<controller name> - создать контроллер
+ 
+	
+Контроллеры:
+	
+	php artisan make:controller <directory>\<controller name> - создать контроллер
+	Route::get('/about/{id?}', '<directory>\<controller name>@<action>');
+	REST-full sysytem Controllers:
+		php artisan make:controller <directory>\<controller name> --resource
+		Route::get('/pages/<new method>', '<directory>\<controller name>@<action>') - Добавить новый метод
+		Route::resource('/pages','<directory>\<controller name>', array('only/except' => (<methods list>)));
+
+
+	https://laravel.com/docs/5.1/controllers#restful-resource-controllers
+
+	Класс $request
+	$request->all() - массив всех параметров запроса
+	$Request->input('<field name>') - поле
+	$request->has('<field name>') - есть имеется $_POST['field name']
+	$request->only('<field name 1>','<field name 2>', ...) -массив параеметров
+	$request->except('<field name 1>','<field name 2>', ...) - все кроме
+	$request->field_name - добступ к полю field_name
+	$request->method() - метод запроса
+	$request->path() - путь запроса
+	$request->url() - путь запроса без get параметров
+	$request->fullUrl() - полный путь 
+	$request->is('contact/*') - соответствие определенному шаблону пути
+	$request->isMethod('post') - проверка метода запроса
+	$request->flash() - запомнить данные в сессии
+	$request->flush() - очистить содержимое сессии
+	$request->flashOnly('<field name 1>','<field name 2>', ...) - запомнить определенные поля
+	$request->flashExcept('<field name 1>','<field name 2>', ...) - запомнить все кроме
+	$request->header() - выводит заголовок в виде массива
+
+	Класс Responce:
+	return (new Response('<Content>', <status>, array(<Headers>)));
+	return responce('<Content>', <status>, array(<Headers>));
+	return response()->json(array(data));
+	return response()->download('robots.txt'); - отдать файл на скачивание
+	return redirect('<url>'); - перенаправление
+	return redirect()->route('<route name>');
+	return redirect()->action('<Directory>\<ControllerName>@<Action name>')
+
+Посредники: 
+	
+	app/Http/Middleware/
+	sudo php artisan make:middleware <middleware name>
+	регистрация:
+		Http/Kernel.php
+		на все роуты
+		protected $middleware
+		на определенный роут:
+		protected $middleware[
+			'myMiddle' => \App\Http\Middleware\MyMiddleWare::class
+		]
+
+
+Views:
+	use Illuminate\Support\Facades\View;
+
+	Передать переменную во все виды:
+	Illuminate\Support\Facades\View::share('key', 'value');
+
+        View::composer('public.layout,...', function ($view) {
+            $view->with(['key' => 'value']);
+        });
+
+	resources/views
+	Blade:
+		@section('<section name>')
+			<content>
+		@endsection (@show - объявить и сразу отобразить)
+		@yield('navbar') - Отображение в шаблоне
+		@extends('<parent name>') -наследование родительского шаблона
+		@section('<parent section name>') - переопределение родительского блока
+			@parent - отображение кода родительского блока
+			<additional content>
+		@endsection
+
+		@inclede('<directory>.<template>') - подключение шаблона
+		{{ $variable }} - переменная
+		{!! $script !!} - Отключить экранирование спецсимволов
+		
+		условие:
+		@if()
+		@else/@elseif()
+		@endif
+		
+		циклы:
+		@for($i=0;$i<10;$i++)
+		@endfor	
+		---------------------------------
+		@while()
+		@endwhile
+		---------------------------------
+		@foreach($array as $key => $item)
+		@endforeach
+		---------------------------------	
+		@forelse($array as $key => $item)		    
+		@empty		   
+		@endforelse
+		---------------------------------
+
+		Своя директива:
+		App/Providers/AppServiseProvider
+		public function boot(){
+			Blade::directive('myDir', function($var){
+			    return "<h1>New Directive - {$var}</h1>";
+			});
+		}
+
+	Дата:
+		$article->created_at->format('format')
+
+Миграции:
+
+	Ошибка:
+	php artisan cache:clear
+
+	composer dump-autoload -o
+	composer update
+	-----------------------------------------------------------------------
+
+	https://laravel.su/docs/5.4/migrations#migration-structure
+
+	в composer.json в require добавляем - "doctrine/dbal": "*"
+
+	php artisan make:migration create_articles_table - создать класс миграции
+	php artisan make:migration create_articles_table --create=<table name>
+	php artisan make:migration change_articles_table --table=<table name> - миграция на 		изменение созданной таблицы
+
+	php artisan migrate - выполнить миграцию
+	php artisan migrate:rollback - отменить последнюю миграцию
+	php artisan migrate:reset - отменить все миграции
+
+Посев данных:
+
+	php artisan make:seeder <Seeder Name> - создать класс посева
+	php artisan db:seed --class=<Seeder Name>
+		DB::insert(<sql query>);
+		DB::table('<table name')->insert(
+			array('column' => 'value', ...),
+			array(...)
+		);
+		Article::create(array(
+		    'column' => 'value', ...
+		));
+
+	DB::table('<table name>')->insertGetId('...') - добавление данных + возврящает id записи
+Запросы:
+
+	$articles = DB::table('articles')->get();
+        $articles = DB::select("SELECT * FROM articles");
+
+	$articles = DB::table('articles')->first();
+	$articles = DB::select("SELECT * FROM articles LIMIT 1");
+
+	$articles = DB::table('articles')->value('<column name>');
+	$articles = DB::select("SELECT <column name> FROM articles");
+
+	$articles = DB::table('articles')->chunk(2);
+	$articles = DB::select("SELECT * FROM articles LIMIT 2 OFFSET 0(2,4)");
+
+	$articles = DB::table('articles')->pluck('<column name>');
+	$articles = DB::table('articles')->count();
+	$articles = DB::table('articles')->max('<column name>');
+	
+	$articles = DB::table('articles')->select('<column name 1>,'<column name 2>', ...)->get();
+	$articles = DB::table('articles')->distinct->select('<column name>)->get();
+
+	$articles = DB::table('articles')->select(...)->where('<column name>','<condition>','value')->get();
+
+	$result = DB::table('<table name>')->where('id',2)->update(array('<column name>' => 'value', ...)
+	$result = DB::table('<table name>')->where('id',2)->delete()
+	
+	...
+
+	https://laravel.com/api/7.x/Illuminate/Database/Query/Builder.html
+
+Прослушка запросов:
+
+	AppServiceProvider
+		public function boot(){
+			DB::listen(function ($query){
+				//Что делаем
+        		});
+		}
+
+
+МОДЕЛИ:
+
+	php artisan make:model <model name> - создание модели
+	php artisan make:model <model name> --migration
+	php artisan make:model <model name> -m - создание модели и миграции
+	
+	Значения:
+		protected $table - имя таблицы
+		protected $primaryKey  = 'id'; - первичный ключ
+		public $timestamps = false; $timestamps = false; $incrementing = 'id'; - тут все понятно
+		public $timestamps = false; - без времен создания/модификации
+		protected $fillable = ['column1','column2', ...] - список доступных для записи полей
+		protected $guarded = ['column1','column2', ...] - список недоступных для записи полей
+
+		<Model>::get() - все записи <Model>::get(array('field1','field2',...)) - определенные поля
+		<Model>::all(); - все записи
+		<Model>::where(<condition>) - выборка с условием
+		<Model>::find(<id>) - поиск по id
+		<Model>::find([<id1>,<id2>, ... ]) - поиск коллекции моделей по id
+		<Model>::take(n) - взять n элементов с начала take(-n) - с конца
+
+		<Model>::firstOrCreate(['column' => 'value', ...]) - Создает запись или вызвращает id 			первой найденой записи с 'column' => 'value'
+		<Model>::firstOrNew(...) - находит либо подготовливает новую модель, но без записи в БД
+
+	Создание новой записи:	
+		$model = new Model();
+		$model->field = value;
+		$model->save();
+		или
+		Model::create([
+			'column' => 'value'
+		]); - но нужно перечислить protected $fillable	
+		или
+		$input = $request->only(...)(except(...))
+		$model->fill($input);
+	Геттеры
+	public function get<Property>Attribute($value){
+		return $value;
+	}
+	Сеттеры
+	public function set<Property>Attribute($value){
+		...code...
+		$this->attributes['name'] = $value;
+		...code...
+	}
+	Преобразование типов данных
+	protected $casts = [
+		'property1' => 'string',
+		'property_array' => 'array' - свойство при сохранении будет преобразовано в json
+		...
+	]	
+	
+
+	Модификация записи
+		<Model>::where(<condition>)->update(['<column>' => '<value>', ...]);
+
+		Удаление записи:
+		<Model>::find(<id>)->delete();
+		<Model>::destroy(<id>)
+		<Model>::destroy([<id1>,<id2>, ...])
+		<Model>::where(...)->delete();
+	
+	Мягкое удаление:
+		php artisan make:migration change_<table name>_table_soft --table=<table name>
+		public function up(){
+			Schema::table('<table name>', function (Blueprint $table) {
+		    		$table->softDeletes();	
+			});
+		}
+		public function down(){
+			Schema::table('<table name>', function (Blueprint $table) {
+			    $table->dropColumn('deleted_at');
+			});
+		}
+	
+	//Модель
+		use Illuminate\Database\Eloquent\SoftDeletes;
+		class <Model> extends Model
+		{
+		    use SoftDeletes;
+		}
+		$model->delete();
+
+		$model->trashed() - проверка модели на мягкое удаление
+		
+	найти удаленные
+		$model = Model::withTrashed()->find(id); - по Id
+		$model = Model::withTrashed()->where(...) - по условию
+		model = Model::withTrashed()->get() - все
+	восстановление:
+		$model->restore();
+
+	Полное удаление:
+		$model->forceDelete();
+
+	Отображение в  виде массива
+		$model->toArray()
+	Отображение в виде json
+		$model->toJson()
+
+	Работа с коллекциями - https://laravel.su/docs/5.4/collections
+		$collection->isEmpty() - проверка на пустоту
+
+		$collection->transform(function ($item, $key){
+		    $item // Code
+		}); - модификация элементов коллекции
+
+СВЯЗИ:
+	One to one
+	    public function <property>(){
+		return $this->hasOne('App\<Model>','<foreign_key> = model_id','primary_key' = id);
+	    }
+
+	    dump($model->property);
+
+	    public function user(){
+		return $this->belongsTo('\App\<To Whome>');
+	    }
+
+	    получить:
+		$model->property()->first()->name
+
+	One to many
+	    public function <models>(){
+		return $this->hasMany('App\<Model>');
+	    }
+	    dump($model->models);
+
+	Many to Many
+
+	    public function <models>(){
+		return $this->belongsToMany('App\<Model>','link_table','foreign_key_1','foreign_key_2');
+	    }
+
+	Жадная загрузка со связанными таблицами
+	$articles = Articles::with('user','...', ...)->get();
+	
+	Дозагрузка связанной таблицы
+        $artcls = Article::all();
+        $artcls->load('user');
+
+	Манипуляции с данными
+	$users = User::has('articles') - выбрать записи, имеющие связи с articles
+	$users = User::has('articles','>=','3');
+
+	Группировка
+	$user->articles()->groupBy('<field>')
+
+	$user->articles()->save($article); $user->articles()->save(new Article([...]))
+	$user->articles()->saveMany([$article1,$article2, ...]);
+	$user->articles()->where(...)->update([...])
+
+	//Перепривязать к другой модели (один к одному)
+	$country->user()->associate($user);
+        $country->save();
+
+	//Привязать к модели (многие ко многим)
+        $user = User::find(2);
+        $role = Role::find(3);
+	$user->roles()->attach($role);
+		или
+	$role_id = Role::find(3)->id;
+	$user->roles()->attach($role_id);
+	//Отвязать 
+	$user->roles()->detach($role);
+
+
+Работа с файлами:
+	Создать ссылку в /public на папку /storage - php artisan storage:link
+	url = {{ asset('/storage/...' }}
+
+	if($request->hasFile('<filename>')) - проверка, есть в запросе файл
+
+	$file = $request->file('filename'); - получить загруженный файл по имени
+	$file->move(public_path() . '/assets/img', <filename>); - сохранить файл
+
+Подключение css и js
+	<link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+	<script src="{{ asset('/js/script.js') }}"></script>
+
+Валидация данных:
+	$rules = array(
+		'field1' => 'required|...'
+	)
+
+	Available Validation Rules:
+	https://laravel.com/docs/7.x/validation#available-validation-rules
+
+	$this->validate($request, $rules);
+	{{ $errors->all() }} - все ошибки валидации
+
+        $messages = array(
+		 'name.required' => 'Поле :attribute должно быть заполненно'
+	);
+        $validator = Validator::make($request->all(), array(
+            'name' => 'required',
+        ), $messages);
+
+	if($validator->fails()){
+            redirect()->route('contact')->withErrors($validator)->withInput();
+        }
+
+	создать свой класс request:
+		php artisan make:request MyRequest
+		и использовать в контроллерах MyRequest $request
+		и в нем создавать свои правила валидации
+
+		public function rules() - правила
+		public function messages() - сообщения
+	        return array(
+		    'name.required' => 'Поле :attribute должно быть заполненно'
+		);
+
+Сессии:
+	
+	config/sessions.php - конфигурационный файл сессий
+	php artisan session:table - создать миграцию для таблицы сессий
+	$request->session() - возвращает объект сессии
+	$request->session()-get() - возвращает определенное значение
+	$request->session()-put('key','value') - сохранить значение в сессию
+	$request->session()-all() - все значения сессии
+	$request->session()-has('key') - поиск значения по ключу
+	request->session()->push('key','value_n'); - обавить элемент в массив с ключом key
+	request->session()->pull('key') - возвращает ячейку и удаляет ее из сессии
+	request->session()->forget('key'); - удаление ячейки
+	request->session()-flush() - очистка сессии
+	
+	или
+
+	Session::get()... и.т.д.
+	session('key') - доступ к переменным через хелпер
+	session(['key'=>'value']) - установка значений
+
+Аутентификация:
+
+	php artisan make:auth - создать шаблоны для аутентификации
+	Auth::user() 
+	$user = $request->user();- возвращает текушего пользователя
+	if (Auth::check()) - Проверка что пользователь зарегистрирован
+
+	$array = $request->all();
+	$remember = $request->has('remember');
+	Auth::attempt(array(
+            'login' => $array['login'],
+            'password' => $array['password']
+        ), $remember) - аутентификация пользователя
+
+	Auth::login($user) 
+	Auth::guard('web')->login($user)- логин через модель пользователя
+	Auth::guard('web')->logout() - логоут
+	Auth::loginUsingId($user_id) - логин с помощью id
+
+	return redirect()->intended('/default route'); - перенаправить на страницу, которую хотел user
+	return redirect()->back(); - Предыдущая страница
+
+	==============================================================================================
+	ЗАДАНИЕ ПРАВ НА ОПРЕДЕЛЕННЫЕ ДЕЙСТВИЯ:
+
+	AuthServiceProvider
+	    public function boot()
+	    {
+		$this->registerPolicies();
+
+	        Gate::define('<action-name>', function ($user, ...) {
+		    return $user->isAdmin;
+		});
+	    }
+	
+	Проверка наличия прав на действие в контроллере
+	if (Gate::allows('<action-name>')) {
+	    // The current user can edit settings
+	}
+
+	if (Gate::denies('<action-name>', $post)) {
+	    // The current user can't update the post...
+	}
+
+	передача аргументов
+	Gate::define('delete-comment', function ($user, $post, $comment) {
+		//
+	});
+
+	if (Gate::allows('delete-comment', [$post, $comment])) {
+		//
+	}
+
+	для набора действий:
+	if (Gate::any(['update-post', 'delete-post'], $post)) {
+	    // The user can update or delete the post
+	}
+
+	if (Gate::none(['update-post', 'delete-post'], $post)) {
+	    // The user cannot update or delete the post
+	}
+
+	определения для конкретного пользователя:
+	if ($request->user()->can('update-post', $post)) {
+		// Update Post...
+	}
+
+	if ($request->user()->cannot('update-post', $post)) {
+		// Update Post...
+	}
+
+	if (Gate::forUser($user)->allows('update-post', $post)) {
+	    // The user can update the post...
+	}
+
+	if (Gate::forUser($user)->denies('update-post', $post)) {
+	    // The user can't update the post...
+	}
+	
+	проверка в шаблоне:
+	@can(@cannot)('update-post', $post)
+		<!-- The Current User Can Update The Post -->
+	@else
+		<!-- The Current User Can't Update The Post -->
+	@endcan
+	=============================================================================================
+
+Политики авторизации для различных сущностей:
+
+	php artisan make:policy MyPolicy - создание
+	регистрация:
+		AuthServiceProvider
+		    protected $policies = [
+			'App\Model' => 'App\Policies\ModelPolicy',
+			MyModel::class => MyPolicy::class,
+		    ];	
+	в классе MyPolisy - разрешения на определенные действия:
+	    public function add(User $user, MyModel $model, ...){
+		//Все по аналогии с Gate
+	    }
+
+	    public function update(User $user, MyModel $model, ...){
+		//Все по аналогии с Gate
+	    }
+	    более преоритетное правило
+	    public function before(User $user){
+
+	    }	
+	проверка:
+	if (Gate::allows('add', $myModel)) {
+	    // The current user can edit settings
+	}
+	
+
+Админка: 
+
+	НЕ РАБОТАЕТ!!!
+	https://github.com/FrozenNode/Laravel-Administrator
+	composer require "frozennode/administrator: 5.*"
+	config/app.php
+		'providers' => [
+			'Frozennode\Administrator\AdministratorServiceProvider',
+		]
+	php artisan vendor:publish
+	
+
+Обработка событий:
+
+	DB::listen - посмотреть
+
+	app/Providers/AppServiceProvider.php
+
+	    //регистрация
+	    protected $listen = [
+		'App\Events\Event' => [
+		    'App\Listeners\EventListener',
+		],
+	    ];
+
+	php artisan event:generate - создать зарегистрированные события в app/Events и app/Listeners
+	Log::info('Header',[messages]) - Логирование
+
+	Event::fire(new Event(argument1, ...)) - инициирование события
+	event(new Event(argument1, ...))
+
+	Посмотреть - https://laravel.su/docs/5.4/eloquent#events
+	AppServiseProvider.php
+		public function boot(){
+			Model::created(function(Model $model){
+				//посмотреть
+			});
+		}
+
+Локализация:
+
+	Lang::get(<filename>.<word>) - вернуть перевод слова <word>
+	'apple' => 'яблоко|яблока|яблок' - Lang::choise('<filename>.apple', 5) - выбор перевода в зависимости от числительного
+	'word' => '{0}Var1|[1,19]Var2|[20,Inf]Var3' - - Lang::choise('<filename>.'word', number)
+
+
+Контракты/Фасады - https://klisl.com/laravel_architecture.html
+Генератор форм - https://laravelcollective.com/docs/5.2/html
+
+
+Mail:
+
+            Mail::send('site.email', array(
+                'data' => $data
+            ), function ($message){
+                $mail_admin = env('MAIL_ADMIN');
+                $message->from($data['email'], $data['name']);
+                $message->to($mail_admin)->subject('Question');
+            });
+
+	    $message->from($address, $name = null);
+	    $message->sender($address, $name = null);
+	    $message->to($address, $name = null);
+	    $message->cc($address, $name = null);
+	    $message->bcc($address, $name = null);
+	    $message->replyTo($address, $name = null);
+	    $message->subject($subject);
+	    $message->priority($level);
+	    $message->attach($pathToFile, array $options = []);
+
+	    // Attach a file from a raw $data string...
+	    $message->attachData($data, $name, array $options = []);
+
+	    // Get the underlying SwiftMailer message instance...
+	    $message->getSwiftMessage();
+
+Menu - https://github.com/lavary/laravel-menu
+
+
+
+https://web-programming.com.ua/avtorizaciya-v-laravel-5-3-iz-neskolkix-tablic/ - 2 таблицы
+https://si-dev.com/ru/blog/laravel-5-admin-dashboard - 1 таблица
+
+
+

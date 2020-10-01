@@ -225,7 +225,7 @@
             var cart = getCart();
             cart = JSON.stringify(cart);
             $(this).find('input[name="cart"]').val(cart);
-//            localStorage.clear();
+            localStorage.clear();
         });
     });
 </script>

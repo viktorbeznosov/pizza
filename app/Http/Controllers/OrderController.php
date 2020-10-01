@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\Product;
 
 class OrderController extends Controller
 {
@@ -16,15 +17,14 @@ class OrderController extends Controller
 //        dump($cart->items);die();
 
         $order = new Order();
-        dd($order);
-//        $order->user_id = $request->user()->id;
-//        $order->status_id = 1;
-//        $order->save();
-//
-//        foreach ($cart->items as $item){
-//            $good = Good::find($item->id);
-//            $order->goods()->attach($good, array('quantity' => $item->quantity));
-//        }
+        $order->user_id = $request->user()->id;
+        $order->status_id = 1;
+        $order->save();
+
+        foreach ($cart->items as $item){
+            $product = Product::find($item->id);
+            $order->products()->attach($product, array('quantity' => $item->quantity));
+        }
 
 //        return view('public.order_done');
         return redirect()->route('cart')->with('status','Заказ создан');

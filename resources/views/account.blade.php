@@ -20,14 +20,19 @@
                     {{ session('status') }}
                 </div>
             @endif
-        <!-- END ALERTS -->
+            <!-- END ALERTS -->
 
             <form action="{{ route('account_update') }}" class="contact-form" enctype="multipart/form-data" method="POST">
                 <div class="row">
                     <div class="col-md-4 sidebar ftco-animate">
                         <div class="product d-flex">
                             <div class="bio align-self-md-center mr-5">
-                                <img src="{{ asset($user->image) }}" alt="Image placeholder" class="img-fluid mb-4">
+                                @if(isset($user->image))
+                                    sdgfasdf
+                                    <img src="{{ asset($user->image) }}" alt="Image placeholder" class="img-fluid mb-4">
+                                @else
+                                    <img src="{{ asset('assets/images/no-image.png') }}" alt="Image placeholder" class="img-fluid mb-4">
+                                @endif
                             </div>
                         </div>
                         <label>
@@ -104,7 +109,7 @@
             $(el).closest('.sidebar').find('img').attr('src', window.URL.createObjectURL($(el)[0].files[0]));
             $('.reset-img').show();
         }
-        
+
         $(document).ready(function () {
             $('.reset-img').on('click', function (event) {
                 event.preventDefault();

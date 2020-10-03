@@ -370,6 +370,7 @@ function addToCart(cartItem){
         "closeButton": true
     }
     toastr.success('Товар добавлен');
+    $('.cart a').attr('href', "/cart");
 }
 
 function getCart(){
@@ -396,6 +397,8 @@ function removeFromCart(item){
         $('.cart-count').html('0');
         localStorage.clear();
         $('.order-wrapper').remove();
+        $('.cart a').attr('href','javascript:void(0)');
+        $('.user-data').hide();
     } 
 }
 

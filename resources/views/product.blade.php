@@ -22,11 +22,11 @@
 
     <section class="ftco-section ftco-degree-bg">
         <div class="container">
-            <div class="row">
+            <div class="row item" data-id="{{ $product->id }}">
                 <div class="col-md-4 sidebar ftco-animate">
                     <div class="product d-flex">
                         <div class="bio align-self-md-center mr-5">
-                            <img src="{{ asset($product->image) }}" alt="Image placeholder" class="img-fluid mb-4">
+                            <img src="{{ asset($product->image) }}" alt="Image placeholder" data-image="{{ asset($product->image) }}" class="img img-fluid mb-4">
                         </div>
                     </div>
                 </div>                
@@ -34,13 +34,13 @@
 
                     <div class="about-author d-flex">
                         <div class="desc align-self-md-center">
-                            <h3>{{ $product->name }}</h3>
-                            <p>{{ $product->description }}</p>
+                            <h3 class="name">{{ $product->name }}</h3>
+                            <p class="description">{{ $product->description }}</p>
                         </div>
                     </div>
                     <div class="d-flex text align-items-center product-order">
-                        <p class="price"><span>{{ $product->price }} р.</span> </p>
-                        <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a>
+                        <p><span class="price">{{ $product->price }} р.</span> </p>
+                        <a href="javascript:void(0)" class="ml-2 btn btn-white btn-outline-white order">Order</a>
                     </div>
                 </div> <!-- .col-md-8 -->
             </div>
@@ -83,7 +83,26 @@
     </style>
     
     <script>
+        $(document).ready(function () {
+            $('.order').on('click', function () {
+                var id = $(this).closest('.item').data('id');
+                var name = $(this).closest('.item').find('.name').html();
+                var price = floatFormat(priceFormat($(this).closest('.item').find('.price').html()));
+//                var price = $(this).closest('.item').find('.price').html();
+                var image = $(this).closest('.item').find('.img').data('image');
+                var description = $(this).closest('.item').find('.description').html();
 
+                var item = {
+                    'id': id,
+                    'name': name,
+                    'price': price,
+                    'image' : image,
+                    'description': description
+                }
+
+                addToCart(item);
+            });
+        });
     </script>
 
 @endsection

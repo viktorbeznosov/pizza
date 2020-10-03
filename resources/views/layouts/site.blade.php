@@ -193,6 +193,11 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script>
     $(document).ready(function (){
+
+        var cart = getCart();
+        if (cart.length == 0){
+            $('.cart a').attr('href','javascript:void(0)');
+        }
         
         $.ajaxSetup({
             headers: {

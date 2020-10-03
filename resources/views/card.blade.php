@@ -83,27 +83,84 @@
         
 <section class="ftco-section">
     <div class="container">
+
+        <!-- ALERTS -->
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+        <!-- END ALERTS -->
+
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center fadeInUp ftco-animated">
                 <h2 class="mb-4">Cart</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
         </div>
-    </div>
-    <div class="container items">
-       
-    </div>
-    <form action="{{ route('order') }}" method="post" name="order">
-        {{ csrf_field() }}
-        <div class="order-wrapper d-flex">
-            <input type="hidden" name="cart">
-            <input type="submit" value="Order" class="btn btn-primary py-3 px-5">
+
+        <div class="container items">
+
         </div>
-    </form>
+        <form action="{{ route('order') }}" method="post" name="order">
+            {{ csrf_field() }}
+            <div class="order-wrapper d-flex">
+                <input type="hidden" name="cart">
+                <input type="submit" value="Order" class="btn btn-primary py-3 px-5">
+            </div>
+            @if(!Auth::user())
+                <div class="row user-data">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input name="name" type="text" class="form-control" value="" placeholder="Your Name">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input name="email" type="text" class="form-control" value="" placeholder="Your Email">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input name="phone" type="text" class="form-control" value="" placeholder="Your Phone">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input name="password" type="password" class="form-control" value="" placeholder="Your Password">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input name="confirm_pass" type="password" class="form-control" value="" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </form>
+
+    </div>
 
 </section>
 
 <style>
+
+    .alert-success {
+        color: #332202;
+        background-color: #fac564;
+        border-color: #de950d;
+    }
+
     .order-wrapper{
         justify-content: center;
     }
@@ -200,6 +257,7 @@
         
         if (cart.length == 0){ 
             $('.order-wrapper').remove();
+            $('.user-data').hide();
         } else {
             cart.items.forEach(function (item) {
                 $('.items').append(cartItemTpl(item));
@@ -222,6 +280,43 @@
         }
 
         $('form[name="order"]').on('submit', function(){
+           @if(!Auth::user())
+                var name = $('input[name="name"]').val();
+                var email = $('input[name="email"]').val();
+                var phone = $('input[name="phone"]').val();
+                var password = $('input[name="password"]').val();
+                var confirm_pass = $('input[name="confirm_pass"]').val();
+                var error = false;
+
+                if (!name){
+                    toastr.warning('Введите ваше имя');
+                    error = 1;
+                }
+
+                if (!email){
+                    toastr.warning('Введите ваш email');
+                    error = 1;
+                }
+
+                if (!phone){
+                    toastr.warning('Введите ваш телефон');
+                    error = 1;
+                }
+
+                if (!password){
+                    toastr.warning('Введите ваш пароль');
+                    error = 1;
+                }
+
+                if (password != confirm_pass){
+                    toastr.warning('Пароли должны совпадать');
+                    error = 1;
+                }
+                if(error){
+                    return false;
+                }
+            @endif
+
             var cart = getCart();
             cart = JSON.stringify(cart);
             $(this).find('input[name="cart"]').val(cart);

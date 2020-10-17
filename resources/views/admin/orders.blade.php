@@ -31,7 +31,124 @@
             <h3 class="page-title"> {{ $title }} </h3>
             <!-- END PAGE TITLE-->
             <!-- END PAGE HEADER-->
-     
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-body">
+                            <div class="table-toolbar">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.orders.create') }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="btn-group pull-right">
+                                            <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-print"></i> Print </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <i class="fa fa-file-excel-o"></i> Export to Excel </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column table-products" id="sample_1">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                            <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                                            <span></span>
+                                        </label>
+                                    </th>
+                                    <th class="center"> Пользователь </th>
+                                    <th class="center hidden-xs"> Дата </th>
+                                    <th class="center"> Статус </th>
+                                    <th class="center"> Действия </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($orders as $order)
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                <input type="checkbox" class="checkboxes" value="1" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td class="center middle">
+                                            <img alt="" class="img-circle img-category" src="@if(isset($order->user->image)){{ asset($order->user->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
+                                        </td>
+                                        <td class="center middle">
+                                            {{ $order->created_at->format('d.m.Y') }}
+                                        </td>
+                                        <td class="hidden-xs center middle">
+                                            <span class="label label-sm label-warning" style="background-color: {{ $order->status->Color }}">{{ $order->status->Name }}</span>
+                                        </td>
+                                        <td class="center middle">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                <a
+                                                        href="{{ route('admin.orders.edit', ['id' => $order->id]) }}"
+                                                        class="btn btn-transparent btn-xs"
+                                                        tooltip-placement="top"
+                                                        tooltip="Edit"
+                                                >
+                                                    <span class="label label-sm label-success">Редактировать </span>
+                                                </a>
+                                                <a
+                                                        href="#"
+                                                        class="btn btn-transparent btn-xs tooltips"
+                                                        tooltip-placement="top"
+                                                        tooltip="Remove"
+                                                        data-toggle="modal"
+                                                        data-target="#basic"
+                                                        data-order="{{ $order->id }}"
+                                                >
+                                                    <span class="label label-sm label-danger">Удалить</span>
+                                                </a>
+                                            </div>
+                                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="{{ route('admin.orders.edit', ['id' => $order->id]) }}">
+                                                    <i class="icon-wrench"></i>
+                                                </a>
+                                                <a
+                                                        class="btn btn-circle btn-icon-only btn-default"
+                                                        href="javascript:;"
+                                                        tooltip-placement="top"
+                                                        tooltip="Remove"
+                                                        data-toggle="modal"
+                                                        data-target="#basic"
+                                                        data-order="{{ $order->id }}"
+                                                >
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
+                </div>
+            </div>
         </div>
         <!-- END CONTENT BODY -->
     </div>
@@ -79,8 +196,8 @@
     <script>
         $(document).ready(function(){
             $('a[data-toggle="modal"]').on('click', function(){
-                var blog_id = $(this).data('blog');
-                $('#blog-delete').attr('action','/admin/blogs/' + blog_id);
+                var order_id = $(this).data('order');
+                $('#blog-delete').attr('action','/admin/orders/' + order_id);
             });
         });
     </script>

@@ -52,6 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-summernote/summernote.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{{ asset('assets/metronic/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
@@ -1084,6 +1085,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/global/plugins/fuelux/js/spinner.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="{{ asset('assets/metronic/global/scripts/app.min.js') }}" type="text/javascript"></script>
@@ -1100,6 +1103,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/pages/scripts/components-editors.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/ui-toastr.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/form-validation-md.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/pages/scripts/components-bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>

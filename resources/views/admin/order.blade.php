@@ -77,27 +77,68 @@
                                     <span name="name" type="text" class="form-control">{{ $order->created_at->format('d.m.Y') }}</span>
                                 </div>
                             </div>
-                            @foreach($order->products as $product)
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Продукт</label>
-                                            <div class="input-icon">
-                                                <i class="fa fa-bell-o font-red-thunderbird"></i>
-                                                <span name="name" type="text" class="form-control">{{ $product->name }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Количество</label>
-                                            <div class="input">
-                                                <span name="name" type="text" class="form-control">{{ $product->pivot->quantity }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column table-products">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                            <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                                            <span></span>
+                                        </label>
+                                    </th>
+                                    <th class="center"> Фото </th>
+                                    <th class="center hidden-xs"> Название </th>
+                                    <th class="center"> Количество </th>
+                                    <th class="center"> </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($order->products as $product)
+                                        <tr class="odd gradeX">
+                                            <td>
+                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td class="center middle">
+                                                <img alt="" class="img-circle img-category" src="@if(isset($product->image)){{ asset($product->image) }}@else{{ asset('assets/images/no-image.png') }}@endif" />
+                                            </td>
+                                            <td class="center middle">
+                                                <input name="productId[]" type="hidden" value="{{ $product->id }}" data-cat_id="{{ $product->cat_id }}">
+                                                <span class="product-name">{{ $product->name }}</span>
+                                            </td>
+                                            <td class="center middle">
+                                                <div class="dec-inc d-flex">
+                                                    <div class="basket_num_buttons minus">-</div>
+                                                    <span class="product-qty">{{ $product->pivot->quantity }}</span>
+                                                    <div class="basket_num_buttons plus">+</div>
+                                                </div>
+                                                <input name="productQty[]" type="hidden" value="{{ $product->pivot->quantity }}">
+                                            </td>
+                                            <td class="center middle">
+                                                <a class="btn btn-circle btn-icon-only btn-default" href="javascript:void(0);" tooltip-placement="top" tooltip="Remove">
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <label for="single" class="control-label">Выберите продукт</label>
+                                <select id="single" class="form-control select2">
+                                    <option></option>
+                                    @foreach($categories as $category)
+                                        <optgroup label="{{ $category->name }}" data-id="{{ $category->id }}">
+                                            @foreach($category->products()->get() as $product)
+                                                <option value="{{ $product->id }}" data-image="{{ asset($product->image) }}">{{ $product->name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
 
@@ -165,4 +206,143 @@
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
+
+    <style>
+        .select2-container--bootstrap .select2-results__group {
+            display: block;
+            font-size: 18px;
+            white-space: nowrap;
+            font-weight: 800;
+        }
+
+        .basket_num_buttons {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            font-weight: 600;
+            border: 1px solid #c0c0c0;
+            margin: 0 5px;
+            display: inline-block;
+            color: #000;
+            background: #FFF;
+            text-align: center;
+            cursor: pointer;
+            font-size: 19px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            var productsIds = [];
+            $('input[name="productId[]"]').each(function (index, item) {
+                productsIds.push($(item).val());
+            });
+//
+            $('#single').find('option').each(function (index, item) {
+                if(productsIds.indexOf($(item).val()) != -1){
+                    $(item).remove();
+                }
+            });
+
+            $('a[tooltip="Remove"]').on('click', function () {
+                var image = $(this).closest('tr').find('img').attr('src');
+                var product_id = $(this).closest('tr').find('input[name="productId[]"]').val();
+                var cat_id = $(this).closest('tr').find('input[name="productId[]"]').data('cat_id');
+                var name = $(this).closest('tr').find('.product-name').html();
+
+                $('#single').find('optgroup[data-id="'+cat_id+'"]').append('<option value="'+product_id+'" data-image="'+image+'">'+name+'</option>');
+                $('#single').select2();
+
+                $(this).closest('tr').remove();
+            });
+
+            $('.minus').on('click', function () {
+                var qty = $(this).closest('td').find('input').val();
+                if (qty > 1){
+                    qty--;
+                    $(this).closest('td').find('input').val(qty)
+                    $(this).closest('td').find('.product-qty').html(qty)
+                }
+            });
+
+            $('.plus').on('click', function () {
+                var qty = $(this).closest('td').find('input').val();
+                qty++;
+                $(this).closest('td').find('input').val(qty)
+                $(this).closest('td').find('.product-qty').html(qty)
+            });
+
+            $('#single').on('change', function () {
+                var product_id = $(this).val();
+                var name = $(this).find('option:selected').html();
+                var image = $(this).find('option:selected').data('image');
+                var cat_id = $(this).find('option:selected').closest('optgroup').data('id');
+
+                var tpl = `
+                <tr class="gradeX odd" role="row">
+                    <td>
+                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                            <input type="checkbox" class="checkboxes" value="1">
+                            <span></span>
+                        </label>
+                    </td>
+                    <td class="center middle sorting_1">
+                        <img alt="" class="img-circle img-category" src="`+image+`">
+                    </td>
+                    <td class="center middle">
+                        <input name="productId[]" type="hidden" value="`+product_id+`" data-cat_id="`+cat_id+`" wfd-invisible="true">
+                        <span class="product-name">`+name+`</span>
+                    </td>
+                    <td class="center middle">
+                        <div class="dec-inc d-flex">
+                            <div class="basket_num_buttons minus">-</div>
+                            <span class="product-qty">1</span>
+                            <div class="basket_num_buttons plus">+</div>
+                        </div>
+                        <input name="productQty[]" type="hidden" value="1" wfd-invisible="true">
+                    </td>
+                    <td class="center middle">
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:void(0);" tooltip-placement="top" tooltip="Remove">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                `;
+
+                $('.table-products tbody').append(tpl);
+                $('.table-products tbody tr:last-child').find('a[tooltip="Remove"]').on('click', function () {
+                    var image = $(this).closest('tr').find('img').attr('src');
+                    var product_id = $(this).closest('tr').find('input[name="productId[]"]').val();
+                    var cat_id = $(this).closest('tr').find('input[name="productId[]"]').data('cat_id');
+                    var name = $(this).closest('tr').find('.product-name').html();
+
+                    $('#single').find('optgroup[data-id="'+cat_id+'"]').append('<option value="'+product_id+'" data-image="'+image+'">'+name+'</option>');
+                    $('#single').select2();
+
+                    $(this).closest('tr').remove();
+                });
+
+                $('.table-products tbody tr:last-child').find('.plus').on('click', function () {
+                    var qty = $(this).closest('td').find('input').val();
+                    qty++;
+                    $(this).closest('td').find('input').val(qty);
+                    $(this).closest('td').find('.product-qty').html(qty)
+                });
+
+                $('.table-products tbody tr:last-child').find('.minus').on('click', function () {
+                    var qty = $(this).closest('td').find('input').val();
+                    if (qty > 1){
+                        qty--;
+                        $(this).closest('td').find('input').val(qty);
+                        $(this).closest('td').find('.product-qty').html(qty)
+                    }
+                });
+
+                $(this).find('option:selected').remove();
+                $('#single').select2();
+             });
+
+        });
+    </script>
+
 @endsection

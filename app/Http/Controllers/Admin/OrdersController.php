@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\Category;
 
 class OrdersController extends Controller
 {
@@ -65,15 +66,15 @@ class OrdersController extends Controller
     {
         $order = Order::find($id);
         $products = $order->products()->get();
-//        foreach ($products as $product){
-//            dump($product->pivot->quantity);
-//        }
+        $categories = Category::all();
+
         $title = 'Заказ № ' . $order->id;
 
         $data = array(
             'title' => $title,
             'order' => $order,
-            'products' => $products
+            'products' => $products,
+            'categories' => $categories
         );
 
         return view('admin.order', $data);

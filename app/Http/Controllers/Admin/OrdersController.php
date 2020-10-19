@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Category;
+use App\OrderStatus;
 
 class OrdersController extends Controller
 {
@@ -67,6 +68,7 @@ class OrdersController extends Controller
         $order = Order::find($id);
         $products = $order->products()->get();
         $categories = Category::all();
+        $statuses = OrderStatus::all();
 
         $title = 'Заказ № ' . $order->id;
 
@@ -74,7 +76,8 @@ class OrdersController extends Controller
             'title' => $title,
             'order' => $order,
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'statuses' => $statuses
         );
 
         return view('admin.order', $data);
@@ -89,7 +92,24 @@ class OrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dump($request->all());
+        $order = Order::find($id);
+
+        $productIds = $request->get('productId');
+        $productQtys = $request->get('productQty');
+
+        $products = array();
+        for ($i = 0; $i < count($productIds); $i++){
+            $products[] = array(
+                'good_id' => $productIds[$i],
+                'quantity' => $productQtys[$i]
+            );
+        }
+        $order->products()->sync($products);
+        $order->status_id = $request->get('status_id');
+
+        if ($order->save()){
+            return redirect()->route('admin.orders.edit', $order->id)->with('status','Заказ изменен');
+        }
     }
 
     /**

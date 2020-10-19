@@ -411,10 +411,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 @endif
                 
-                @if($GateHelper->all('VIEW_BLOGS'))
+                @if($GateHelper->all('VIEW_ORDERS'))
                     <li class="nav-item @if(in_array(Route::current()->getName(),['admin.orders.index'])) active @endif">
                         <a href="{{ route('admin.orders.index') }}" class="nav-link">
-                            <i class="fa fa-copyright"></i>
+                            <i class="fa fa-credit-card"></i>
                             <span class="title">Заказы</span>
                         </a>
                     </li>

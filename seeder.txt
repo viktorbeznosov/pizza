@@ -1,0 +1,3 @@
+php artisan db:seed --class=RolesTableSeeder
+php artisan db:seed --class=PermissionsTableSeeder
+php artisan db:seed --class=PermissionRoleTableSeeder

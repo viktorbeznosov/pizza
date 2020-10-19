@@ -35,6 +35,7 @@
             <form action="{{ route('admin.orders.update', $order->id) }}" enctype="multipart/form-data" method="post">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
                 <div class="row">
                     <div class="col-md-6 ">
                         <!-- BEGIN SAMPLE FORM PORTLET-->
@@ -136,6 +137,15 @@
                                                 <option value="{{ $product->id }}" data-image="{{ asset($product->image) }}">{{ $product->name }}</option>
                                             @endforeach
                                         </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="single" class="control-label">Выберите статус</label>
+                                <select id="statuses" class="form-control select2" name="status_id">
+                                    @foreach($statuses as $status)
+                                        <option value="{{ $status->id }}" @if($status->id == $order->status_id) selected @endif>{{ $status->Name }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -9049,3 +9049,19 @@ textarea.form-control {
     background: #FF4500	;
     color: white;
 }
+
+.nav-account-dropdown li{
+  text-align: end;
+  padding: 3px;
+}
+
+.nav-account-dropdown li a{
+  margin-right: 6px;
+  color: #fff;
+}
+
+.nav-account-dropdown li form{
+  padding: 0!important;
+  padding-left: 0!important;
+  padding-right: 0!important;
+}

@@ -61,7 +61,10 @@
                     </a>
                         <ul class="nav-account-dropdown">
                             <li>
-                                <a href="{{ route('account') }}">Account</a>
+                                <a href="{{ route('account') }}" @if(Route::current()->getName() == 'account') style="color: #fac564" @endif>Account</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('orders', Auth::user()->id) }}" @if(Route::current()->getName() == 'orders') style="color: #fac564" @endif>Orders</a>
                             </li>
                             <li>
                                 <form action="{{ route('logout') }}" method="post" class="nav-link form-logout">

@@ -11,8 +11,32 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function show(){
+    public function show($user_id, $order_id = false){
+        if ($order_id){
+            $orders = Order::where('user_id', Auth::user()->id)->where('id', $order_id)->get();
+            if (count($orders) > 0){
+                $title = 'Заказ №' . $orders[0]->id;
 
+                $data = array(
+                    'title' => $title,
+                    'order' => $orders[0]
+                );
+
+                return view('order', $data);
+            }
+
+
+        } else {
+            $orders = Order::where('user_id', Auth::user()->id)->get();
+            $title = 'Заказы';
+
+            $data = array(
+                'title' => $title,
+                'orders' => $orders
+            );
+
+            return view('orders', $data);
+        }
     }
 
     public function create(Request $request){

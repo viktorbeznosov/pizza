@@ -22,6 +22,7 @@ Route::get('/cart', 'CartController@show')->name('cart');
 Route::post('/order', 'OrderController@create')->name('order');
 Route::post('/check_user', 'OrderController@checkUser')->name('check_user');
 Route::post('/account', 'AccountController@update')->name('account_update');
+Route::get('orders/{user_id}/{order_id?}', 'OrderController@show')->name('orders');
 Route::post('/comment', 'CommentsController@store')->name('comment');
 
 

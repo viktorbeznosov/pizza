@@ -112,9 +112,13 @@
                                             </td>
                                             <td class="center middle">
                                                 <div class="dec-inc d-flex">
-                                                    <div class="basket_num_buttons minus">-</div>
+                                                    @if(in_array($order->status_id, [1,2]))
+                                                        <div class="basket_num_buttons minus">-</div>
+                                                    @endif
                                                     <span class="product-qty">{{ $product->pivot->quantity }}</span>
-                                                    <div class="basket_num_buttons plus">+</div>
+                                                    @if(in_array($order->status_id, [1,2]))
+                                                       <div class="basket_num_buttons plus">+</div>
+                                                    @endif
                                                 </div>
                                                 <input name="productQty[]" type="hidden" value="{{ $product->pivot->quantity }}">
                                             </td>
@@ -127,19 +131,21 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="form-group">
-                                <label for="single" class="control-label">Выберите продукт</label>
-                                <select id="single" class="form-control select2">
-                                    <option></option>
-                                    @foreach($categories as $category)
-                                        <optgroup label="{{ $category->name }}" data-id="{{ $category->id }}">
-                                            @foreach($category->products()->get() as $product)
-                                                <option value="{{ $product->id }}" data-image="{{ asset($product->image) }}">{{ $product->name }}</option>
-                                            @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @if(in_array($order->status_id, [1,2]))
+                                <div class="form-group">
+                                    <label for="single" class="control-label">Выберите продукт</label>
+                                    <select id="single" class="form-control select2">
+                                        <option></option>
+                                        @foreach($categories as $category)
+                                            <optgroup label="{{ $category->name }}" data-id="{{ $category->id }}">
+                                                @foreach($category->products()->get() as $product)
+                                                    <option value="{{ $product->id }}" data-image="{{ asset($product->image) }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
 
                             <div class="form-group">
                                 <label for="single" class="control-label">Выберите статус</label>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Хост: localhost
--- Время создания: Авг 29 2020 г., 17:20
--- Версия сервера: 10.3.16-MariaDB
--- Версия PHP: 7.2.20
+-- Хост: 127.0.0.1:3306
+-- Время создания: Окт 28 2020 г., 00:40
+-- Версия сервера: 5.6.41
+-- Версия PHP: 7.0.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,7 +37,7 @@ CREATE TABLE `admins` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `description` text DEFAULT NULL
+  `description` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -45,8 +45,8 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `image`, `remember_token`, `created_at`, `updated_at`, `description`) VALUES
-(1, 'admin', 'admin@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/admins/admin.jpg', 'ydXGrVLcfdrrbRfg7o0IIXixnzJdJ4ylYMNMAu6NcC9xO3P99qIBksgMjzyj', '2020-07-31 21:00:00', '2020-07-31 21:00:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!'),
-(3, 'Lance Smith', 'lance@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/admins/lance_smith.jpg', NULL, '2020-08-22 21:00:00', '2020-08-28 20:07:54', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!'),
+(1, 'admin', 'admin@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/admins/admin.jpg', 'Fupzv8v9pybspzdPLpiX0qELHqaDDsrnQeFqnwenTii5cNyAfPy5OgVMgigH', '2020-07-31 21:00:00', '2020-07-31 21:00:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!'),
+(3, 'Lance Smith', 'lance@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/admins/lance_smith.jpg', 'tJRjK56XBK2NBA4T8ubFO9dimMtLCTo3mpXyQmx4dfXSikHAq3FdfsUdRZSa', '2020-08-22 21:00:00', '2020-08-28 20:07:54', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!'),
 (5, 'test', 'test@mail.ru', '$2y$10$2gYw2tZXIZYuNt5Rvo36qOC4EdTpmGDVZZRSNIHXsnZqQstfUosCe', 'assets/images/admins/1598646084_stay-home.jpg', NULL, '2020-08-28 20:21:24', '2020-08-28 20:21:24', NULL),
 (6, 'Tom Smith', 'tom@mail.ru', '$2y$10$0Fb1Qj4ZVyDH8Ria3V44OOVTql/XKlV5Rp4BvH07cWHvLADiQbita', 'assets/images/admins/1598646496_person_1.jpg', NULL, '2020-08-28 20:28:16', '2020-08-28 20:28:16', NULL),
 (7, 'Mark Wilson', 'mark@mail.ru', '$2y$10$Bs3MR/ClwwofOC5kHViv4..Ufze2tVNPf/OnvRYwYVoglieUPSb9y', 'assets/images/admins/1598646520_person_2.jpg', NULL, '2020-08-28 20:28:40', '2020-08-28 20:28:40', NULL),
@@ -66,7 +66,7 @@ CREATE TABLE `blogs` (
   `admin_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `text` text NOT NULL,
-  `body` text DEFAULT NULL,
+  `body` text,
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -95,7 +95,7 @@ INSERT INTO `blogs` (`id`, `admin_id`, `title`, `text`, `body`, `image`, `create
 CREATE TABLE `categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -121,7 +121,7 @@ CREATE TABLE `comments` (
   `id` int(10) UNSIGNED NOT NULL,
   `parent` int(11) NOT NULL,
   `blog_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `text` text NOT NULL,
@@ -134,9 +134,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `parent`, `blog_id`, `user_id`, `name`, `email`, `text`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, NULL, 'anonin', 'anonim@mail.ru', 'My first comment', '2020-08-28 18:30:23', '2020-08-28 18:30:23'),
-(2, 1, 1, NULL, 'viktorbeznosov', 'viktorbeznosov@mail.ru', 'My reply', '2020-08-28 18:30:33', '2020-08-28 18:30:33'),
-(3, 1, 1, NULL, 'test user', 'test@mail.ru', 'qwerty', '2020-08-28 18:30:51', '2020-08-28 18:30:51'),
+(1, 0, 1, 0, 'anonin', 'anonim@mail.ru', 'My first comment', '2020-08-28 18:30:23', '2020-08-28 18:30:23'),
+(2, 1, 1, 0, 'viktorbeznosov', 'viktorbeznosov@mail.ru', 'My reply', '2020-08-28 18:30:33', '2020-08-28 18:30:33'),
+(3, 1, 1, 0, 'test user', 'test@mail.ru', 'qwerty', '2020-08-28 18:30:51', '2020-08-28 18:30:51'),
 (4, 1, 1, 2, NULL, NULL, 'last', '2020-08-28 18:37:18', '2020-08-28 18:37:18'),
 (5, 4, 1, 2, NULL, NULL, 'fasdfasd', '2020-08-28 18:37:26', '2020-08-28 18:37:26'),
 (6, 5, 1, 2, NULL, NULL, 'qqqqqqq', '2020-08-28 18:37:29', '2020-08-28 18:37:29'),
@@ -177,7 +177,121 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2020_08_29_145848_CreatePermissionRoleTable', 5),
 (18, '2020_08_29_145933_CreateRoleAdminTable', 5),
 (19, '2020_08_29_150742_ChangeRoleAdminTable', 6),
-(20, '2020_08_29_150816_ChangePermissionRoleTable', 6);
+(20, '2020_08_29_150816_ChangePermissionRoleTable', 6),
+(23, '2020_10_01_200609_CreateOrderGoodTable', 3),
+(26, '2014_10_12_000000_create_users_table', 4),
+(27, '2014_10_12_100000_create_password_resets_table', 4),
+(28, '2020_07_29_182215_create_categories_table', 4),
+(29, '2020_07_29_182724_create_products_table', 4),
+(30, '2020_07_29_184506_create_services_table', 4),
+(31, '2020_07_29_184748_create_blogs_table', 4),
+(32, '2020_07_29_191909_create_comments_table', 4),
+(33, '2020_07_29_193456_create_admins_table', 4),
+(34, '2020_08_05_181802_change_services_table', 4),
+(35, '2020_08_11_103328_ChangeBlogsTable', 4),
+(36, '2020_08_23_132533_change_admins_table', 4),
+(37, '2020_08_24_061303_change_comments_table', 4),
+(38, '2020_08_29_145536_CreateRolesTable', 4),
+(39, '2020_08_29_145607_CreatePermissionsTable', 4),
+(40, '2020_08_29_145848_CreatePermissionRoleTable', 4),
+(41, '2020_08_29_145933_CreateRoleAdminTable', 4),
+(42, '2020_08_29_150742_ChangeRoleAdminTable', 4),
+(43, '2020_08_29_150816_ChangePermissionRoleTable', 4),
+(44, '2020_09_01_182255_ChangeUsersTable', 4),
+(45, '2020_09_18_084948_ChangeProductsTable', 4),
+(46, '2020_10_01_194640_create_orders_table', 4),
+(47, '2020_10_01_200303_create_order_statuses_table', 4),
+(48, '2020_10_01_201804_ChangeUsersTable2', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `created_at`, `updated_at`, `user_id`, `status_id`) VALUES
+(1, '2020-10-03 13:09:35', '2020-10-19 17:25:35', 4, 2),
+(2, '2020-10-17 13:39:45', '2020-10-20 16:12:30', 1, 2),
+(3, '2020-10-17 13:40:18', '2020-10-19 17:27:07', 1, 3),
+(4, '2020-10-17 13:43:39', '2020-10-17 13:43:39', 2, 1),
+(5, '2020-10-17 14:11:39', '2020-10-17 14:11:39', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `order_good`
+--
+
+CREATE TABLE `order_good` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `order_id` int(10) UNSIGNED NOT NULL,
+  `good_id` int(10) UNSIGNED NOT NULL,
+  `quantity` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `order_good`
+--
+
+INSERT INTO `order_good` (`id`, `created_at`, `updated_at`, `order_id`, `good_id`, `quantity`) VALUES
+(1, NULL, NULL, 1, 13, 1),
+(2, NULL, NULL, 1, 13, 1),
+(12, NULL, NULL, 4, 1, 2),
+(13, NULL, NULL, 4, 16, 1),
+(14, NULL, NULL, 4, 20, 1),
+(15, NULL, NULL, 4, 14, 1),
+(16, NULL, NULL, 5, 1, 1),
+(17, NULL, NULL, 5, 2, 1),
+(18, NULL, NULL, 5, 16, 2),
+(19, NULL, NULL, 5, 14, 2),
+(20, NULL, NULL, 5, 20, 1),
+(39, NULL, NULL, 1, 13, 1),
+(40, NULL, NULL, 1, 16, 1),
+(41, NULL, NULL, 1, 20, 1),
+(50, NULL, NULL, 3, 3, 1),
+(51, NULL, NULL, 3, 16, 2),
+(52, NULL, NULL, 3, 4, 3),
+(61, NULL, NULL, 2, 14, 3),
+(62, NULL, NULL, 2, 4, 1),
+(63, NULL, NULL, 2, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `order_statuses`
+--
+
+CREATE TABLE `order_statuses` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `Name` varchar(100) NOT NULL,
+  `Color` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `order_statuses`
+--
+
+INSERT INTO `order_statuses` (`id`, `created_at`, `updated_at`, `Name`, `Color`) VALUES
+(1, '2020-10-03 13:03:08', NULL, 'Новый', '#1E90FF'),
+(2, '2020-10-03 13:03:08', NULL, 'Принят в обработку', '#F4A460'),
+(3, '2020-10-03 13:03:08', NULL, 'Отправлен', '#FF4500'),
+(4, '2020-10-03 13:03:08', NULL, 'Доставлен', '#14e04e');
 
 -- --------------------------------------------------------
 
@@ -232,7 +346,10 @@ INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (21, 'DELETE_ADMINS', '2020-08-28 21:00:00', NULL),
 (22, 'VIEW_COMMENTS', '2020-08-28 21:00:00', NULL),
 (23, 'UPDATE_COMMENTS', '2020-08-28 21:00:00', NULL),
-(24, 'DELETE_COMMENTS', '2020-08-28 21:00:00', NULL);
+(24, 'DELETE_COMMENTS', '2020-08-28 21:00:00', NULL),
+(25, 'VIEW_ORDERS', '2020-10-19 17:34:44', NULL),
+(26, 'UPDATE_ORDERS', '2020-10-19 17:34:44', NULL),
+(27, 'DELETE_ORDERS', '2020-10-19 17:34:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -301,7 +418,13 @@ INSERT INTO `permission_role` (`id`, `created_at`, `updated_at`, `permission_id`
 (46, NULL, NULL, 13, 4),
 (47, NULL, NULL, 22, 4),
 (48, NULL, NULL, 23, 4),
-(49, NULL, NULL, 24, 4);
+(49, NULL, NULL, 24, 4),
+(50, '2020-10-19 17:47:15', NULL, 25, 1),
+(51, '2020-10-19 17:47:15', NULL, 26, 1),
+(52, '2020-10-19 17:47:15', NULL, 27, 1),
+(53, '2020-10-19 17:47:15', NULL, 25, 5),
+(54, '2020-10-19 17:47:15', NULL, 26, 5),
+(55, '2020-10-19 17:47:15', NULL, 27, 5);
 
 -- --------------------------------------------------------
 
@@ -313,8 +436,9 @@ CREATE TABLE `products` (
   `id` int(10) UNSIGNED NOT NULL,
   `cat_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `price` decimal(10,2) NOT NULL,
+  `hot` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Поместить на страницу горячих товаров в меню',
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -324,24 +448,24 @@ CREATE TABLE `products` (
 -- Дамп данных таблицы `products`
 --
 
-INSERT INTO `products` (`id`, `cat_id`, `name`, `description`, `price`, `image`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Itallian Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '400.00', 'assets/images/products/pizza-1.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(2, 1, 'Hawaiian Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 'assets/images/products/pizza-2.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(3, 1, 'Greek Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '400.00', 'assets/images/products/pizza-3.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(4, 1, 'Bacon Crispy Thins', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '550.00', 'assets/images/products/pizza-4.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(7, 1, 'Hawaiian Special', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 'assets/images/products/pizza-5.jpg', '2020-08-18 21:00:00', '2020-08-12 21:00:00'),
-(8, 1, 'Ultimate Overload', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '600.00', 'assets/images/products/pizza-6.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(9, 1, 'Bacon Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 'assets/images/products/pizza-7.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(10, 1, 'Ham & Pineapple', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '400.00', 'assets/images/products/pizza-8.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(13, 2, 'Lemonade Juice', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '100.00', 'assets/images/products/drink-1.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(14, 2, 'Pineapple Juice', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '150.00', 'assets/images/products/drink-2.jpg', '2020-08-18 21:00:00', '2020-08-10 21:00:00'),
-(15, 2, 'Soda Drinks', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '100.00', 'assets/images/products/drink-3.jpg', '2020-08-11 21:00:00', '2020-08-12 21:00:00'),
-(16, 3, 'Burger', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '200.00', 'assets/images/products/burger-1.jpg', '2020-08-03 21:00:00', '2020-08-03 21:00:00'),
-(17, 3, 'Cheese Burger', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '100.00', 'assets/images/products/burger-2.jpg', '2020-08-11 21:00:00', '2020-08-10 21:00:00'),
-(18, 3, 'Super Burger', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '200.00', 'assets/images/products/burger-3.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
-(19, 4, 'Pasta', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '250.00', 'assets/images/products/pasta-1.jpg', '2020-08-08 21:00:00', '2020-08-08 21:00:00'),
-(20, 4, 'Pasta 2', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 'assets/images/products/pasta-2.jpg', '2020-08-02 21:00:00', '2020-08-02 21:00:00'),
-(21, 4, 'Pasta Cabonara', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '200.00', 'assets/images/products/pasta-3.jpg', '2020-08-08 21:00:00', '2020-08-08 21:00:00');
+INSERT INTO `products` (`id`, `cat_id`, `name`, `description`, `price`, `hot`, `image`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Itallian Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '400.00', 1, 'assets/images/products/pizza-1.jpg', '2020-08-11 21:00:00', '2020-10-17 13:35:08'),
+(2, 1, 'Hawaiian Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 1, 'assets/images/products/pizza-2.jpg', '2020-08-11 21:00:00', '2020-10-17 13:35:16'),
+(3, 1, 'Greek Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '400.00', 1, 'assets/images/products/pizza-3.jpg', '2020-08-11 21:00:00', '2020-10-17 13:35:23'),
+(4, 1, 'Bacon Crispy Thins', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '550.00', 1, 'assets/images/products/pizza-4.jpg', '2020-08-11 21:00:00', '2020-10-17 13:35:33'),
+(7, 1, 'Hawaiian Special', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 0, 'assets/images/products/pizza-5.jpg', '2020-08-18 21:00:00', '2020-08-12 21:00:00'),
+(8, 1, 'Ultimate Overload', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '600.00', 0, 'assets/images/products/pizza-6.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
+(9, 1, 'Bacon Pizza', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 0, 'assets/images/products/pizza-7.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
+(10, 1, 'Ham & Pineapple', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '400.00', 0, 'assets/images/products/pizza-8.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
+(13, 2, 'Lemonade Juice', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '100.00', 0, 'assets/images/products/drink-1.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
+(14, 2, 'Pineapple Juice', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '150.00', 1, 'assets/images/products/drink-2.jpg', '2020-08-18 21:00:00', '2020-10-17 13:36:03'),
+(15, 2, 'Soda Drinks', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '100.00', 0, 'assets/images/products/drink-3.jpg', '2020-08-11 21:00:00', '2020-08-12 21:00:00'),
+(16, 3, 'Burger', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '200.00', 1, 'assets/images/products/burger-1.jpg', '2020-08-03 21:00:00', '2020-10-17 13:35:48'),
+(17, 3, 'Cheese Burger', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '100.00', 0, 'assets/images/products/burger-2.jpg', '2020-08-11 21:00:00', '2020-08-10 21:00:00'),
+(18, 3, 'Super Burger', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '200.00', 0, 'assets/images/products/burger-3.jpg', '2020-08-11 21:00:00', '2020-08-11 21:00:00'),
+(19, 4, 'Pasta', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '250.00', 0, 'assets/images/products/pasta-1.jpg', '2020-08-08 21:00:00', '2020-08-08 21:00:00'),
+(20, 4, 'Pasta 2', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '300.00', 0, 'assets/images/products/pasta-2.jpg', '2020-08-02 21:00:00', '2020-08-02 21:00:00'),
+(21, 4, 'Pasta Cabonara', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.', '200.00', 0, 'assets/images/products/pasta-3.jpg', '2020-08-08 21:00:00', '2020-08-08 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -364,7 +488,8 @@ INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', '2020-08-28 21:00:00', '2020-08-28 21:00:00'),
 (2, 'Moderator', '2020-08-28 21:00:00', '2020-08-28 21:00:00'),
 (3, 'Blogger', '2020-08-28 21:00:00', '2020-08-28 21:00:00'),
-(4, 'Content Manager', '2020-08-28 21:00:00', '2020-08-28 21:00:00');
+(4, 'Content Manager', '2020-08-28 21:00:00', '2020-08-28 21:00:00'),
+(5, 'Manager', '2020-10-19 17:34:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -423,21 +548,27 @@ CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `street` varchar(255) DEFAULT NULL,
+  `house` varchar(255) DEFAULT NULL,
+  `flat` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'user@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/users/user.jpg', 'ka98viI1ecRbaLU8vjYY11pA9aTxlhNcB9y1lB0xacvMhY1poZ55sgsnfbbz', '2020-07-29 21:00:00', '2020-07-29 21:00:00'),
-(2, 'ivan', 'ivan@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/users/1598205330_tomorrow_monday.jpg', NULL, '2020-08-23 14:47:54', '2020-08-23 14:55:30'),
-(3, 'new user', 'newuser@mail.ru', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/users/1598205085_nichosi.jpg', NULL, '2020-08-23 14:51:25', '2020-08-23 14:51:25');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `image`, `remember_token`, `created_at`, `updated_at`, `state`, `street`, `house`, `flat`) VALUES
+(1, 'user', 'user@mail.ru', '23412341234', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/users/1602941686_2006532856_square_large.jpg', 'XQ0VQcdZ63tHV798RSghKgShkqnL4k6ctRnwDbG7BhBq1FTXzPZh742k6LfP', '2020-07-29 21:00:00', '2020-10-17 13:34:46', NULL, NULL, NULL, NULL),
+(2, 'ivan', 'ivan@mail.ru', '', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/users/1598205330_tomorrow_monday.jpg', NULL, '2020-08-23 14:47:54', '2020-08-23 14:55:30', NULL, NULL, NULL, NULL),
+(3, 'new user', 'newuser@mail.ru', '', '$2y$10$TCgX11r09W0bLlvqR9AaGO6P3VeOb7kt8L1iJFZjnGfcwZXJJYDzC', 'assets/images/users/1598205085_nichosi.jpg', NULL, '2020-08-23 14:51:25', '2020-08-23 14:51:25', NULL, NULL, NULL, NULL),
+(4, 'pizza', 'pizza@mail.ru', '322-223-322', '$2y$10$aOuUoqKPjxc.7DudWSHFb./vBIJKh2Oiff019.pl/3E3p3y0FcFNS', NULL, 'DwroihoDvcRtblQMLbycvI7LejuKQ0ly6pwIGDFmbqqxXgWjW3pp0CSxXAYS', '2020-10-03 13:09:35', '2020-10-03 13:09:35', NULL, NULL, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -472,6 +603,24 @@ ALTER TABLE `comments`
 -- Индексы таблицы `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `order_good`
+--
+ALTER TABLE `order_good`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `order_statuses`
+--
+ALTER TABLE `order_statuses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -537,13 +686,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT для таблицы `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `comments`
@@ -555,31 +704,49 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `order_good`
+--
+ALTER TABLE `order_good`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT для таблицы `order_statuses`
+--
+ALTER TABLE `order_statuses`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT для таблицы `permission_role`
 --
 ALTER TABLE `permission_role`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `role_admin`
@@ -591,7 +758,7 @@ ALTER TABLE `role_admin`
 -- AUTO_INCREMENT для таблицы `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

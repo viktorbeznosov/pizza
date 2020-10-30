@@ -23,6 +23,8 @@ class OrderController extends Controller
                 );
 
                 return view('order', $data);
+            } else {
+                abort(404);
             }
 
 

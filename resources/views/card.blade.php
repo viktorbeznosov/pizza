@@ -80,7 +80,7 @@
             <button class="owl-dot active"><span></span></button>
         </div>
     </section>
-        
+
 <section class="ftco-section">
     <div class="container">
 
@@ -164,36 +164,36 @@
     .order-wrapper{
         justify-content: center;
     }
-    
+
     .btn.btn-primary {
         background: #fac564;
         border: 1px solid #fac564;
         color: #000;
-    }    
-    
+    }
+
     .order-goods-item{
         margin-top: 10px;
     }
-    
+
     .order-goods-item .img{
         height: 200px;
         width: 200px;
         object-fit: cover;
     }
-    
+
     .order-goods-item .text{
         padding: 0 20px;
     }
-    
+
     .description{
         flex-basis: 60%;
     }
-    
+
     .dec-inc{
         height: 35px;
-        align-self: center;      
+        align-self: center;
     }
-    
+
     .dec-inc input{
         background: #fff;
         text-align: center;
@@ -201,17 +201,17 @@
         width: 35px;
         margin: 0 5px;
     }
-    
+
     .delete{
         cursor: pointer;
         margin-left: 20px;
         align-self: center;
     }
-    
+
     .delete i{
         color: #fac564;
     }
-    
+
     .basket_num_buttons {
         cursor: pointer;
         width: 35px;
@@ -235,7 +235,7 @@
                 <img src="` + item.image + `" class="img" alt="">
                 <div class="text description">
                     <h3>`+item.name+`</h3>
-                    <p>`+item.description+`</p>  
+                    <p>`+item.description+`</p>
                     <span>`+item.price+` р.</span>
                 </div>
                 <div class="dec-inc d-flex">
@@ -245,17 +245,26 @@
                 </div>
                 <div class="delete">
                     <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
-                </div>           
+                </div>
             </div>
-        `;        
-        
+        `;
+
         return tpl;
     }
-    
+
     $(document).ready(function(){
+
+        var test = io.connect('http://localhost:3000/test');
         var cart = getCart();
-        
-        if (cart.length == 0){ 
+
+        test.on('orderDone', function(data){
+          var count = parseInt($('.cart-count').html());
+          count += 1;
+          $('.cart-count').html(count);
+          toastr.warning(data.id, data.date);
+        })
+
+        if (cart.length == 0){
             $('.order-wrapper').remove();
             $('.user-data').hide();
         } else {
@@ -264,22 +273,29 @@
                 $('div[data-id="'+item.id+'"').find('.delete').on('click', function(){
                     removeFromCart($(this));
                 });
-                
+
                 $('div[data-id="'+item.id+'"').find('.plus').on('click', function(){
                     cartItemInc($(this));
                 });
                 var count = $('div[data-id="'+item.id+'"').find('input[type="text"]').val();
-                
+
                 if (count > 1){
                     $('div[data-id="'+item.id+'"').find('.minus').on('click', function(){
                         cartItemDec($(this));
                     });
                 }
-                
+
             });
         }
 
         $('form[name="order"]').on('submit', function(){
+
+          test.emit('order', {
+            id: 12345,
+            info: 'qwerty'
+          });
+          return false;
+
            @if(!Auth::user())
                 var name = $('input[name="name"]').val();
                 var email = $('input[name="email"]').val();

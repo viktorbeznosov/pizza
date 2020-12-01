@@ -31,10 +31,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/materialdesignicons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
-    
+
     <script src="{{ asset('assets/metronic/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/metronic/pages/scripts/ui-toastr.min.js') }}" type="text/javascript"></script>
+    <!-- <script src = "./socket.io/socket.io.js"></script> -->
+    <script src = "{{ asset('assets/js/node_modules/socket.io-client/dist/socket.io.js') }}"></script>
 </head>
 <body>
 
@@ -201,13 +203,13 @@
         if (cart.length == 0){
             $('.cart a').attr('href','javascript:void(0)');
         }
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        });          
-        
+        });
+
         $('.nav-account').on('mouseover', function(){
             $(this).find('.nav-account-dropdown').slideDown(200);
         }).on('mouseleave', function (){

@@ -83,8 +83,15 @@ class OrderController extends Controller
             $order->products()->attach($product, array('quantity' => $item->quantity));
         }
 
+        print_r(json_encode(array(
+            'order_id' => $order->id,
+            'mail' => Auth::user()->mail,
+            'user_id' => Auth::user()->id,
+        )));
+        die();
+
 //        return view('public.order_done');
-        return redirect()->route('cart')->with('status','Заказ создан');
+//        return redirect()->route('cart')->with('status','Заказ создан');
     }
 
     public function checkUser(Request $request){

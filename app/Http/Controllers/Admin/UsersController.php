@@ -7,6 +7,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Order;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -156,6 +157,12 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $orders = Order::where('user_id', $user->id)->get();
+        if (count($orders) > 0){
+            foreach ($orders as $order){
+                $order->delete();
+            }
+        }
         if (file_exists(public_path($user->image)) && $user->image != ''){
             unlink(public_path($user->image));
         }

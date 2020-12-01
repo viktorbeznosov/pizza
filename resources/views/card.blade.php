@@ -289,11 +289,13 @@
         }
 
         $('form[name="order"]').on('submit', function(){
-          // socket.emit('order', {
-          //   id: 12345,
-          //   info: 'qwerty'
-          // });
-          // return false;
+
+            var cart = getCart();
+            cart = JSON.stringify(cart);
+            var  data = {
+                cart: cart
+            }
+
 
            @if(!Auth::user())
                 var name = $('input[name="name"]').val();
@@ -330,12 +332,34 @@
                 if(error){
                     return false;
                 }
+                data.name = name;
+                data.email = email;
+                data.phone = phone;
+                data.password = password;
+                data.confirm_pass = confirm_pass;
+
             @endif
 
-            var cart = getCart();
-            cart = JSON.stringify(cart);
-            $(this).find('input[name="cart"]').val(cart);
-            localStorage.clear();
+            $.ajax({
+                url: '/order',
+                method: 'post',
+                data: data,
+                success: function (response) {
+                    var result = JSON.parse(response)
+                    console.log(result)
+
+                    // $(this).find('input[name="cart"]').val(cart);
+                    // localStorage.clear();
+
+                    // socket.emit('order', {
+                    //   id: 12345,
+                    //   info: 'qwerty'
+                    // });
+                }
+
+            });
+
+            return false;
         });
     });
 </script>

@@ -36,7 +36,7 @@
     <script src="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/metronic/pages/scripts/ui-toastr.min.js') }}" type="text/javascript"></script>
     <!-- <script src = "./socket.io/socket.io.js"></script> -->
-    <script src = "{{ asset('assets/js/node_modules/socket.io-client/dist/socket.io.js') }}"></script>
+    <script src = "{{ asset('assets/js/nodejs/node_modules/socket.io-client/dist/socket.io.js') }}"></script>
 </head>
 <body>
 

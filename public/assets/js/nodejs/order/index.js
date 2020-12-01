@@ -9,7 +9,7 @@ app.get('/', function(req, res){
     res.end();
 });
 
-io.of("/test").on("connection", function(socket){
+io.of("/order").on("connection", function(socket){
   console.log('connect');
 
   socket.on('order', function(data){

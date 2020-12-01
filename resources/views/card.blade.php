@@ -254,10 +254,10 @@
 
     $(document).ready(function(){
 
-        var test = io.connect('http://localhost:3000/test');
+        var socket = io.connect('http://localhost:3000/order');
         var cart = getCart();
 
-        test.on('orderDone', function(data){
+        socket.on('orderDone', function(data){
           var count = parseInt($('.cart-count').html());
           count += 1;
           $('.cart-count').html(count);
@@ -289,12 +289,11 @@
         }
 
         $('form[name="order"]').on('submit', function(){
-
-          test.emit('order', {
-            id: 12345,
-            info: 'qwerty'
-          });
-          return false;
+          // socket.emit('order', {
+          //   id: 12345,
+          //   info: 'qwerty'
+          // });
+          // return false;
 
            @if(!Auth::user())
                 var name = $('input[name="name"]').val();

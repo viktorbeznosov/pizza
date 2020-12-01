@@ -1,5 +1,5 @@
 /node_modules
-/public/assets/js/node_modules/
+/public/assets/js/nodejs/node_modules/
 /public/hot
 /public/storage
 /storage/*.key

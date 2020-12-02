@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Order;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -161,6 +162,7 @@ class UsersController extends Controller
         if (count($orders) > 0){
             foreach ($orders as $order){
                 $order->delete();
+                DB::delete('DELETE FROM order_good WHERE order_id = ?', [$order->id]);
             }
         }
         if (file_exists(public_path($user->image)) && $user->image != ''){

@@ -289,15 +289,14 @@
         }
 
         $('form[name="order"]').on('submit', function(){
-
             var cart = getCart();
             cart = JSON.stringify(cart);
-            var  data = {
-                cart: cart
-            }
+//            var  data = {
+//                cart: cart
+//            }
+            $(this).find('input[name="cart"]').val(cart);
 
-
-           @if(!Auth::user())
+            @if(!Auth::user())
                 var name = $('input[name="name"]').val();
                 var email = $('input[name="email"]').val();
                 var phone = $('input[name="phone"]').val();
@@ -340,26 +339,28 @@
 
             @endif
 
-            $.ajax({
-                url: '/order',
-                method: 'post',
-                data: data,
-                success: function (response) {
-                    var result = JSON.parse(response)
-                    console.log(result)
+//            $.ajax({
+//                url: '/order',
+//                method: 'post',
+//                data: data,
+//                success: function (response) {
+////                    var result = JSON.parse(response)
+//                    console.log(response)
+//
+//                    // $(this).find('input[name="cart"]').val(cart);
+//                    // localStorage.clear();
+//
+//                    // socket.emit('order', {
+//                    //   id: 12345,
+//                    //   info: 'qwerty'
+//                    // });
+//                }
+//
+//            });
+//
+//            return false;
 
-                    // $(this).find('input[name="cart"]').val(cart);
-                    // localStorage.clear();
-
-                    // socket.emit('order', {
-                    //   id: 12345,
-                    //   info: 'qwerty'
-                    // });
-                }
-
-            });
-
-            return false;
+            localStorage.clear();
         });
     });
 </script>

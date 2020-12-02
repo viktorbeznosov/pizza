@@ -254,15 +254,17 @@
 
     $(document).ready(function(){
 
+        console.log($('.alert.alert-success').length);
+
         var socket = io.connect('http://localhost:3000/order');
         var cart = getCart();
 
-        socket.on('orderDone', function(data){
-          var count = parseInt($('.cart-count').html());
-          count += 1;
-          $('.cart-count').html(count);
-          toastr.warning(data.id, data.date);
-        })
+        // socket.on('orderDone', function(data){
+        //   var count = parseInt($('.cart-count').html());
+        //   count += 1;
+        //   $('.cart-count').html(count);
+        //   toastr.warning(data.id, data.date);
+        // })
 
         if (cart.length == 0){
             $('.order-wrapper').remove();
@@ -291,10 +293,10 @@
         $('form[name="order"]').on('submit', function(){
             var cart = getCart();
             cart = JSON.stringify(cart);
-//            var  data = {
-//                cart: cart
-//            }
             $(this).find('input[name="cart"]').val(cart);
+            var data = {
+                cart: cart
+            }
 
             @if(!Auth::user())
                 var name = $('input[name="name"]').val();
@@ -331,36 +333,37 @@
                 if(error){
                     return false;
                 }
+
                 data.name = name;
                 data.email = email;
                 data.phone = phone;
                 data.password = password;
-                data.confirm_pass = confirm_pass;
 
             @endif
 
-//            $.ajax({
-//                url: '/order',
-//                method: 'post',
-//                data: data,
-//                success: function (response) {
-////                    var result = JSON.parse(response)
-//                    console.log(response)
-//
-//                    // $(this).find('input[name="cart"]').val(cart);
-//                    // localStorage.clear();
-//
-//                    // socket.emit('order', {
-//                    //   id: 12345,
-//                    //   info: 'qwerty'
-//                    // });
-//                }
-//
-//            });
-//
-//            return false;
+            $.ajax({
+                url: '/order',
+                method: 'post',
+                data: data,
+                success: function (response) {
+//                    var result = JSON.parse(response)
+                    console.log(response)
 
-            localStorage.clear();
+                    // $(this).find('input[name="cart"]').val(cart);
+                    // localStorage.clear();
+
+                    // socket.emit('order', {
+                    //   id: 12345,
+                    //   info: 'qwerty'
+                    // });
+                }
+
+            });
+
+            return false;
+
+
+            // localStorage.clear();
         });
     });
 </script>

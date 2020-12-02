@@ -12,11 +12,15 @@ app.get('/', function(req, res){
 io.of("/order").on("connection", function(socket){
   console.log('connect');
 
-  socket.on('order', function(data){
-      console.log(data);
-      socket.emit('orderDone', {
-        id: 54321,
-        date: '01/12/2020'
-      });
-  })
+    socket.on('foo', function(data){
+        console.log(data);
+    })
+
+    socket.on('order', function(data){
+        console.log(data);
+        socket.emit('orderDone', {
+            id: 54321,
+            date: '01/12/2020'
+        });
+    });
 });

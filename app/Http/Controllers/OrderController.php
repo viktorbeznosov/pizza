@@ -9,6 +9,13 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+// using namespace Elephant.io
+use ElephantIO\Client as Elephant;
+use ElephantIO\Client;
+use ElephantIO\Engine\SocketIO\Version0X;
+
+use Emitter\Emitter;
+
 class OrderController extends Controller
 {
     public function show($user_id, $order_id = false){
@@ -43,7 +50,7 @@ class OrderController extends Controller
 
     public function create(Request $request){
         $cart = json_decode($request->get('cart'));
-        
+
         if (!Auth::user()){
            
 //             dump($request->all());die();
@@ -85,8 +92,14 @@ class OrderController extends Controller
             $order->products()->attach($product, array('quantity' => $item->quantity));
         }
 
+        print_r(array(
+            'order_id' => $order->id,
+            'user_id' => Auth::user()->id,
+            'mail' => Auth::user()->email
+        ));
+
 //        return view('public.order_done');
-        return redirect()->route('cart')->with('status','Заказ создан');
+//        return redirect()->route('cart')->with('status','Заказ создан');
     }
 
     public function checkUser(Request $request){

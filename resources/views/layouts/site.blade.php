@@ -69,7 +69,7 @@
                                 <a href="{{ route('orders', Auth::user()->id) }}" @if(Route::current()->getName() == 'orders') style="color: #fac564" @endif>Orders</a>
                             </li>
                             <li>
-                                <form action="{{ route('logout') }}" method="post" class="nav-link form-logout">
+                                <form action="{{ route('logout') }}" method="post" class="nav-link form-logout" style="padding:0!important;">
                                     {{ csrf_field() }}
                                     <input type="submit" value="Logout">
                                 </form>

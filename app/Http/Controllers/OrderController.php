@@ -92,10 +92,14 @@ class OrderController extends Controller
             $order->products()->attach($product, array('quantity' => $item->quantity));
         }
 
-        print_r(array(
-            'order_id' => $order->id,
-            'user_id' => Auth::user()->id,
-            'mail' => Auth::user()->email
+        print_r(json_encode(
+            array(
+                'order_id' => $order->id,
+                'orser_date' => $order->created_at->format('d.m.Y G:i'),
+                'user_id' => Auth::user()->id,
+                'email' => Auth::user()->email,
+                'name' => Auth::user()->name
+            ),JSON_UNESCAPED_UNICODE
         ));
 
 //        return view('public.order_done');

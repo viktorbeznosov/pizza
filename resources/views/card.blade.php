@@ -254,7 +254,6 @@
 
     $(document).ready(function(){
 
-        console.log($('.alert.alert-success').length);
 
         var socket = io.connect('http://localhost:3000/order');
         var cart = getCart();
@@ -291,6 +290,7 @@
         }
 
         $('form[name="order"]').on('submit', function(){
+
             var cart = getCart();
             cart = JSON.stringify(cart);
             $(this).find('input[name="cart"]').val(cart);
@@ -305,6 +305,9 @@
                 var password = $('input[name="password"]').val();
                 var confirm_pass = $('input[name="confirm_pass"]').val();
                 var error = false;
+                toastr.options = {
+                    "closeButton": true
+                }
 
                 if (!name){
                     toastr.warning('Введите ваше имя');
@@ -346,24 +349,65 @@
                 method: 'post',
                 data: data,
                 success: function (response) {
-//                    var result = JSON.parse(response)
-                    console.log(response)
+                    var result = JSON.parse(response)
+                    console.log(result)
 
-                    // $(this).find('input[name="cart"]').val(cart);
-                    // localStorage.clear();
+                    @if (!Auth::user())
+                        var csrf_token = '{{ csrf_token() }}';
+                        var user_mail = 'ivan@mail.ru';
+                        var user_id = 2;
+                        var navTpl = `
+                        <a href="javascript:void(0)" class="nav-link">
+                            `+user_mail+`
+                        </a>
+                        <ul class="nav-account-dropdown" style="display: none;">
+                            <li>
+                                <a href="/account">Account</a>
+                            </li>
+                            <li>
+                                <a href="/orders/`+user_id+`" style="color: #fac564">Orders</a>
+                            </li>
+                            <li>
+                                <form action="http://pizza.loc/logout" method="post" class="nav-link form-logout" style="padding:0!important;">
+                                    <input type="hidden" name="_token" value="`+csrf_token+`">
+                                    <input type="submit" value="Logout">
+                                </form>
+                            </li>
+                        </ul>
+                    `;
 
-                    // socket.emit('order', {
-                    //   id: 12345,
-                    //   info: 'qwerty'
-                    // });
+                        $('.navbar-nav .nav-account').html('');
+                        $('.navbar-nav .nav-account').html(navTpl);
+                    @endif
+                    $('form[name="order"]').hide();
+
+                    $('.container.items').html('');
+                    $('.cart-count').text(0);
+                    $('.cart a').attr('href','javascript:void(0)');
+
+                    toastr.options = {
+                        "closeButton": true
+                    }
+                    toastr.success('Заказ создан');
+
+                    socket.emit('order', {
+                        user: {
+                            id: result.user_id,
+                            email: result.email,
+                            name: result.name
+                        },
+                        order: {
+                            id: result.order_id,
+                            date: result.orser_date
+                        }
+                    });
+
+                    localStorage.clear();
                 }
 
             });
 
             return false;
-
-
-            // localStorage.clear();
         });
     });
 </script>

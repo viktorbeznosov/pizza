@@ -8,6 +8,8 @@ use App\Order;
 use App\Category;
 use App\OrderStatus;
 
+use Illuminate\Support\Facades\DB;
+
 class OrdersController extends Controller
 {
     /**
@@ -120,6 +122,10 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        DB::delete('DELETE FROM order_good WHERE order_id = ?', [$order->id]);
+        $order->delete();
+
+        return redirect()->route('admin.orders.index')->with('status','Заказ удален');
     }
 }

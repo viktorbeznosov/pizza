@@ -341,8 +341,8 @@
                 method: 'post',
                 data: data,
                 success: function (response) {
-                    var result = JSON.parse(response)
-                    console.log(result)
+                    var result = JSON.parse(response);
+                    console.log(result);
 
                     @if (!Auth::user())
                         var csrf_token = '{{ csrf_token() }}';

@@ -102,8 +102,27 @@
     $(document).ready(function(){
         var socket = io.connect('http://localhost:3000/order');
         
-        socket.on('orderAdmin', function(data){
-            console.log(data);
+        socket.on('orderAdmin', function(result){
+            // console.log(result);
+            var info = JSON.stringify(result);
+            var csrf_token = '{{ csrf_token() }}';
+            var data = {
+                csrf_token: csrf_token,
+                type: 'orders',
+                message: 'Поступил новый заказ',
+                info: info,
+                read: 0
+            }
+
+            $.ajax({
+                url: '/admin/notifications/create',
+                method: 'post',
+                data: data,
+                success: function(response){
+                    var result = JSON.parse(response);
+                    console.log(result);
+                }
+            })
         });
     })
 </script>

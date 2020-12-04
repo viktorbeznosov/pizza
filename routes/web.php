@@ -50,6 +50,10 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::resource('/services','Admin\ServicesController');
     Route::resource('/users','Admin\UsersController');
     Route::resource('/admins','Admin\AdminsController');
+    
+    Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function(){
+        Route::post('/create', 'Admin\NotificationsController@create')->name('notification_create');
+    });
 
 });
 

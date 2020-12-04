@@ -28,7 +28,6 @@
                         <div class="product d-flex">
                             <div class="bio align-self-md-center mr-5">
                                 @if(isset($user->image))
-                                    sdgfasdf
                                     <img src="{{ asset($user->image) }}" alt="Image placeholder" class="img-fluid mb-4">
                                 @else
                                     <img src="{{ asset('assets/images/no-image.png') }}" alt="Image placeholder" class="img-fluid mb-4">

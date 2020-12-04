@@ -50,7 +50,7 @@ class OrderController extends Controller
 
     public function create(Request $request){
         $cart = json_decode($request->get('cart'));
-
+        
         if (!Auth::user()){
            
 //             dump($request->all());die();
@@ -67,6 +67,7 @@ class OrderController extends Controller
                 'confirm_pass' => 'same:password'
             ),$messages);
             if($validator->fails()){
+                //Передавать Ajax-ом!!!
                 return redirect()->route('cart')->withErrors($validator)->withInput();
             }
 

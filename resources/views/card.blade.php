@@ -253,17 +253,9 @@
     }
 
     $(document).ready(function(){
-
-
+        
         var socket = io.connect('http://localhost:3000/order');
         var cart = getCart();
-
-        // socket.on('orderDone', function(data){
-        //   var count = parseInt($('.cart-count').html());
-        //   count += 1;
-        //   $('.cart-count').html(count);
-        //   toastr.warning(data.id, data.date);
-        // })
 
         if (cart.length == 0){
             $('.order-wrapper').remove();

@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('type');
             $table->string('message');
             $table->text('info');
+            $table->tinyInteger('read')->default(0);
         });
     }
 

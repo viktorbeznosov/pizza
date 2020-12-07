@@ -13,21 +13,31 @@
         <li>
             <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
                 @foreach($notifications as $notification)
-                    <li>
-                        <a href="javascript:;">
-                            <span class="time">{{ $notification->created_at->format('d.m.Y G:i') }}</span>
-                            <span class="details">
-                            @if ($notification->type == 'orders')
+                    @if ($notification->type == 'orders')
+                        <li>
+                            <a href="{{ $notification->getRoute() }}">
+                                <span class="time">{{ $notification->created_at->format('d.m.Y G:i') }}</span>
+                                <span class="details">
+
                                 <span class="label label-sm label-icon label-success">
                                     <i class="fa fa-plus"></i>
-                                </span> {{ $notification->message }} </span>
-                            @elseif ($notification->type == 'users')
+                                </span> {{ $notification->message }}</span>
+                            </a>
+                        </li>
+                    @elseif ($notification->type == 'users')
+                        <li>
+                            <a href="{{ $notification->getRoute() }}">
+                                <span class="time">{{ $notification->created_at->format('d.m.Y G:i') }}</span>
+                                <span class="details">
+
                                 <span class="label label-sm label-icon label-warning">
                                     <i class="fa fa-bell-o"></i>
                                 </span> {{ $notification->message }} </span>
-                            @endif
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    @endif
+
+
                 @endforeach
                 {{--<li>--}}
                     {{--<a href="javascript:;">--}}
@@ -58,25 +68,8 @@
         var socket = io.connect('http://localhost:3000/order');
 
         socket.on('orderAdmin', function(result){
-            // console.log(result);
             var info = JSON.stringify(result);
-            var data = {
-                type: 'orders',
-                message: 'Поступил новый заказ',
-                info: info,
-                read: 0
-            }
-
-            $.ajax({
-                url: '/admin/notifications/create',
-                method: 'post',
-                data: data,
-                success: function(response){
-                    var result = JSON.parse(response);
-                    var info = JSON.parse(result.info);
-                    console.log(info);
-                }
-            });
+            console.log(result);
         });
     })
 </script>

@@ -26,4 +26,10 @@ class NotificationsController extends Controller
             die();
         }
     }
+
+    public function read(Request $request){
+        $input = $request->all();
+
+        print_r($input);
+    }
 }

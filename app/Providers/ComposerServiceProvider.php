@@ -16,7 +16,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('admin.notifications', function($view) {
-            $view->with(['notifications' => Notification::all()]);
+            $view->with(['notifications' => Notification::where('read',0)->get()]);
         });
     }
 

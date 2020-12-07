@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Product;
 use App\User;
+use App\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -92,6 +93,27 @@ class OrderController extends Controller
             $product = Product::find($item->id);
             $order->products()->attach($product, array('quantity' => $item->quantity));
         }
+
+        $notification_info = json_encode(
+            array(
+                'user' => array(
+                    'id' => Auth::user()->id,
+                    'email' => Auth::user()->email,
+                    'name' => Auth::user()->name
+                ),
+                'order' => array(
+                    'id' => $order->id,
+                    'date' => $order->created_at->format('d.m.Y G:i')
+                )
+            ), JSON_UNESCAPED_UNICODE
+        );
+
+        $notification = new Notification();
+        $notification->type = 'orders';
+        $notification->message = 'Поступил новый заказ';
+        $notification->info = $notification_info;
+        $notification->read = 0;
+        $notification->save();
 
         print_r(json_encode(
             array(

@@ -34,4 +34,9 @@ class Notification extends Model
                 break;
         }
     }
+    
+    public function read(){
+        $this->read = 1;
+        $this->save();
+    }
 }

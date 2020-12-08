@@ -114,16 +114,26 @@ class OrderController extends Controller
         $notification->info = $notification_info;
         $notification->read = 0;
         $notification->save();
-
-        print_r(json_encode(
+        
+        //Убрать дублирование!!!
+        $notification_info = json_encode(
             array(
-                'order_id' => $order->id,
-                'orser_date' => $order->created_at->format('d.m.Y G:i'),
-                'user_id' => Auth::user()->id,
-                'email' => Auth::user()->email,
-                'name' => Auth::user()->name
-            ),JSON_UNESCAPED_UNICODE
-        ));
+                'user' => array(
+                    'id' => Auth::user()->id,
+                    'email' => Auth::user()->email,
+                    'name' => Auth::user()->name
+                ),
+                'order' => array(
+                    'id' => $order->id,
+                    'date' => $order->created_at->format('d.m.Y G:i')
+                ),
+                'notification' => array(
+                    'id' => $notification->id
+                )
+            ), JSON_UNESCAPED_UNICODE
+        );
+
+        print_r($notification_info);
 
 //        return view('public.order_done');
 //        return redirect()->route('cart')->with('status','Заказ создан');

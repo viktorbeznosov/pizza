@@ -59,7 +59,6 @@
         var socket = io.connect('http://localhost:3000/order');
         
         socket.on('orderAdmin', function(result){
-            var info = JSON.stringify(result);
             console.log(result);
             
             var notifications_count = parseInt($('#header_notification_bar').find('.badge.badge-default').html());
@@ -70,9 +69,10 @@
             var notificationRoot = '/admin/orders/'+orderId+'/edit';
             var notitficationDate = result.order.date;
             var notificationMessage = 'Поступил новый заказ';
+            var notificationId = result.notification.id
             
             var notificationTpl = `
-                <li>
+                <li data-id="`+notificationId+`">
                     <a href="`+notificationRoot+`">
                         <span class="time">`+notitficationDate+`</span>
                         <span class="details">
@@ -89,7 +89,28 @@
         });
         
         $('#header_notification_bar .dropdown-menu-list li').on('click', function(){
-            var notitfication_root = $(this).find('a').attr('href');
+            var notitficationRoot = $(this).find('a').attr('href');
+            var notificationId = $(this).data('id');
+            var data = {
+                'id': notificationId
+            }
+            $.ajax({
+                url: '/admin/notifications/read',
+                method: 'post',
+                data: data, 
+                success: (response) => {
+                    var result = JSON.parse(response);
+                    if (result.success){
+                        var notifications_count = parseInt($('#header_notification_bar').find('.badge.badge-default').html());
+                        notifications_count--;
+                        $('#header_notification_bar').find('.badge.badge-default').html(notifications_count);
+                        
+                        $(this).fadeOut(200, function(){
+                            window.location.href = notitficationRoot;
+                        });
+                    }
+                }
+            });
             return false;
         });
     });

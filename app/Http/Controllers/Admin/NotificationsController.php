@@ -30,6 +30,11 @@ class NotificationsController extends Controller
     public function read(Request $request){
         $input = $request->all();
 
-        print_r($input);
+        $notification = Notification::find($input['id']);
+        $notification->read();
+        
+        print_r(json_encode(array(
+            'success' => 1
+        ), JSON_UNESCAPED_UNICODE));
     }
 }

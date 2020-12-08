@@ -382,18 +382,7 @@
                     }
                     toastr.success('Заказ создан');
 
-                    socket.emit('order', {
-                        user: {
-                            id: result.user_id,
-                            email: result.email,
-                            name: result.name
-                        },
-                        order: {
-                            id: result.order_id,
-                            date: result.orser_date
-                        }
-                    });
-
+                    socket.emit('order', result);
                     localStorage.clear();
                 }
 

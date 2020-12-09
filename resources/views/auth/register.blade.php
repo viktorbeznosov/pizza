@@ -104,7 +104,7 @@
              .done(function(data){
                 console.log(data);
                 if (data.success){
-                    socket.emit('register', data.user);
+                    socket.emit('register', data);
                     toastr.info(data.success);
                     setTimeout(function(){
                         window.location.href = '/';

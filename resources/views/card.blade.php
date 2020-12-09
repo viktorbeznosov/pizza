@@ -341,6 +341,11 @@
                 method: 'post',
                 data: data,
                 success: function (response) {
+                    if (response.error){
+                        console.log(response.error);
+                        toastr.warning(response.error);
+                        return false;
+                    }
                     var result = JSON.parse(response);
                     console.log(result);
 

@@ -69,8 +69,13 @@ class OrderController extends Controller
             ),$messages);
             if($validator->fails()){
                 //Передавать Ajax-ом!!!
-//                return response()->json(['error'=>$validator->errors()->all()]);
-                return redirect()->route('cart')->withErrors($validator)->withInput();
+                return response()->json(
+                    ['error'=>$validator->errors()->all()],
+                    200,
+                    ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+                    JSON_UNESCAPED_UNICODE
+                );
+//                return redirect()->route('cart')->withErrors($validator)->withInput();
             }
 
             $user = new User();

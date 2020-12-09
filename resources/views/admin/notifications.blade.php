@@ -56,9 +56,10 @@
 
 <script>
     $(document).ready(function(){
-        var socket = io.connect('http://localhost:3000/order');
-        
-        socket.on('orderAdmin', function(result){
+        var socket_order = io.connect('http://localhost:3000/order');
+        var socket_user = io.connect('http://localhost:3010/user');
+
+        socket_order.on('orderAdmin', function(result){
             console.log(result);
             
             var notifications_count = parseInt($('#header_notification_bar').find('.badge.badge-default').html());
@@ -69,7 +70,7 @@
             var notificationRoot = '/admin/orders/'+orderId+'/edit';
             var notitficationDate = result.order.date;
             var notificationMessage = 'Поступил новый заказ';
-            var notificationId = result.notification.id
+            var notificationId = result.notification.id;
             
             var notificationTpl = `
                 <li data-id="`+notificationId+`">
@@ -85,33 +86,75 @@
             `;
 
             $('.slimScrollDiv').find('.dropdown-menu-list').append(notificationTpl);
+            $('#header_notification_bar .dropdown-menu-list li[data-id="'+notificationId+'"]').on('click', function () {
+                notification_read($(this));
+                return false;
+            });
             toastr.info(notificationMessage);
+        });
+
+        socket_user.on('registerAdmin', function(result){
+           console.log(result);
+
+            var notifications_count = parseInt($('#header_notification_bar').find('.badge.badge-default').html());
+            notifications_count++;
+            $('#header_notification_bar').find('.badge.badge-default').html(notifications_count);
+
+            var userId = result.user.id;
+            var notificationRoot = '/admin/users/'+userId+'/edit';
+            var notitficationDate = result.notification.date;
+            var notificationMessage = 'Зарегистрировался новый пользователь';
+            var notificationId = result.notification.id;
+
+            var notificationTpl = `
+                <li data-id="`+notificationId+`">
+                    <a href="`+notificationRoot+`">
+                        <span class="time">`+notitficationDate+`</span>
+                        <span class="details">
+
+                        <span class="label label-sm label-icon label-warning">
+                            <i class="fa fa-bell-o"></i>
+                        </span>`+notificationMessage+`</span>
+                    </a>
+                </li>
+            `;
+            $('.slimScrollDiv').find('.dropdown-menu-list').append(notificationTpl);
+            $('#header_notification_bar .dropdown-menu-list li[data-id="'+notificationId+'"]').on('click', function () {
+                notification_read($(this));
+                return false;
+            });
+            toastr.info(notificationMessage);
+
         });
         
         $('#header_notification_bar .dropdown-menu-list li').on('click', function(){
-            var notitficationRoot = $(this).find('a').attr('href');
-            var notificationId = $(this).data('id');
-            var data = {
-                'id': notificationId
-            }
-            $.ajax({
-                url: '/admin/notifications/read',
-                method: 'post',
-                data: data, 
-                success: (response) => {
-                    var result = JSON.parse(response);
-                    if (result.success){
-                        var notifications_count = parseInt($('#header_notification_bar').find('.badge.badge-default').html());
-                        notifications_count--;
-                        $('#header_notification_bar').find('.badge.badge-default').html(notifications_count);
-                        
-                        $(this).fadeOut(200, function(){
-                            window.location.href = notitficationRoot;
-                        });
-                    }
-                }
-            });
+            notification_read($(this));
             return false;
         });
     });
+
+    function notification_read(elem) {
+        var notitficationRoot = elem.find('a').attr('href');
+        var notificationId = elem.data('id');
+        var data = {
+            'id': notificationId
+        }
+        $.ajax({
+            url: '/admin/notifications/read',
+            method: 'post',
+            data: data,
+            success: (response) => {
+                var result = JSON.parse(response);
+                if (result.success){
+                    var notifications_count = parseInt($('#header_notification_bar').find('.badge.badge-default').html());
+                    notifications_count--;
+                    $('#header_notification_bar').find('.badge.badge-default').html(notifications_count);
+
+                    elem.fadeOut(200, function(){
+                        window.location.href = notitficationRoot;
+                    });
+                }
+            }
+        });
+    }
 </script>

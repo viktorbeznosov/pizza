@@ -91,16 +91,28 @@
 
 <script>
      $(document).ready(function(){
+         var socket = io.connect('http://localhost:3010/user');
+         
          $('form[name="register"]').on('submit', function(event){
              event.preventDefault();
              
              $.ajax({
                 method: "POST",
                 data: $('form[name="register"]').serialize(),
-                url: "{{ url('register') }}"
+                url: "{{ url('register_ajax') }}"
              })
              .done(function(data){
-                console.log(data); 
+                console.log(data);
+                if (data.success){
+                    socket.emit('register', data.user);
+                    toastr.info(data.success);
+                    setTimeout(function(){
+                        window.location.href = '/';
+                    },1000);
+                } else {
+                    toastr.warning(data.error);
+                }
+
              });
              
              return false;

@@ -69,6 +69,7 @@ class OrderController extends Controller
             ),$messages);
             if($validator->fails()){
                 //Передавать Ajax-ом!!!
+//                return response()->json(['error'=>$validator->errors()->all()]);
                 return redirect()->route('cart')->withErrors($validator)->withInput();
             }
 
@@ -78,7 +79,8 @@ class OrderController extends Controller
             $user->fill($input);
 
             if ($user->save()){
-                Auth::login($user, true);
+                //Auth::login($user, true);
+                Auth::guard()->login($user);
             }
         }
 

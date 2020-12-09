@@ -25,6 +25,8 @@ Route::post('/account', 'AccountController@update')->name('account_update');
 Route::get('orders/{user_id}/{order_id?}', 'OrderController@show')->name('orders');
 Route::post('/comment', 'CommentsController@store')->name('comment');
 
+Route::post('/register_ajax', 'Auth\RegisterAjaxController@register')->name('register_ajax');
+
 
 Route::get('/admin/login',['as' => 'admin.login','uses' => 'Admin\Auth\LoginController@showLoginForm']);
 Route::post('/admin/login',['uses' => 'Admin\Auth\LoginController@login'])->name('admin.post.login');

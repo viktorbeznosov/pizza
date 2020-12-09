@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.site')
 
-@section('navbar')
+<!--@section('navbar')
     @parent
-@endsection
+@endsection-->
 
 @section('content')
 <div class="container">

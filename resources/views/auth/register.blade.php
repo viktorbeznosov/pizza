@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.site')
 
 @section('content')
 <div class="container">
@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form name="register" class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -88,4 +88,24 @@
         </div>
     </div>
 </div>
+
+<script>
+     $(document).ready(function(){
+         $('form[name="register"]').on('submit', function(event){
+             event.preventDefault();
+             
+             $.ajax({
+                method: "POST",
+                data: $('form[name="register"]').serialize(),
+                url: "{{ url('register') }}"
+             })
+             .done(function(data){
+                console.log(data); 
+             });
+             
+             return false;
+         })
+     })
+</script>
+
 @endsection

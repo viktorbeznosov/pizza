@@ -130,10 +130,27 @@ class Admin extends Authenticatable
     }
     
     public function getRooms(){
-        
+        $rooms = array();
+        foreach(self::getAllRooms() as $room){
+            $roomArr = explode('.', $room);
+            if (in_array($this->id, $roomArr)){
+                $rooms[] = $room;
+            }
+        }
+
+        return $rooms;
     }
     
     public function getRoom($admin_id){
-        
+        if ($admin_id != $this->id){
+            foreach ($this->getRooms() as $room){
+                $roomArr = explode('.', $room);
+                if (in_array($admin_id, $roomArr)){
+                    return $room;
+                }
+            }
+        }
+
+        return false;
     }
 }

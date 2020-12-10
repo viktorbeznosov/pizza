@@ -25,8 +25,6 @@ class ComposerServiceProvider extends ServiceProvider
                 'admins' => Admin::where('id',"!=", Auth::guard('admin')->user()->id)->get()
             ));          
         });
-        
-        dump(Admin::getAllRooms());
     }
 
     /**

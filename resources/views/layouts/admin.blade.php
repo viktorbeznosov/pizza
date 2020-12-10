@@ -404,7 +404,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <h3 class="list-heading">Admins</h3>
                         <ul class="media-list list-items">
                             @foreach($admins as $admin)
-                                <li class="media">
+                                <li class="media" data-room="{{ Auth::guard('admin')->user()->getRoom($admin->id) }}">
                                     <div class="media-status">
                                         <span class="badge badge-success">8</span>
                                     </div>
@@ -416,26 +416,27 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             @endforeach    
                         </ul>
-                        <h3 class="list-heading">Customers</h3>
-                        <ul class="media-list list-items">
-                            @foreach($users as $user)
-                                <li class="media">
-                                    <div class="media-status">
-                                        <span class="badge badge-warning">2</span>
-                                    </div>
-                                    @if($user->image)
-                                        <img class="media-object" src="{{ asset($user->image) }}" alt="{{ $user->name }}">
-                                    @else
-                                        <img class="media-object" src="{{ asset('assets/images/no-image.png') }}" alt="{{ $user->name }}">
-                                    @endif
-                                    <div class="media-body">
-                                        <h4 class="media-heading">{{ $user->name }}</h4>
-                                        <div class="media-heading-sub"> CEO, Loop Inc </div>
-                                        <div class="media-heading-small"> Last seen 03:10 AM </div>
-                                    </div>
-                                </li>
-                            @endforeach    
-                        </ul>
+
+                        {{--<h3 class="list-heading">Customers</h3>--}}
+                        {{--<ul class="media-list list-items">--}}
+                            {{--@foreach($users as $user)--}}
+                                {{--<li class="media">--}}
+                                    {{--<div class="media-status">--}}
+                                        {{--<span class="badge badge-warning">2</span>--}}
+                                    {{--</div>--}}
+                                    {{--@if($user->image)--}}
+                                        {{--<img class="media-object" src="{{ asset($user->image) }}" alt="{{ $user->name }}">--}}
+                                    {{--@else--}}
+                                        {{--<img class="media-object" src="{{ asset('assets/images/no-image.png') }}" alt="{{ $user->name }}">--}}
+                                    {{--@endif--}}
+                                    {{--<div class="media-body">--}}
+                                        {{--<h4 class="media-heading">{{ $user->name }}</h4>--}}
+                                        {{--<div class="media-heading-sub"> CEO, Loop Inc </div>--}}
+                                        {{--<div class="media-heading-small"> Last seen 03:10 AM </div>--}}
+                                    {{--</div>--}}
+                                {{--</li>--}}
+                            {{--@endforeach    --}}
+                        {{--</ul>--}}
                     </div>
                     <div class="page-quick-sidebar-item">
                         <div class="page-quick-sidebar-chat-user">
@@ -960,12 +961,18 @@ License: You must have a valid license purchased only from themeforest(the above
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
+        var rooms = [];
+        @foreach(Auth::guard('admin')->user()->getRooms() as $room)
+            rooms.push('{{$room}}');
+        @endforeach
+            console.log(rooms)
+
         var socket_chat = io.connect('http://localhost:3030/chat');
-        socket_chat.emit('rooms', ['room1','room2', 'room3']);
-        ['room1','room2', 'room3'].forEach(function(item){
-            socket_chat.emit('connect_' + item,
-                {user: item} 
+        socket_chat.emit('rooms', rooms);
+        rooms.forEach(function(room){
+            socket_chat.emit('connect_' + room,
+                {user: '{{ Auth::guard('admin')->user()->name }}'}
             );
         })
         

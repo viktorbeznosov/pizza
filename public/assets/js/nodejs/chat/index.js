@@ -8,9 +8,12 @@ io.of("/chat").on("connection", function(socket){
   
   socket.on("rooms", function(data){
       socket.rooms = data;
-      socket.rooms.forEach(function(item){
-          socket.on('connect_' + item, function(data){
-              console.log(data)
+      // console.log(socket.rooms);
+      socket.rooms.forEach(function(room){
+          var event = 'connect_' + room;
+          socket.on(event, function(data){
+              console.log(data);
+              console.log(event);
           });
       });
   });

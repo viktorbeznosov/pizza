@@ -46,7 +46,7 @@ class Admin extends Authenticatable
         return $perms;
     }
 
-    protected function rolesNames(){
+    protected function rolesNamesArr(){
         $rolesArr = array();
         foreach ($this->roles()->get() as $role){
             $rolesArr[] = $role->name;
@@ -54,12 +54,21 @@ class Admin extends Authenticatable
 
         return $rolesArr;
     }
+    
+    public function rolesNames(){
+        $rolesArr = $this->rolesNamesArr();
+        
+        if (count($rolesArr) == 0){
+            return false;
+        }
+        return implode(',',$rolesArr);
+    }
 
     public function hasRoles(...$roles){
         $roles = is_array($roles[0]) ? $roles[0] : $roles;
 
         foreach ($roles as $role){
-            if(!in_array($role, $this->rolesNames())){
+            if(!in_array($role, $this->rolesNamesArr())){
                 return false;
             }
         }
@@ -71,7 +80,7 @@ class Admin extends Authenticatable
         $roles = is_array($roles[0]) ? $roles[0] : $roles;
 
         foreach ($roles as $role){
-            if(in_array($role, $this->rolesNames())){
+            if(in_array($role, $this->rolesNamesArr())){
                 return true;
             }
         }
@@ -101,5 +110,30 @@ class Admin extends Authenticatable
         }
 
         return false;
+    }
+    
+    public static function getAllRooms(){
+        $rooms = array();
+        $admins = self::all();        
+        $adminsIds = array();
+        foreach($admins as $admin){
+            $adminsIds[] = $admin->id;
+        }
+        
+        for ($i = 0; $i < count($adminsIds); $i++){
+            for($j = $i + 1; $j < count($adminsIds); $j++){
+                $rooms[] = 'room.'. $adminsIds[$i] . '.' . $adminsIds[$j];
+            }
+        }
+        
+        return $rooms;
+    }
+    
+    public function getRooms(){
+        
+    }
+    
+    public function getRoom($admin_id){
+        
     }
 }

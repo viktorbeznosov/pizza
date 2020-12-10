@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Notification;
+use App\User;
+use App\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -15,9 +18,15 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('admin.notifications', function($view) {
-            $view->with(['notifications' => Notification::where('read',0)->get()]);
+        View::composer('layouts.admin', function($view) {
+            $view->with(array(
+                'notifications' => Notification::where('read',0)->get(),
+                'users' =>   User::all(),
+                'admins' => Admin::where('id',"!=", Auth::guard('admin')->user()->id)->get()
+            ));          
         });
+        
+        dump(Admin::getAllRooms());
     }
 
     /**

@@ -93,7 +93,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
-                    @include('admin.notifications')
+                    @include('admin.notifications')                    
                 <!-- END NOTIFICATION DROPDOWN -->
                 <!-- BEGIN INBOX DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
@@ -359,6 +359,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <a href="javascript:;" class="page-quick-sidebar-toggler">
         <i class="icon-login"></i>
     </a>
+    
     <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
         <div class="page-quick-sidebar">
             <ul class="nav nav-tabs">
@@ -400,103 +401,40 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="tab-content">
                 <div class="tab-pane active page-quick-sidebar-chat" id="quick_sidebar_tab_1">
                     <div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
-                        <h3 class="list-heading">Staff</h3>
+                        <h3 class="list-heading">Admins</h3>
                         <ul class="media-list list-items">
-                            <li class="media">
-                                <div class="media-status">
-                                    <span class="badge badge-success">8</span>
-                                </div>
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar3.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Bob Nilson</h4>
-                                    <div class="media-heading-sub"> Project Manager </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar1.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Nick Larson</h4>
-                                    <div class="media-heading-sub"> Art Director </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="media-status">
-                                    <span class="badge badge-danger">3</span>
-                                </div>
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar4.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Deon Hubert</h4>
-                                    <div class="media-heading-sub"> CTO </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar2.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Ella Wong</h4>
-                                    <div class="media-heading-sub"> CEO </div>
-                                </div>
-                            </li>
+                            @foreach($admins as $admin)
+                                <li class="media">
+                                    <div class="media-status">
+                                        <span class="badge badge-success">8</span>
+                                    </div>
+                                    <img class="media-object" src="{{ asset($admin->image) }}" alt="{{ $admin->name }}">
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ $admin->name }}</h4>
+                                        <div class="media-heading-sub"> {{ $admin->rolesNames() }} </div>
+                                    </div>
+                                </li>
+                            @endforeach    
                         </ul>
                         <h3 class="list-heading">Customers</h3>
                         <ul class="media-list list-items">
-                            <li class="media">
-                                <div class="media-status">
-                                    <span class="badge badge-warning">2</span>
-                                </div>
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar6.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Lara Kunis</h4>
-                                    <div class="media-heading-sub"> CEO, Loop Inc </div>
-                                    <div class="media-heading-small"> Last seen 03:10 AM </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="media-status">
-                                    <span class="label label-sm label-success">new</span>
-                                </div>
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar7.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Ernie Kyllonen</h4>
-                                    <div class="media-heading-sub"> Project Manager,
-                                        <br> SmartBizz PTL </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar8.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Lisa Stone</h4>
-                                    <div class="media-heading-sub"> CTO, Keort Inc </div>
-                                    <div class="media-heading-small"> Last seen 13:10 PM </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="media-status">
-                                    <span class="badge badge-success">7</span>
-                                </div>
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar9.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Deon Portalatin</h4>
-                                    <div class="media-heading-sub"> CFO, H&D LTD </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar10.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Irina Savikova</h4>
-                                    <div class="media-heading-sub"> CEO, Tizda Motors Inc </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <div class="media-status">
-                                    <span class="badge badge-danger">4</span>
-                                </div>
-                                <img class="media-object" src="../assets/layouts/layout/img/avatar11.jpg" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Maria Gomez</h4>
-                                    <div class="media-heading-sub"> Manager, Infomatic Inc </div>
-                                    <div class="media-heading-small"> Last seen 03:10 AM </div>
-                                </div>
-                            </li>
+                            @foreach($users as $user)
+                                <li class="media">
+                                    <div class="media-status">
+                                        <span class="badge badge-warning">2</span>
+                                    </div>
+                                    @if($user->image)
+                                        <img class="media-object" src="{{ asset($user->image) }}" alt="{{ $user->name }}">
+                                    @else
+                                        <img class="media-object" src="{{ asset('assets/images/no-image.png') }}" alt="{{ $user->name }}">
+                                    @endif
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{ $user->name }}</h4>
+                                        <div class="media-heading-sub"> CEO, Loop Inc </div>
+                                        <div class="media-heading-small"> Last seen 03:10 AM </div>
+                                    </div>
+                                </li>
+                            @endforeach    
                         </ul>
                     </div>
                     <div class="page-quick-sidebar-item">
@@ -1022,6 +960,15 @@ License: You must have a valid license purchased only from themeforest(the above
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        
+        var socket_chat = io.connect('http://localhost:3030/chat');
+        socket_chat.emit('rooms', ['room1','room2', 'room3']);
+        ['room1','room2', 'room3'].forEach(function(item){
+            socket_chat.emit('connect_' + item,
+                {user: item} 
+            );
+        })
+        
     });
 </script>
 

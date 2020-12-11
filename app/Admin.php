@@ -122,7 +122,7 @@ class Admin extends Authenticatable
         
         for ($i = 0; $i < count($adminsIds); $i++){
             for($j = $i + 1; $j < count($adminsIds); $j++){
-                $rooms[] = 'room.'. $adminsIds[$i] . '.' . $adminsIds[$j];
+                $rooms[] = 'Room.'. $adminsIds[$i] . '.' . $adminsIds[$j];
             }
         }
         

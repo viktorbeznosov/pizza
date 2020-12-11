@@ -10,10 +10,17 @@ io.of("/chat").on("connection", function(socket){
       socket.rooms = data;
       // console.log(socket.rooms);
       socket.rooms.forEach(function(room){
-          var event = 'connect_' + room;
-          socket.on(event, function(data){
-              console.log(data);
-              console.log(event);
+          var event_connect = 'connectTo' + room;
+          socket.on(event_connect, function(data){
+              socket.join(room, function(){
+                console.log(data.user + ' connected to ' + room);
+                console.log(event_connect);
+              });
+          });
+          
+          var event_message = 'messageTo' + room
+          socket.on(event_message, function(data){
+                console.log(data)
           });
       });
   });

@@ -868,7 +868,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/demo.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/metronic/layouts/global/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script>
@@ -887,7 +886,7 @@ License: You must have a valid license purchased only from themeforest(the above
         var socket_chat = io.connect('http://localhost:3030/chat');
         socket_chat.emit('rooms', rooms);
         rooms.forEach(function(room){
-            socket_chat.emit('connect_' + room,
+            socket_chat.emit('connectTo' + room,
                 {user: '{{ Auth::guard('admin')->user()->name }}'}
             );
         });
@@ -899,13 +898,23 @@ License: You must have a valid license purchased only from themeforest(the above
             //$('.page-quick-sidebar-item').attr('data-room', room);            
         });
         
-        $('.page-quick-sidebar-chat-user-form').find('button[type="button"]').on('click', function(){
-            //console.log($('.page-quick-sidebar-item').data("room"));
-            console.log(localStorage.getItem('room'));
+        $('.page-quick-sidebar-chat-user-form').find('button[type="button"]').on('click', function(){            
+            var room = localStorage.getItem('room');
+            var event_message = 'messageTo' + room
+            var userName = '{{ Auth::guard('admin')->user()->name }}';
+            var message = $(this).closest('.page-quick-sidebar-chat-user-form').find('input').val();
+            var data = {
+                room: room,
+                name: userName,
+                message: message
+            }
+                        
+            socket_chat.emit(event_message, data);    
         })
 
     });
 </script>
+<script src="{{ asset('assets/metronic/layouts/global/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
 
 </body>
 

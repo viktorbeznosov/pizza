@@ -889,6 +889,27 @@ License: You must have a valid license purchased only from themeforest(the above
             socket_chat.emit('connectTo' + room,
                 {user: '{{ Auth::guard('admin')->user()->name }}'}
             );
+            socket_chat.on('messageFrom' + room, function(data){
+                console.log('messageFrom' + room);
+                console.log(data);
+
+                if (data.room == localStorage.getItem('room')){
+                    var messageTpl = `
+                        <div class="post in">
+                            <img class="avatar" alt="" src="{{ asset('assets/layouts/layout/img/avatar2.jpg') }}}">
+                            <div class="message">
+                                <span class="arrow"></span>
+                                <a href="javascript:;" class="name">`+data.name+`</a>
+                                <span class="datetime">`+data.date+`</span>
+                                <span class="body"> `+data.message+` </span>
+                            </div>
+                        </div>
+                    `;
+                     $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
+                }
+
+
+            })
         });
 
         $('.media-list.list-items li').on('click', function(){
@@ -910,7 +931,11 @@ License: You must have a valid license purchased only from themeforest(the above
             }
                         
             socket_chat.emit(event_message, data);    
-        })
+        });
+
+        $('.page-quick-sidebar-back-to-list').on('click', function () {
+            localStorage.removeItem('room');
+        });
 
     });
 </script>

@@ -416,27 +416,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                             @endforeach    
                         </ul>
-
-                        {{--<h3 class="list-heading">Customers</h3>--}}
-                        {{--<ul class="media-list list-items">--}}
-                            {{--@foreach($users as $user)--}}
-                                {{--<li class="media">--}}
-                                    {{--<div class="media-status">--}}
-                                        {{--<span class="badge badge-warning">2</span>--}}
-                                    {{--</div>--}}
-                                    {{--@if($user->image)--}}
-                                        {{--<img class="media-object" src="{{ asset($user->image) }}" alt="{{ $user->name }}">--}}
-                                    {{--@else--}}
-                                        {{--<img class="media-object" src="{{ asset('assets/images/no-image.png') }}" alt="{{ $user->name }}">--}}
-                                    {{--@endif--}}
-                                    {{--<div class="media-body">--}}
-                                        {{--<h4 class="media-heading">{{ $user->name }}</h4>--}}
-                                        {{--<div class="media-heading-sub"> CEO, Loop Inc </div>--}}
-                                        {{--<div class="media-heading-small"> Last seen 03:10 AM </div>--}}
-                                    {{--</div>--}}
-                                {{--</li>--}}
-                            {{--@endforeach    --}}
-                        {{--</ul>--}}
                     </div>
                     <div class="page-quick-sidebar-item">
                         <div class="page-quick-sidebar-chat-user">
@@ -462,70 +441,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <span class="datetime">20:15</span>
                                         <span class="body"> Its almost done. I will be sending it shortly </span>
                                     </div>
-                                </div>
-                                <div class="post out">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Bob Nilson</a>
-                                        <span class="datetime">20:15</span>
-                                        <span class="body"> Alright. Thanks! :) </span>
-                                    </div>
-                                </div>
-                                <div class="post in">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Ella Wong</a>
-                                        <span class="datetime">20:16</span>
-                                        <span class="body"> You are most welcome. Sorry for the delay. </span>
-                                    </div>
-                                </div>
-                                <div class="post out">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Bob Nilson</a>
-                                        <span class="datetime">20:17</span>
-                                        <span class="body"> No probs. Just take your time :) </span>
-                                    </div>
-                                </div>
-                                <div class="post in">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Ella Wong</a>
-                                        <span class="datetime">20:40</span>
-                                        <span class="body"> Alright. I just emailed it to you. </span>
-                                    </div>
-                                </div>
-                                <div class="post out">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Bob Nilson</a>
-                                        <span class="datetime">20:17</span>
-                                        <span class="body"> Great! Thanks. Will check it right away. </span>
-                                    </div>
-                                </div>
-                                <div class="post in">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Ella Wong</a>
-                                        <span class="datetime">20:40</span>
-                                        <span class="body"> Please let me know if you have any comment. </span>
-                                    </div>
-                                </div>
-                                <div class="post out">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Bob Nilson</a>
-                                        <span class="datetime">20:17</span>
-                                        <span class="body"> Sure. I will check and buzz you if anything needs to be corrected. </span>
-                                    </div>
-                                </div>
+                                </div> 
+
                             </div>
                             <div class="page-quick-sidebar-chat-user-form">
                                 <div class="input-group">
@@ -951,7 +868,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/demo.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/metronic/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/layouts/global/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script>
@@ -966,7 +883,6 @@ License: You must have a valid license purchased only from themeforest(the above
         @foreach(Auth::guard('admin')->user()->getRooms() as $room)
             rooms.push('{{$room}}');
         @endforeach
-            console.log(rooms)
 
         var socket_chat = io.connect('http://localhost:3030/chat');
         socket_chat.emit('rooms', rooms);
@@ -974,8 +890,20 @@ License: You must have a valid license purchased only from themeforest(the above
             socket_chat.emit('connect_' + room,
                 {user: '{{ Auth::guard('admin')->user()->name }}'}
             );
-        })
+        });
+
+        $('.media-list.list-items li').on('click', function(){
+            var room = $(this).data("room");
+            localStorage.setItem('room', room);
+                        
+            //$('.page-quick-sidebar-item').attr('data-room', room);            
+        });
         
+        $('.page-quick-sidebar-chat-user-form').find('button[type="button"]').on('click', function(){
+            //console.log($('.page-quick-sidebar-item').data("room"));
+            console.log(localStorage.getItem('room'));
+        })
+
     });
 </script>
 

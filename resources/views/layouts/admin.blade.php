@@ -926,8 +926,10 @@ License: You must have a valid license purchased only from themeforest(the above
             var message = $(this).closest('.page-quick-sidebar-chat-user-form').find('input').val();
             var data = {
                 room: room,
+                user_id: '{{ Auth::guard('admin')->user()->id }}',
                 name: userName,
-                message: message
+                message: message,
+                image: '{{ Auth::guard('admin')->user()->image }}'
             }
                         
             socket_chat.emit(event_message, data);    

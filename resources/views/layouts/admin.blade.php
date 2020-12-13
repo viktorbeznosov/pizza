@@ -424,24 +424,24 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-arrow-left"></i>Back</a>
                             </div>
                             <div class="page-quick-sidebar-chat-user-messages">
-                                <div class="post out">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Bob Nilson</a>
-                                        <span class="datetime">20:15</span>
-                                        <span class="body"> When could you send me the report ? </span>
-                                    </div>
-                                </div>
-                                <div class="post in">
-                                    <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg" />
-                                    <div class="message">
-                                        <span class="arrow"></span>
-                                        <a href="javascript:;" class="name">Ella Wong</a>
-                                        <span class="datetime">20:15</span>
-                                        <span class="body"> Its almost done. I will be sending it shortly </span>
-                                    </div>
-                                </div> 
+                                {{--<div class="post out">--}}
+                                    {{--<img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />--}}
+                                    {{--<div class="message">--}}
+                                        {{--<span class="arrow"></span>--}}
+                                        {{--<a href="javascript:;" class="name">Bob Nilson</a>--}}
+                                        {{--<span class="datetime">20:15</span>--}}
+                                        {{--<span class="body"> When could you send me the report ? </span>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="post in">--}}
+                                    {{--<img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg" />--}}
+                                    {{--<div class="message">--}}
+                                        {{--<span class="arrow"></span>--}}
+                                        {{--<a href="javascript:;" class="name">Ella Wong</a>--}}
+                                        {{--<span class="datetime">20:15</span>--}}
+                                        {{--<span class="body"> Its almost done. I will be sending it shortly </span>--}}
+                                    {{--</div>--}}
+                                {{--</div> --}}
 
                             </div>
                             <div class="page-quick-sidebar-chat-user-form">
@@ -896,7 +896,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 if (data.room == localStorage.getItem('room')){
                     var messageTpl = `
                         <div class="post in">
-                            <img class="avatar" alt="" src="{{ asset('assets/layouts/layout/img/avatar2.jpg') }}}">
+                            <img class="avatar" alt="" src="`+data.image+`">
                             <div class="message">
                                 <span class="arrow"></span>
                                 <a href="javascript:;" class="name">`+data.name+`</a>
@@ -907,19 +907,44 @@ License: You must have a valid license purchased only from themeforest(the above
                     `;
                      $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
                 }
+            });
+
+            // socket_chat.on('foo', function (data) {
+            //    console.log(data);
+            // });
+
+            socket_chat.on('returnMessagesFrom' + room, function (messages) {
+                messages.forEach(function(item){
+                    var user_id = '{{Auth::guard('admin')->user()->id}}';
+                    var tpl_class = (user_id == item.user_id) ? 'out' : 'in';
+                    var messageTpl = `
+                            <div class="post `+tpl_class+`">
+                                <img class="avatar" alt="" src="`+item.user_image+`" />
+                                <div class="message">
+                                    <span class="arrow"></span>
+                                    <a href="javascript:;" class="name">`+item.user_name+`</a>
+                                    <span class="datetime">`+item.date+`</span>
+                                    <span class="body"> ` + item.message + ` </span>
+                                </div>
+                            </div>
+                    `;
+                    console.log(item)
 
 
-            })
+                    $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
+                })
+            });
         });
 
         $('.media-list.list-items li').on('click', function(){
             var room = $(this).data("room");
+            console.log(room)
             localStorage.setItem('room', room);
                         
             //$('.page-quick-sidebar-item').attr('data-room', room);            
         });
         
-        $('.page-quick-sidebar-chat-user-form').find('button[type="button"]').on('click', function(){            
+        $('.page-quick-sidebar-chat-user-form').find('button[type="button"]').on('click keypress', function(e){
             var room = localStorage.getItem('room');
             var event_message = 'messageTo' + room
             var userName = '{{ Auth::guard('admin')->user()->name }}';
@@ -931,12 +956,35 @@ License: You must have a valid license purchased only from themeforest(the above
                 message: message,
                 image: '{{ Auth::guard('admin')->user()->image }}'
             }
-                        
-            socket_chat.emit(event_message, data);    
+
+            socket_chat.emit(event_message, data);
+
+            var time = new Date();
+            var date = time.getDate() + '.' + (time.getMonth() + 1) + '.' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes()
+            var messageTpl = `
+                            <div class="post out">
+                                <img class="avatar" alt="" src="{{ Auth::guard('admin')->user()->image }}" />
+                                <div class="message">
+                                    <span class="arrow"></span>
+                                    <a href="javascript:;" class="name">{{ Auth::guard('admin')->user()->name }}</a>
+                                    <span class="datetime">`+date+`</span>
+                                    <span class="body"> ` + message + ` </span>
+                                </div>
+                            </div>
+                    `;
+            $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
         });
 
         $('.page-quick-sidebar-back-to-list').on('click', function () {
             localStorage.removeItem('room');
+        });
+
+        $('ul.media-list').find('li').on('click', function () {
+            $('.page-quick-sidebar-chat-user-messages').html('');
+            var room = $(this).data('room');
+            var event_get_messages = 'getMessagesFrom' + room;
+
+            socket_chat.emit(event_get_messages, room);
         });
 
     });

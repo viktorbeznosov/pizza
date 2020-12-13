@@ -17,10 +17,23 @@ io.of("/chat").on("connection", function(socket){
               socket.join(room, function(){
                 console.log(data.user + ' connected to ' + room);
                 console.log(event_connect);
-                console.log('result messages');
-                message.getMessages(room).then(data => {
-                    console.log(data)
-                });
+              });
+          });
+
+          var event_get_messages = 'getMessagesFrom' + room;
+          socket.on(event_get_messages, function (room) {
+              console.log('result messages');
+              message.getMessages(room).then(data => {
+                  if (data != null){
+                      console.log(room);
+                      console.log(data.messages);
+                      socket.emit('returnMessagesFrom' + room, data.messages);
+                  } else {
+                      console.log(room);
+                      console.log([]);
+                      socket.emit('returnMessagesFrom' + room, []);
+                  }
+
               });
           });
           

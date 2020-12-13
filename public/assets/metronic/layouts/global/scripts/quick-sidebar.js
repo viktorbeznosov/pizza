@@ -59,6 +59,7 @@ var QuickSidebar = function () {
                 return;
             }
 
+            /*
             var preparePost = function(dir, time, name, avatar, message) {
                 var tpl = '';
                 tpl += '<div class="post '+ dir +'">';
@@ -81,6 +82,7 @@ var QuickSidebar = function () {
             var message = preparePost('out', (time.getHours() + ':' + time.getMinutes()), "Bob Nilson", 'avatar3', text);
             message = $(message);
             chatContainer.append(message);
+            */
 
             chatContainer.slimScroll({
                 scrollTo: '1000000px'

@@ -22,6 +22,9 @@ var Message = mongoose.model('Message', messageScheme);
 function add(data) {
     var now = moment();
 
+    console.log('income')
+    console.log(data)
+
     Message.findOne({room: data.room}, function(err, result){
         if(err) return console.log(err);
         if (result != null){
@@ -30,7 +33,7 @@ function add(data) {
             messages.push({
                 message: data.message,
                 user_id: data.user_id,
-                user_name: data.user_name,
+                user_name: data.name,
                 user_image: data.image,
                 date: now.format('DD.MM.YYYY H:mm')
             });
@@ -52,7 +55,7 @@ function add(data) {
                 messages: [{
                     message: data.message,
                     user_id: data.user_id,
-                    user_name: data.user_name,
+                    user_name: data.name,
                     user_image: data.image,
                     date: now.format('DD.MM.YYYY H:mm')
                 }]
@@ -73,12 +76,11 @@ function add(data) {
 
 async function getMessages(room){
 
-
     let result = await Message.findOne({room: room});
-    if (result != null){
-        return result.messages;
-    }
 
+    if (result != null){
+        return result;
+    }
 
 }
 

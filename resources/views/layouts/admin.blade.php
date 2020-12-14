@@ -887,7 +887,10 @@ License: You must have a valid license purchased only from themeforest(the above
         socket_chat.emit('rooms', rooms);
         rooms.forEach(function(room){
             socket_chat.emit('connectTo' + room,
-                {user: '{{ Auth::guard('admin')->user()->name }}'}
+                {
+                    user: '{{ Auth::guard('admin')->user()->name }}',
+                    user_id: '{{ Auth::guard('admin')->user()->id }}'
+                }
             );
             socket_chat.on('messageFrom' + room, function(data){
                 console.log('messageFrom' + room);
@@ -908,10 +911,6 @@ License: You must have a valid license purchased only from themeforest(the above
                      $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
                 }
             });
-
-            // socket_chat.on('foo', function (data) {
-            //    console.log(data);
-            // });
 
             socket_chat.on('returnMessagesFrom' + room, function (messages) {
                 messages.forEach(function(item){
@@ -936,7 +935,10 @@ License: You must have a valid license purchased only from themeforest(the above
             });
             
             socket_chat.on('unreadMessages' + room, function(data){
-                console.log('Room ' + room + ' ' + data);
+                if (data == 0){
+                    data = null;
+                }
+                $('.media-list').find('li[data-room="'+room+'"]').find('.media-status span').html(data);
             });
         });
 
@@ -988,7 +990,16 @@ License: You must have a valid license purchased only from themeforest(the above
             var room = $(this).data('room');
             var event_get_messages = 'getMessagesFrom' + room;
 
+            var unreaded_messages = $('.media-list').find('li[data-room="'+room+'"]').find('.media-status span').html()
+            if (unreaded_messages){
+                socket_chat.emit('readMessages', {
+                    room: room,
+                    user_id: '{{ Auth::guard('admin')->user()->id }}'
+                })
+            }
+
             socket_chat.emit(event_get_messages, room);
+            $('.media-list').find('li[data-room="'+room+'"]').find('.media-status span').html('');
         });
 
     });

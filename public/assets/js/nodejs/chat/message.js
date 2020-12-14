@@ -27,7 +27,7 @@ function add(data) {
     console.log(data)
 
     Message.findOne({room: data.room}, function(err, result){
-        if(err) return console.log(err);
+        if(err) console.log(err);
         if (result != null){
             console.log(result)
             var messages = result.messages;
@@ -77,6 +77,36 @@ function add(data) {
 
 }
 
+function read(data){
+    Message.findOne({room: data.room}, function(err, result){
+        if(err) console.log(err);
+
+        if (result != null && result.messages){
+            var messages = [];
+            if (result.messages.length > 0){
+                result.messages.forEach(function(item){
+                    var read = (item.user_id != data.user_id) ? true: item.read;
+                    messages.push({
+                        message: item.message,
+                        read: read,
+                        user_id: item.user_id,
+                        user_name: item.user_name,
+                        user_image: item.user_image,
+                        date: item.date
+                    });
+                });
+                Message.updateOne({room: data.room}, {
+                    room: data.room,
+                    messages: messages
+                }, function (result) {
+                    console.log('Collection ' + data.room + ' messages of user_id ' + data.user_id + ' readed');
+                });
+            }
+
+        }
+    });
+}
+
 async function getMessages(room){
 
     let result = await Message.findOne({room: room});
@@ -87,14 +117,29 @@ async function getMessages(room){
 
 }
 
-async function getUnreadMessages(room){
-    let result = await Message.findOne({room: room, messages: { read: false }});
+function getUnreadMessages(room, user_id){
 
-    if (result != null){
-        return result;
-    }
+    return new Promise((resolve, reject) => {
+
+        getMessages(room).then(data => {
+            if (data != null && data.messages){
+                let messages_count = 0;
+                data.messages.forEach(function(item){
+                    if (item.user_id != user_id && item.read == 0){
+                        messages_count++;
+                    }
+                });
+                resolve(messages_count);
+            } else {
+                resolve(false);
+            }
+        })
+
+    });
+
 }
 
 module.exports.add = add;
+module.exports.read = read;
 module.exports.getMessages = getMessages;
 module.exports.getUnreadMessages = getUnreadMessages;

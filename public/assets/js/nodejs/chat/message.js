@@ -8,8 +8,9 @@ const messageScheme = mongoose.Schema({
         type: String,
         required: true
     },
-    messages: [{
+    messages: [{           
         message: String,
+        read: Boolean,
         user_id: Number,
         user_name: String,
         user_image: String,
@@ -32,6 +33,7 @@ function add(data) {
             var messages = result.messages;
             messages.push({
                 message: data.message,
+                read: false, 
                 user_id: data.user_id,
                 user_name: data.name,
                 user_image: data.image,
@@ -54,6 +56,7 @@ function add(data) {
                 room: data.room,
                 messages: [{
                     message: data.message,
+                    read: false, 
                     user_id: data.user_id,
                     user_name: data.name,
                     user_image: data.image,
@@ -84,5 +87,14 @@ async function getMessages(room){
 
 }
 
+async function getUnreadMessages(room){
+    let result = await Message.findOne({room: room, messages: { read: false }});
+
+    if (result != null){
+        return result;
+    }
+}
+
 module.exports.add = add;
 module.exports.getMessages = getMessages;
+module.exports.getUnreadMessages = getUnreadMessages;

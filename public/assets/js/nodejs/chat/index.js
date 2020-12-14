@@ -17,6 +17,18 @@ io.of("/chat").on("connection", function(socket){
               socket.join(room, function(){
                 console.log(data.user + ' connected to ' + room);
                 console.log(event_connect);
+                
+                var event_get_unreaded_messages = 'unreadMessages' + room;
+                message.getUnreadMessages(room).then(data => {
+                    if (data != null){
+                        console.log('Room - ' + room + ' unread')
+                        console.log(data);
+                    } else {
+                        console.log('Room - ' + room + ' unread')
+                        console.log(data);
+                    }
+                });
+                socket.emit(event_get_unreaded_messages, '3');
               });
           });
 
@@ -44,7 +56,7 @@ io.of("/chat").on("connection", function(socket){
                 data.date = now.format('DD.MM.YYYY H:mm');
                 message.add(data);
                 socket.broadcast.to(room).emit('messageFrom' + room, data); //Всем кроме пользователя пославшего message
-          });
+          });        
       });
   });
   

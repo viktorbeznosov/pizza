@@ -934,6 +934,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
                 })
             });
+            
+            socket_chat.on('unreadMessages' + room, function(data){
+                console.log('Room ' + room + ' ' + data);
+            });
         });
 
         $('.media-list.list-items li').on('click', function(){

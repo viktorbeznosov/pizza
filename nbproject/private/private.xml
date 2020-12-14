@@ -5,8 +5,10 @@
         <group>
             <file>file:/C:/OSPanel/domains/pizza.loc/app/Providers/ComposerServiceProvider.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/app/Admin.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/metronic/layouts/global/scripts/quick-sidebar.js</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/notifications.blade.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/js/nodejs/chat/index.js</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/routes/web.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/MenuController.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/layouts/admin.blade.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/app/Notification.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/js/nodejs/order/index.js</file>

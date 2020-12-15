@@ -872,6 +872,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script>
     $(document).ready(function(){
+        localStorage.removeItem('room');
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -909,6 +911,21 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     `;
                      $('.page-quick-sidebar-chat-user-messages').append(messageTpl);
+
+                    socket_chat.emit('readMessages', {
+                        room: data.room,
+                        user_id: '{{ Auth::guard('admin')->user()->id }}'
+                    });
+                } else {
+                    var messages_count = $('.media-list').find('li[data-room="'+data.room+'"]').find('.media-status span').html();
+                    console.log(messages_count);
+                    if (messages_count > 0){
+                        messages_count++;
+                        $('.media-list').find('li[data-room="'+data.room+'"]').find('.media-status span').html(messages_count);
+                    } else {
+                        $('.media-list').find('li[data-room="'+data.room+'"]').find('.media-status span').html(1);
+                    }
+
                 }
             });
 
@@ -995,7 +1012,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 socket_chat.emit('readMessages', {
                     room: room,
                     user_id: '{{ Auth::guard('admin')->user()->id }}'
-                })
+                });
             }
 
             socket_chat.emit(event_get_messages, room);

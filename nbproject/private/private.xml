@@ -3,17 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Providers/ComposerServiceProvider.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Admin.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/config/database.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/metronic/layouts/global/scripts/quick-sidebar.js</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/Admin/SearchControlles.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/notifications.blade.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/js/nodejs/chat/index.js</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/config/sphinxsearch.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/routes/web.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Notification.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/Admin/NotificationsController.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Providers/ComposerServiceProvider.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Admin.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/MenuController.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/js/nodejs/chat/message.js</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/layouts/admin.blade.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Notification.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/public/assets/js/nodejs/order/index.js</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/Admin/NotificationsController.php</file>
         </group>
     </open-files>
 </project-private>

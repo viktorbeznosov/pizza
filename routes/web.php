@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
         Route::post('/read', 'Admin\NotificationsController@read')->name('notification_read');
     });
     
-    Route::get('/search/{q}', 'Admin\SearchControlles@search')->name('search');
+    Route::get('/search/', 'Admin\SearchControlles@search')->name('search');
 
 });
 

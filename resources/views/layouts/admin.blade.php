@@ -54,6 +54,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-summernote/summernote.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/metronic/pages/css/search.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{{ asset('assets/metronic/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
@@ -77,7 +78,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="page-header-inner ">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="index.html">
+            <a href="{{ route('admin.dashboard') }}">
                 <img src="{{ asset('assets/metronic/layouts/layout/img/logo.png') }}" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
@@ -263,17 +264,17 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
                     <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                     <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-                    <form class="sidebar-search  " action="page_general_search_3.html" method="POST">
+                    <form class="sidebar-search" name="search" action="{{ route('admin.search') }}" method="GET">
                         <a href="javascript:;" class="remove">
                             <i class="icon-close"></i>
                         </a>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input name="q" type="text" class="form-control" required placeholder="Search...">
                             <span class="input-group-btn">
-                                        <a href="javascript:;" class="btn submit">
-                                            <i class="icon-magnifier"></i>
-                                        </a>
-                                    </span>
+                                <a href="javascript:;" class="btn submit">
+                                    <i class="icon-magnifier"></i>
+                                </a>
+                            </span>
                         </div>
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
@@ -864,6 +865,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/pages/scripts/ui-toastr.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/form-validation-md.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/components-bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/pages/scripts/search.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>

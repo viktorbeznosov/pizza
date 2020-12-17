@@ -11,7 +11,8 @@ class SearchControlles extends Controller
     public function search(Request $request){
         $input = $request->all();
         $query = $input['q'];
-        dd(SearchHelper::search($query));
+        $result = SearchHelper::search($query);
+        dd($result);
 
         return view('admin.search');
     }

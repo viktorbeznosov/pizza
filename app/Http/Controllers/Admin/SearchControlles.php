@@ -10,10 +10,12 @@ class SearchControlles extends Controller
 {
     public function search(Request $request){
         $input = $request->all();
-        $query = $input['q'];
-        $result = SearchHelper::search($query);
-        dd($result);
+        $query = (isset($input['q'])) ? $input['q'] : '';
+        $result = (isset($input['q'])) ? SearchHelper::search($query) : false;
 
-        return view('admin.search');
+
+//        dd($result);
+
+        return view('admin.search', array('result' => $result));
     }
 }

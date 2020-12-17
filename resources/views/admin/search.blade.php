@@ -24,7 +24,7 @@
             </div>
             <!-- END PAGE BAR -->
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title"> Search Results 3
+            <h3 class="page-title"> Search Results {{ $result['total'] }}
                 <small>search results</small>
             </h3>
             <!-- END PAGE TITLE-->
@@ -33,12 +33,14 @@
                 <div class="search-bar ">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                                                <button class="btn blue uppercase bold" type="button">Search</button>
-                                            </span>
-                            </div>
+                            <form class="sidebar-search" name="search" action="{{ route('admin.search') }}" method="GET">
+                                <div class="input-group">
+                                    <input type="text" name="q" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn blue uppercase bold" type="submit">Search</button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -46,71 +48,39 @@
                     <div class="col-md-12">
                         <div class="search-container ">
                             <ul class="search-container">
-                                <li class="search-item clearfix">
-                                    <div class="search-content text-left">
-                                        <h2 class="search-title">
-                                            <a href="javascript:;">Metronic Search Results</a>
-                                        </h2>
-                                        <p class="search-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur pellentesque auctor. Morbi lobortis, leo in tristique scelerisque, mauris quam volutpat nunc </p>
-                                    </div>
-                                </li>
-                                <li class="search-item clearfix">
-                                    <div class="search-content text-left">
-                                        <h2 class="search-title">
-                                            <a href="javascript:;">Lorem ipsum dolor</a>
-                                        </h2>
-                                        <p class="search-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur pellentesque auctor. Morbi lobortis, leo in tristique scelerisque, mauris quam volutpat nunc </p>
-                                    </div>
-                                </li>
-                                <li class="search-item clearfix">
-                                    <div class="search-content text-left">
-                                        <h2 class="search-title">
-                                            <a href="javascript:;">sit amet</a>
-                                        </h2>
-                                        <p class="search-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur pellentesque auctor. Morbi lobortis, leo in tristique scelerisque, mauris quam volutpat nunc </p>
-                                    </div>
-                                </li>
-                                <li class="search-item clearfix">
-                                    <div class="search-content text-left">
-                                        <h2 class="search-title">
-                                            <a href="javascript:;">consectetur adipiscing</a>
-                                        </h2>
-                                        <p class="search-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur pellentesque auctor. Morbi lobortis, leo in tristique scelerisque, mauris quam volutpat nunc </p>
-                                    </div>
-                                </li>
-                                <li class="search-item clearfix">
-                                    <div class="search-content text-left">
-                                        <h2 class="search-title">
-                                            <a href="javascript:;">Metronic Search Reborn</a>
-                                        </h2>
-                                        <p class="search-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur pellentesque auctor. Morbi lobortis, leo in tristique scelerisque, mauris quam volutpat nunc </p>
-                                    </div>
-                                </li>
-                                <li class="search-item clearfix">
-                                    <div class="search-content text-left">
-                                        <h2 class="search-title">
-                                            <a href="javascript:;">tristique scelerisque</a>
-                                        </h2>
-                                        <p class="search-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur pellentesque auctor. Morbi lobortis, leo in tristique scelerisque, mauris quam volutpat nunc </p>
-                                    </div>
-                                </li>
+                                @if($result)
+                                    @foreach($result['items'] as $item)
+                                        <li class="search-item clearfix">
+                                            <div class="search-content text-left">
+                                                <h2 class="search-title">
+                                                    <a href="{{ $item->link }}">{{ $item->title }}</a>
+                                                </h2>
+                                                <p class="search-desc"> {{ $item->text }} </p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
-                            <div class="search-pagination">
-                                <ul class="pagination">
-                                    <li class="page-active">
-                                        <a href="javascript:;"> 1 </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> 2 </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> 3 </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"> 4 </a>
-                                    </li>
-                                </ul>
-                            </div>
+
+                            @if ($result && $result['total'] > count($result['items']))
+                                <div class="search-pagination">
+                                    <ul class="pagination">
+                                        @for($i = 1; $i <= $result['pages_count']; $i++)
+                                            <li class="@if($i == $result['page']) page-active @endif">
+                                                <a
+                                                    @if($i == $result['page'])
+                                                        href="javascript:void(0)"
+                                                    @else
+                                                        href="{{ route('admin.search', array('q' => $_GET['q'], 'page' => $i)) }}"
+                                                    @endif
+                                                >
+                                                    {{ $i }}
+                                                </a>
+                                            </li>
+                                        @endfor
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>                   
                 </div>

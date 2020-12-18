@@ -27,7 +27,7 @@ class SearchHelper {
                SELECT 'admins',admins.id, null as cat_id, admins.name, admins.email FROM `admins` WHERE `name` LIKE ? OR email LIKE ? 
                 ";
         $data = collect(DB::select($query, $arrParams));
-
+        
         foreach ($data as &$item){
             switch ($item->type){
                 case 'blogs':

@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         $permissions = Permission::all();
-        foreach ($permissions as $permission){
+        foreach ($permissions as $permission){            
             if (in_array($permission->name, array('UPDATE_ADMINS','DELETE_ADMINS'))) {
                 //Админ не может удалить и редактировать самого себя
                 Gate::define($permission->name, function (Admin $admin, Admin $user) use ($permission) {

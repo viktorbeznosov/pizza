@@ -1,3 +1,4 @@
+@inject('GateHelper', 'App\Helpers\GateHelper')
 @extends('layouts.admin')
 
 @section('content')

@@ -11,6 +11,7 @@ use App\Comment;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\GateHelper;
 
 class BlogsController extends Controller
 {
@@ -35,7 +36,11 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {        
+        if (!GateHelper::all('CREATE_BLOGS')){
+            abort(404);
+//            return redirect()->route('admin.dashboard');
+        }
         $title = 'Создание блога';
         $data = array(
             'title' => $title,
@@ -90,6 +95,15 @@ class BlogsController extends Controller
     {
         $comments = Comment::where('blog_id', $id)->where('parent',0)->get();
         $blog = Blog::find($id);
+        
+        //Проверка на доступ к блогам
+        if (!Auth::guard('admin')->user()->hasRoles('Admin')){
+            if (!GateHelper::all('VIEW_BLOGS','VIEW_COMMENTS') || Auth::guard('admin')->user()->id != $blog->admin_id){
+                abort(404);
+            }
+            
+        }
+        
         $data = array(
             'title' => $blog->title,
             'blog' => $blog,
@@ -108,6 +122,13 @@ class BlogsController extends Controller
     public function edit($id)
     {
         $blog = Blog::find($id);
+        //Проверка на доступ к блогам
+        if (!Auth::guard('admin')->user()->hasRoles('Admin')){
+            if (!GateHelper::all('UPDATE_BLOGS') || Auth::guard('admin')->user()->id != $blog->admin_id){
+                abort(404);
+            }
+            
+        }
         $title = $blog->title;
         $data = array(
             'title' => $title,

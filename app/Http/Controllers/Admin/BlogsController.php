@@ -98,7 +98,7 @@ class BlogsController extends Controller
         
         //Проверка на доступ к блогам
         if (!Auth::guard('admin')->user()->hasRoles('Admin')){
-            if (!GateHelper::all('VIEW_BLOGS','VIEW_COMMENTS') || Auth::guard('admin')->user()->id != $blog->admin_id){
+            if (!GateHelper::all('VIEW_BLOGS','VIEW_COMMENTS', ['blog' => $blog])){
                 abort(404);
             }
             
@@ -124,7 +124,7 @@ class BlogsController extends Controller
         $blog = Blog::find($id);
         //Проверка на доступ к блогам
         if (!Auth::guard('admin')->user()->hasRoles('Admin')){
-            if (!GateHelper::all('UPDATE_BLOGS') || Auth::guard('admin')->user()->id != $blog->admin_id){
+            if (!GateHelper::all('UPDATE_BLOGS', ['blog' => $blog])){
                 abort(404);
             }
             

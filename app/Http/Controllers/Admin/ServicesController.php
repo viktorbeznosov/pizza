@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Service;
 
+use App\Helpers\GateHelper;
+
 class ServicesController extends Controller
 {
     /**

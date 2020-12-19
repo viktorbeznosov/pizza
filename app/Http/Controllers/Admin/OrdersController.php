@@ -9,6 +9,7 @@ use App\Category;
 use App\OrderStatus;
 
 use Illuminate\Support\Facades\DB;
+use App\Helpers\GateHelper;
 
 class OrdersController extends Controller
 {

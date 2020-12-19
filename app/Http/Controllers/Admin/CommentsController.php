@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Comment;
+use App\Blog;
 
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\GateHelper;
 
 class CommentsController extends Controller
 {
@@ -21,6 +23,12 @@ class CommentsController extends Controller
 
     public function edit($id){
         $comment = Comment::find($id);
+        $blog = Blog::find($comment->blog_id);
+        //Проверка на доступ к коментариям
+        if (!GateHelper::all('VIEW_COMMENTS', ['blog' => $blog])){
+            return redirect()->route('admin.404');
+        }
+
         $data = array(
             'title' => isset($comment->user) ? $comment->user->name : $comment->name,
             'comment' => $comment

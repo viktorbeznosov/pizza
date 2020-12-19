@@ -20,10 +20,12 @@ class GateHelper {
 
         foreach ($permissions as $permission){
             if (in_array($permission, array('UPDATE_ADMINS','DELETE_ADMINS'))){
-                if(Gate::forUser($admin)->allows($permission, $user)){
-                    return true;
+                if (isset($user)) {
+                    if (Gate::forUser($admin)->allows($permission, $user = NULL)) {
+                        return true;
+                    }
                 }
-            } else if (in_array($permission, array('VIEW_BLOGS','UPDATE_BLOGS','DELETE_BLOGS'))) {
+            } else if (in_array($permission, array('VIEW_BLOGS','UPDATE_BLOGS','DELETE_BLOGS','VIEW_COMMENTS'))) {
                 if(Gate::forUser($admin)->allows($permission, $blog = NULL)){
                     return true;
                 }
@@ -50,13 +52,26 @@ class GateHelper {
         
         foreach ($permissions as $permission){
             if (in_array($permission, array('UPDATE_ADMINS','DELETE_ADMINS'))){
-                if(Gate::forUser($admin)->denies($permission, $user)){
-                    return false;
+                if (isset($user)){
+                    if(Gate::forUser($admin)->denies($permission, $user)){
+                        return false;
+                    }
+                } else {
+                    if(Gate::forUser($admin)->denies($permission)){
+                        return false;
+                    }
                 }
-            } else if (in_array($permission, array('VIEW_BLOGS','UPDATE_BLOGS','DELETE_BLOGS'))) {
-                if(Gate::forUser($admin)->denies($permission, $blog)){
-                    return false;
+            } else if (in_array($permission, array('VIEW_BLOGS','UPDATE_BLOGS','DELETE_BLOGS','VIEW_COMMENTS'))) {
+                if (isset($blog)){
+                    if(Gate::forUser($admin)->denies($permission, $blog)){
+                        return false;
+                    }
+                } else {
+                    if(Gate::forUser($admin)->denies($permission)){
+                        return false;
+                    }
                 }
+
             } else {
                 if(Gate::forUser($admin)->denies($permission)){
                     return false;

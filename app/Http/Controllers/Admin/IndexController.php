@@ -16,4 +16,8 @@ class IndexController extends Controller
     public function show(){
         return view('admin.dashboard');
     }
+
+    public function error404(){
+        return view('admin.404');
+    }
 }

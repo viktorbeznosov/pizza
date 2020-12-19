@@ -24,6 +24,9 @@ class AdminsController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_ADMINS')){
+            return redirect()->route('admin.404');
+        }
         $admins = Admin::all();
         $data = array(
             'title' => 'Админы',
@@ -39,6 +42,9 @@ class AdminsController extends Controller
      */
     public function create()
     {
+        if (!GateHelper::all('CREATE_ADMINS')){
+            return redirect()->route('admin.404');
+        }
         $roles = Role::all();
         $data = array(
             'title' => 'Добавление пользователя',
@@ -56,6 +62,9 @@ class AdminsController extends Controller
      */
     public function store(Request $request)
     {
+        if (!GateHelper::all('CREATE_ADMINS')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token');
         $input['password'] = bcrypt($input['name']);
 
@@ -108,6 +117,11 @@ class AdminsController extends Controller
     public function edit($id)
     {
         $admin = Admin::find($id);
+
+        if (!GateHelper::all('UPDATE_ADMINS', array('user' => $admin))){
+            return redirect()->route('admin.404');
+        }
+
         $roles = Role::all();
         $adminRolesIds = array();
         foreach ($admin->roles()->get() as $role){

@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\GateHelper;
 
 class UsersController extends Controller
 {
@@ -20,6 +22,9 @@ class UsersController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_USERS')){
+            return redirect()->route('admin.404');
+        }
         $users = User::all();
         $data = array(
             'title' => 'Пользователи',
@@ -97,6 +102,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        if (!GateHelper::all('UPDATE_USERS', array('user' => $user))){
+            return redirect()->route('admin.404');
+        }
 
         $data = array(
             'title' => $user->name,
@@ -117,6 +125,9 @@ class UsersController extends Controller
     {
         $input = $request->except('_token','_method');
         $user = User::find($id);
+        if (!GateHelper::all('UPDATE_USERS', array('user' => $user))){
+            return redirect()->route('admin.404');
+        }
         if (isset($user)){
             $messages = array(
                 'required' => 'Поле :attribute обязательно к заполнению',
@@ -157,6 +168,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        if (!GateHelper::all('DELETE_USERS')){
+            return redirect()->route('admin.404');
+        }
         $user = User::find($id);
         $orders = Order::where('user_id', $user->id)->get();
         if (count($orders) > 0){

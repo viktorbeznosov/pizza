@@ -1,3 +1,4 @@
+@inject('GateHelper', 'App\Helpers\GateHelper')
 @extends('layouts.admin')
 
 @section('content')
@@ -78,35 +79,35 @@
                                             <i class="fa fa-calendar font-green" aria-hidden="true"></i>
                                             <span class="form-control"> {{ $comment->created_at->format('d.m.Y') }} </span>
                                         </div>
-                                    </div>  
+                                    </div>
                                 @endif
-                            
+
                                 <div class="form-group">
                                     <label>Автор</label>
                                     <div class="input-icon">
                                         <i class="fa fa-user font-green"></i>
                                         <span class="form-control">
-                                            @if(isset($comment->user)) 
-                                                <a href="{{ route('admin.users.edit', $comment->user->id) }}">{{ $comment->user->name }}</a> 
-                                            @else 
-                                                {{ $comment->name }} 
+                                            @if(isset($comment->user))
+                                                <a href="{{ route('admin.users.edit', $comment->user->id) }}">{{ $comment->user->name }}</a>
+                                            @else
+                                                {{ $comment->name }}
                                             @endif
                                         </span>
                                     </div>
                                 </div>
-                            
+
                                 <div class="form-group">
                                     <label>Блог</label>
                                     <div class="input-icon">
                                         <i class="fa fa-comment font-green" aria-hidden="true"></i>
                                         <span class="form-control"> {{ $comment->blog->title }} </span>
                                     </div>
-                                </div>                            
+                                </div>
                             @endif
 
                             <div class="form-group">
                                 <label>Текст</label>
-                                <textarea name="text" class="form-control" rows="3" placeholder="описание">@if(isset($comment)){{ $comment->text }}@endif</textarea>
+                                <textarea @if(!$GateHelper->any('UPDATE_COMMENTS', 'DELETE_COMMENTS')) disabled @endif name="text" class="form-control" rows="3" placeholder="описание">@if(isset($comment)){{ $comment->text }}@endif</textarea>
                             </div>
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
@@ -129,7 +130,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                                     @if(isset($comment->user))
@@ -138,28 +139,31 @@
                                         <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
                                     @endif
                                 </div>
-                            </div>                            
-                            
+                            </div>
+
                         </div>
                         <!-- END SAMPLE FORM PORTLET-->
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Сохранить</button>
-                <span 
-                    id="comment-delete-button" 
-                    class="btn btn-danger"
-                    data-toggle="modal"
-                    data-target="#basic"
-                    data-comment="{{ $comment->id }}"
-                >
-                    Удалить
-                </span>
+
+                @if($GateHelper->all('UPDATE_COMMENTS', 'DELETE_COMMENTS'))
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <span
+                        id="comment-delete-button"
+                        class="btn btn-danger"
+                        data-toggle="modal"
+                        data-target="#basic"
+                        data-comment="{{ $comment->id }}"
+                    >
+                        Удалить
+                    </span>
+                @endif
             </form>
         </div>
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
-    
+
         <!-- MODAL -->
     <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
         <div class="modal-dialog">
@@ -187,17 +191,17 @@
         textarea[name="text"]{
             min-height: 110px;
         }
-        
+
         .modal-footer{
             display: flex;
             justify-content: flex-end;
         }
-        
+
         form[name="comment-delete"] button[type="submit"]{
             margin-left: 10px;
-        }        
+        }
     </style>
-    
+
     <script>
         $(document).ready(function(){
 

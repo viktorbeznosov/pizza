@@ -34,6 +34,8 @@ Route::get('/admin/logout',['as' => 'admin.logout','uses' => 'Admin\Auth\LoginCo
 
 Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], function (){
 
+    Route::get('/404', 'Admin\IndexController@error404')->name('404');
+
     Route::get('/', 'Admin\IndexController@show')->name('dashboard');
     Route::resource('/cat','Admin\CategoriesController');
     Route::resource('/products','Admin\ProductsController');

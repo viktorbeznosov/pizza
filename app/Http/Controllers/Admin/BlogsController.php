@@ -22,6 +22,9 @@ class BlogsController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_BLOGS')){
+            return redirect()->route('admin.404');
+        }
         $blogs = Blog::all();
         $data = array(
             'title' => 'Блоги',
@@ -38,8 +41,7 @@ class BlogsController extends Controller
     public function create()
     {        
         if (!GateHelper::all('CREATE_BLOGS')){
-            abort(404);
-//            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.404');
         }
         $title = 'Создание блога';
         $data = array(
@@ -57,6 +59,9 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
+        if (!GateHelper::all('CREATE_BLOGS')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token');
         $input['admin_id'] = Auth::guard('admin')->user()->id;
 
@@ -97,13 +102,11 @@ class BlogsController extends Controller
         $blog = Blog::find($id);
         
         //Проверка на доступ к блогам
-        if (!Auth::guard('admin')->user()->hasRoles('Admin')){
-            if (!GateHelper::all('VIEW_BLOGS','VIEW_COMMENTS', ['blog' => $blog])){
-                abort(404);
-            }
-            
+        if (!GateHelper::all('VIEW_BLOGS','VIEW_COMMENTS', ['blog' => $blog])){
+            return redirect()->route('admin.404');
         }
-        
+            
+
         $data = array(
             'title' => $blog->title,
             'blog' => $blog,
@@ -123,12 +126,11 @@ class BlogsController extends Controller
     {
         $blog = Blog::find($id);
         //Проверка на доступ к блогам
-        if (!Auth::guard('admin')->user()->hasRoles('Admin')){
-            if (!GateHelper::all('UPDATE_BLOGS', ['blog' => $blog])){
-                abort(404);
-            }
-            
+
+        if (!GateHelper::all('UPDATE_BLOGS', ['blog' => $blog])){
+            return redirect()->route('admin.404');
         }
+
         $title = $blog->title;
         $data = array(
             'title' => $title,
@@ -147,6 +149,9 @@ class BlogsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!GateHelper::all('UPDATE_BLOGS')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token','_method');
         $blog = Blog::find($id);
         if (isset($blog)){
@@ -185,6 +190,9 @@ class BlogsController extends Controller
      */
     public function destroy($id)
     {
+        if (!GateHelper::all('DELETE_BLOGS')){
+            return redirect()->route('admin.404');
+        }
         $blog = Blog::find($id);
         if (file_exists(public_path($blog->image)) && $blog->image != ''){
             unlink(public_path($blog->image));

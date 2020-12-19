@@ -81,11 +81,13 @@
                             <div class="table-toolbar">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="btn-group">
-                                            <a href="{{ route('admin.blogs.create') }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                        </div>
+                                        @if($GateHelper->all('CREATE_BLOGS'))
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.blogs.create') }}" id="sample_editable_1_new" class="btn sbold green"> Создать новый
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="col-md-6">
                                         <div class="btn-group pull-right">
@@ -149,35 +151,37 @@
                                                 </td>
                                                 <td class="center middle hidden-xs"> @if(isset($blog->created_at)){{ $blog->created_at->format('d.m.Y') }}@endif </td>
                                                 <td class="center middle">
-                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                        <a
-                                                                href="{{ route('admin.blogs.edit', $blog->id) }}"
-                                                                class="btn btn-transparent btn-xs"
-                                                                tooltip-placement="top"
-                                                                tooltip="Edit"
-                                                        >
-                                                            <span class="label label-sm label-success">Редактировать</span>
-                                                        </a>
-                                                        <a
-                                                                href="#"
-                                                                class="btn btn-transparent btn-xs tooltips"
-                                                                tooltip-placement="top"
-                                                                tooltip="Remove"
-                                                                data-toggle="modal"
-                                                                data-target="#basic"
-                                                                data-blog="{{ $blog->id }}"
-                                                        >
-                                                            <span class="label label-sm label-danger">Удалить</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                                            <i class="icon-wrench"></i>
-                                                        </a>
-                                                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                                            <i class="icon-trash"></i>
-                                                        </a>
-                                                    </div>
+                                                    @if($GateHelper->all('UPDATE_BLOGS','DELETE_BLOGS'))
+                                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                            <a
+                                                                    href="{{ route('admin.blogs.edit', $blog->id) }}"
+                                                                    class="btn btn-transparent btn-xs"
+                                                                    tooltip-placement="top"
+                                                                    tooltip="Edit"
+                                                            >
+                                                                <span class="label label-sm label-success">Редактировать</span>
+                                                            </a>
+                                                            <a
+                                                                    href="#"
+                                                                    class="btn btn-transparent btn-xs tooltips"
+                                                                    tooltip-placement="top"
+                                                                    tooltip="Remove"
+                                                                    data-toggle="modal"
+                                                                    data-target="#basic"
+                                                                    data-blog="{{ $blog->id }}"
+                                                            >
+                                                                <span class="label label-sm label-danger">Удалить</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                                <i class="icon-wrench"></i>
+                                                            </a>
+                                                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                                                                <i class="icon-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endif

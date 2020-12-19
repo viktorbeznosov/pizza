@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\GateHelper;
 
 class ProductsController extends Controller
 {
@@ -17,6 +18,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         return view('admin.products');
     }
 
@@ -27,6 +31,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $data = array(
             'title' => 'Добавление продукта',
         );
@@ -35,6 +42,9 @@ class ProductsController extends Controller
     }
     
     public function productCatCreate($catId){
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $data = array(
             'title' => 'Добавление продукта',
             'catId' => $catId
@@ -51,6 +61,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token');
         $messages = array(
             'required' => 'Поле :attribute обязательно к заполнению',
@@ -96,6 +109,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $product = Product::find($id);
         $data = array(
             'title' => $product->name,
@@ -106,6 +122,9 @@ class ProductsController extends Controller
     }
     
     public function productCatEdit($id, $catId){
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $product = Product::find($id);
         $category = \App\Category::find($catId);
         $data = array(
@@ -127,6 +146,9 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token','_method');
         $input['hot'] = isset($input['hot']) ? 1 : 0;
         $product = Product::find($id);
@@ -170,6 +192,9 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
+        if (!GateHelper::all('VIEW_CATEGORIES', 'CREATE_CATEGORIES','UPDATE_CATEGORIES','DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $product = Product::find($id);
         $cat_id = $product->cat_id;
         if (file_exists(public_path($product->image)) && $product->image != ''){

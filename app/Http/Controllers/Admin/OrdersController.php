@@ -19,6 +19,9 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_ORDERS')){
+            return redirect()->route('admin.404');
+        }
         $orders = Order::all();
         $data = array(
             'title' => 'Заказы',
@@ -67,6 +70,9 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
+        if (!GateHelper::all('UPDATE_ORDERS')){
+            return redirect()->route('admin.404');
+        }
         $order = Order::find($id);
         $products = $order->products()->get();
         $categories = Category::all();
@@ -94,6 +100,9 @@ class OrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!GateHelper::all('UPDATE_ORDERS')){
+            return redirect()->route('admin.404');
+        }
         $order = Order::find($id);
 
         $productIds = $request->get('productId');
@@ -122,6 +131,9 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
+        if (!GateHelper::all('DELETE_ORDERS')){
+            return redirect()->route('admin.404');
+        }
         $order = Order::find($id);
         DB::delete('DELETE FROM order_good WHERE order_id = ?', [$order->id]);
         $order->delete();

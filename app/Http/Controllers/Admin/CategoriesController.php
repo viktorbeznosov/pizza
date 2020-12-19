@@ -8,6 +8,7 @@ use App\Category;
 use App\Product;
 
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\GateHelper;
 
 class CategoriesController extends Controller
 {
@@ -18,6 +19,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $categories = Category::all();
         $data = array(
             'title' => 'Категории',
@@ -35,6 +39,9 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        if (!GateHelper::all('CREATE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $data = array(
             'title' => 'Добавление категории',
         );
@@ -50,6 +57,9 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        if (!GateHelper::all('CREATE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token');
         
         $messages = array(
@@ -83,6 +93,9 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
+        if (!GateHelper::all('VIEW_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $category = Category::find($id);
         $products = Product::where('cat_id', $id)->get();
 
@@ -103,6 +116,9 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
+        if (!GateHelper::all('UPDATE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $category = Category::find($id);
 
         $data = array(
@@ -122,6 +138,9 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!GateHelper::all('UPDATE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token','_method');
         $category = Category::find($id);
         if (isset($category)){
@@ -165,6 +184,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
+        if (!GateHelper::all('DELETE_CATEGORIES')){
+            return redirect()->route('admin.404');
+        }
         $category = Category::find($id);
         $products = Product::where('cat_id', $id)->get();
         foreach ($products as $product){

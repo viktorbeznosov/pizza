@@ -16,6 +16,9 @@ class ServicesController extends Controller
      */
     public function index()
     {
+        if (!GateHelper::all('VIEW_SERVICES')){
+            return redirect()->route('admin.404');
+        }
         $services = Service::all();
         $data = array(
             'title' => 'Сервисы',
@@ -32,6 +35,9 @@ class ServicesController extends Controller
      */
     public function create()
     {
+        if (!GateHelper::all('CREATE_SERVICES')){
+            return redirect()->route('admin.404');
+        }
         $icons = config('service_icons');
         $data = array(
             'title' => 'Добавление сервиса',
@@ -49,6 +55,9 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
+        if (!GateHelper::all('CREATE_SERVICES')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token');
         
         $messages = array(
@@ -89,6 +98,9 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
+        if (!GateHelper::all('UPDATE_SERVICES')){
+            return redirect()->route('admin.404');
+        }
         $service = Service::find($id);
         $icons = config('service_icons');
 
@@ -110,6 +122,9 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!GateHelper::all('UPDATE_SERVICES')){
+            return redirect()->route('admin.404');
+        }
         $input = $request->except('_token');
                 
         $messages = array(
@@ -139,6 +154,9 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
+        if (!GateHelper::all('DELETE_SERVICES')){
+            return redirect()->route('admin.404');
+        }
         $service = Service::find($id);
         $service->delete();
         

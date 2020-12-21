@@ -55,6 +55,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/pages/css/search.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/metronic/pages/css/profile.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{{ asset('assets/metronic/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
@@ -181,7 +182,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="page_user_profile_1.html">
+                            <a href="{{ route('admin.profile', Auth::guard('admin')->user()->id) }}">
                                 <i class="icon-user"></i> My Profile </a>
                         </li>
                         <li>
@@ -848,6 +849,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/global/plugins/fuelux/js/spinner.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/global/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="{{ asset('assets/metronic/global/scripts/app.min.js') }}" type="text/javascript"></script>
@@ -866,10 +869,12 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/pages/scripts/form-validation-md.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/components-bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/search.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/pages/scripts/profile.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/demo.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script>

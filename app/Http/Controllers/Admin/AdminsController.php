@@ -107,6 +107,23 @@ class AdminsController extends Controller
     {
         //
     }
+    
+    public function profile($id){
+        $admin = Admin::find($id);
+        $data = array(
+            'admin' => $admin
+        );
+        
+        return view('admin.profile', $data);
+    }
+    
+    public function profile_update(Request $request, $id){
+        $input = $request->except('_token');
+//        $input['password'] = bcrypt($input['password']);
+//        $input['confirm_password'] = bcrypt($input['confirm_password']);
+        
+        dd($input);
+    }
 
     /**
      * Show the form for editing the specified resource.

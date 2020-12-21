@@ -54,6 +54,8 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::resource('/services','Admin\ServicesController');
     Route::resource('/users','Admin\UsersController');
     Route::resource('/admins','Admin\AdminsController');
+    Route::get('/admins/profile/{id}', 'Admin\AdminsController@profile')->name('profile');
+    Route::put('/admin/profile_update/{id}', 'Admin\AdminsController@profile_update')->name('profile_update');
     
     Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function(){
         Route::post('/read', 'Admin\NotificationsController@read')->name('notification_read');

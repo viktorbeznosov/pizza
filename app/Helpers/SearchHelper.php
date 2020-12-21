@@ -28,26 +28,62 @@ class SearchHelper {
                 ";
         $data = collect(DB::select($query, $arrParams));
         
-        foreach ($data as &$item){
+        foreach ($data as $key => &$item){
             switch ($item->type){
                 case 'blogs':
-                    $item->link = '/admin/blogs/' . $item->id . '/edit';
-                    break;
+                    $blog = Blog::find($item->id);
+                    if (!GateHelper::all('VIEW_BLOGS','UPDATE_BLOGS', ['blog' => $blog])){                        
+                        $data->forget($key);
+                        continue;
+                    } else {
+                        $item->link = '/admin/blogs/' . $item->id . '/edit';
+                        break;      
+                    }
+
                 case 'categories':
-                    $item->link = '/admin/cat/' . $item->id . '/edit';
-                    break;
+                    if (!GateHelper::all('VIEW_CATEGORIES','CREATE_CATEGORIES')){
+                        $data->forget($key);
+                        continue;
+                    } else {
+                        $item->link = '/admin/cat/' . $item->id . '/edit';
+                        break;                       
+                    }
                 case 'products':
-                    $item->link = '/admin/products/edit/' . $item->id . '/' . $item->cat_id;
-                    break;
+                    if (!GateHelper::all('VIEW_CATEGORIES','CREATE_CATEGORIES')){
+                        $data->forget($key);
+                        continue;                        
+                    } else {
+                        $item->link = '/admin/products/edit/' . $item->id . '/' . $item->cat_id;
+                        break;                        
+                    }
+
                 case 'services':
-                    $item->link = '/admin/services/' . $item->id . '/edit';
-                    break;
+                    if (!GateHelper::all('VIEW_SERVICES','UPDATE_SERVICES')){
+                        $data->forget($key);
+                        continue;                         
+                    } else {
+                        $item->link = '/admin/services/' . $item->id . '/edit';
+                        break;                       
+                    }
+
                 case 'users':
+                    if (!GateHelper::all('VIEW_USERS','UPDATE_USERS')){
+                        $data->forget($key);
+                        continue;                         
+                    } else {
+                        $item->link = '/admin/users/' . $item->id . '/edit';
+                        break;                       
+                    }
                     $item->link = '/admin/users/' . $item->id . '/edit';
                     break;
                 case 'admins':
-                    $item->link = '/admin/admins/' . $item->id . '/edit';
-                    break;
+                    if (!GateHelper::all('VIEW_ADMINS','UPDATE_ADMINS')){
+                        $data->forget($key);
+                        continue;                          
+                    } else {
+                        $item->link = '/admin/admins/' . $item->id . '/edit';
+                        break;                        
+                    }
             }
         }
 

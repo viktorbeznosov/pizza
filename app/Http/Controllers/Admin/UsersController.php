@@ -135,7 +135,7 @@ class UsersController extends Controller
             );
             $validator = Validator::make($input, array(
                 'name' => 'required|max:255',
-                'email' => 'required|max:255|unique:users,email,'.user()->id,
+                'email' => 'required|max:255|unique:users,email,'.$user->id,
             ),$messages);
             if($validator->fails()){
                 return redirect()->route('admin.users.create')->withErrors($validator)->withInput();

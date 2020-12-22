@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::resource('/users','Admin\UsersController');
     Route::resource('/admins','Admin\AdminsController');
     Route::get('/admins/profile/{id}', 'Admin\AdminsController@profile')->name('profile');
+    Route::get('/admins/lock/{id}', 'Admin\AdminsController@lock')->name('lock');
     Route::put('/admin/profile_update/{id}', 'Admin\AdminsController@profile_update')->name('profile_update');
     
     Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function(){

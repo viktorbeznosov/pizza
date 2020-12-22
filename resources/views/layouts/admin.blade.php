@@ -56,6 +56,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{ asset('assets/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/pages/css/search.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/metronic/pages/css/profile.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/metronic/pages/css/lock.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{{ asset('assets/metronic/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
@@ -203,7 +204,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
                         <li class="divider"> </li>
                         <li>
-                            <a href="page_user_lock_1.html">
+                            <a href="{{ route('admin.lock', Auth::guard('admin')->user()->id) }}">
                                 <i class="icon-lock"></i> Lock Screen </a>
                         </li>
                         <li>
@@ -374,30 +375,6 @@ License: You must have a valid license purchased only from themeforest(the above
                     <a href="javascript:;" data-target="#quick_sidebar_tab_2" data-toggle="tab"> Alerts
                         <span class="badge badge-success">7</span>
                     </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> More
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-right">
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-bell"></i> Alerts </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-info"></i> Notifications </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-speech"></i> Activities </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab">
-                                <i class="icon-settings"></i> Settings </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
             <div class="tab-content">
@@ -712,45 +689,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </div>
                 </div>
-                <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
-                    <div class="page-quick-sidebar-settings-list">
-                        <h3 class="list-heading">General Settings</h3>
-                        <ul class="list-items borderless">
-                            <li> Enable Notifications
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="success" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                            <li> Allow Tracking
-                                <input type="checkbox" class="make-switch" data-size="small" data-on-color="info" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                            <li> Log Errors
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                            <li> Auto Sumbit Issues
-                                <input type="checkbox" class="make-switch" data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                            <li> Enable SMS Alerts
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="success" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                        </ul>
-                        <h3 class="list-heading">System Settings</h3>
-                        <ul class="list-items borderless">
-                            <li> Security Level
-                                <select class="form-control input-inline input-sm input-small">
-                                    <option value="1">Normal</option>
-                                    <option value="2" selected>Medium</option>
-                                    <option value="e">High</option>
-                                </select>
-                            </li>
-                            <li> Failed Email Attempts
-                                <input class="form-control input-inline input-sm input-small" value="5" /> </li>
-                            <li> Secondary SMTP Port
-                                <input class="form-control input-inline input-sm input-small" value="3560" /> </li>
-                            <li> Notify On System Error
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="danger" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                            <li> Notify On SMTP Error
-                                <input type="checkbox" class="make-switch" checked data-size="small" data-on-color="warning" data-on-text="ON" data-off-color="default" data-off-text="OFF"> </li>
-                        </ul>
-                        <div class="inner-content">
-                            <button class="btn btn-success">
-                                <i class="icon-settings"></i> Save Changes</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -851,6 +789,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/pages/scripts/components-bootstrap-touchspin.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/search.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/profile.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/pages/scripts/lock.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/metronic/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>
@@ -886,9 +825,12 @@ License: You must have a valid license purchased only from themeforest(the above
                 console.log(data);
 
                 if (data.room == localStorage.getItem('room')){
+                    var host = '{{ request()->getSchemeAndHttpHost() }}/';
+                    var image = host + data.image;
+                    
                     var messageTpl = `
                         <div class="post in">
-                            <img class="avatar" alt="" src="/`+data.image+`">
+                            <img class="avatar" alt="" src="`+image+`">
                             <div class="message">
                                 <span class="arrow"></span>
                                 <a href="javascript:;" class="name">`+data.name+`</a>

@@ -250,6 +250,16 @@ class AdminsController extends Controller
             // Abort 404
         }
     }
+    
+    public function lock($id){
+        $admin = Admin::find($id);
+        
+        $data = array(
+            'admin' => $admin
+        );
+        
+        return view('admin.lock', $data);
+    }
 
     /**
      * Remove the specified resource from storage.

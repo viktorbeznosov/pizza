@@ -32,7 +32,10 @@ Route::get('/admin/login',['as' => 'admin.login','uses' => 'Admin\Auth\LoginCont
 Route::post('/admin/login',['uses' => 'Admin\Auth\LoginController@login'])->name('admin.post.login');
 Route::get('/admin/logout',['as' => 'admin.logout','uses' => 'Admin\Auth\LoginController@logout']);
 
-Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], function (){
+Route::get('/admin/admins/lock/{id}', 'Admin\AdminsController@lock')->name('admin.lock');
+Route::post('/admin/admins/unlock/{id}','Admin\AdminsController@unlock')->name('admin.unlock');
+
+Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['lock','isAdmin']], function (){
 
     Route::get('/404', 'Admin\IndexController@error404')->name('404');
 
@@ -55,7 +58,6 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => 'isAdmin'], f
     Route::resource('/users','Admin\UsersController');
     Route::resource('/admins','Admin\AdminsController');
     Route::get('/admins/profile/{id}', 'Admin\AdminsController@profile')->name('profile');
-    Route::get('/admins/lock/{id}', 'Admin\AdminsController@lock')->name('lock');
     Route::put('/admin/profile_update/{id}', 'Admin\AdminsController@profile_update')->name('profile_update');
     
     Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function(){

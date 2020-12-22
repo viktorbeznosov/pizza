@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\GateHelper;
+use Illuminate\Support\Facades\Hash;
 
 class AdminsController extends Controller
 {
@@ -252,6 +253,7 @@ class AdminsController extends Controller
     }
     
     public function lock($id){
+        session(['lock' => true]);
         $admin = Admin::find($id);
         
         $data = array(
@@ -259,6 +261,18 @@ class AdminsController extends Controller
         );
         
         return view('admin.lock', $data);
+    }
+
+    public function unlock(Request $request, $id){
+        $admin = Admin::find($id);
+        $password = bcrypt($request->get('password'));
+
+        if(Hash::check($request->get('password'), $admin->password)){
+            session()->forget('lock');
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('admin.lock', $id)->with('status','Неверный пароль');;
+        }
     }
 
     /**

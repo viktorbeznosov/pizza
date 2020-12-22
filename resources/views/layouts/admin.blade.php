@@ -426,25 +426,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-arrow-left"></i>Back</a>
                             </div>
                             <div class="page-quick-sidebar-chat-user-messages">
-                                {{--<div class="post out">--}}
-                                    {{--<img class="avatar" alt="" src="../assets/layouts/layout/img/avatar3.jpg" />--}}
-                                    {{--<div class="message">--}}
-                                        {{--<span class="arrow"></span>--}}
-                                        {{--<a href="javascript:;" class="name">Bob Nilson</a>--}}
-                                        {{--<span class="datetime">20:15</span>--}}
-                                        {{--<span class="body"> When could you send me the report ? </span>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="post in">--}}
-                                    {{--<img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg" />--}}
-                                    {{--<div class="message">--}}
-                                        {{--<span class="arrow"></span>--}}
-                                        {{--<a href="javascript:;" class="name">Ella Wong</a>--}}
-                                        {{--<span class="datetime">20:15</span>--}}
-                                        {{--<span class="body"> Its almost done. I will be sending it shortly </span>--}}
-                                    {{--</div>--}}
-                                {{--</div> --}}
-
                             </div>
                             <div class="page-quick-sidebar-chat-user-form">
                                 <div class="input-group">
@@ -907,7 +888,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 if (data.room == localStorage.getItem('room')){
                     var messageTpl = `
                         <div class="post in">
-                            <img class="avatar" alt="" src="`+data.image+`">
+                            <img class="avatar" alt="" src="/`+data.image+`">
                             <div class="message">
                                 <span class="arrow"></span>
                                 <a href="javascript:;" class="name">`+data.name+`</a>
@@ -939,9 +920,12 @@ License: You must have a valid license purchased only from themeforest(the above
                 messages.forEach(function(item){
                     var user_id = '{{Auth::guard('admin')->user()->id}}';
                     var tpl_class = (user_id == item.user_id) ? 'out' : 'in';
+                    var host = '{{ request()->getSchemeAndHttpHost() }}/';
+                    var image = host + item.user_image;
+                    console.log(image);
                     var messageTpl = `
                             <div class="post `+tpl_class+`">
-                                <img class="avatar" alt="" src="`+item.user_image+`" />
+                                <img class="avatar" alt="" src="`+image+`" />
                                 <div class="message">
                                     <span class="arrow"></span>
                                     <a href="javascript:;" class="name">`+item.user_name+`</a>

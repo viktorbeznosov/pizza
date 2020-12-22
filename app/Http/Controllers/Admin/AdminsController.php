@@ -109,6 +109,10 @@ class AdminsController extends Controller
     }
     
     public function profile($id){
+        if(Auth::guard('admin')->user()->id != $id){
+            return redirect()->route('admin.404');
+        }
+        
         $admin = Admin::find($id);
         $data = array(
             'admin' => $admin
@@ -118,11 +122,46 @@ class AdminsController extends Controller
     }
     
     public function profile_update(Request $request, $id){
-        $input = $request->except('_token');
-//        $input['password'] = bcrypt($input['password']);
-//        $input['confirm_password'] = bcrypt($input['confirm_password']);
+        $input = $request->except('_token','_method');
+        $admin = Admin::find($id);
+        if (isset($input['password']) && isset($input['confirm_password'])){
+            
+        }
         
-        dd($input);
+        $messages = array(
+            'required' => 'Поле :attribute обязательно к заполнению',
+            'unique' => 'Поле :attribute должно быть уникальным',
+            'same' => 'Введенные пароли должны совпадать'
+        );
+        $validator = Validator::make($input, array(
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|unique:admins,email,'.$admin->id,
+            'confirm_pass' => 'same:password'
+        ),$messages);
+        if($validator->fails()){
+            return redirect()->route('admin.profile', $id)->withErrors($validator)->withInput();
+        }   
+        
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $input['image'] = 'assets/images/admins/' . time() . '_' . $file->getClientOriginalName();
+            if (isset($admin->image) && is_file(public_path() . '/' . $admin->image)){
+                unlink(public_path() . '/' . $admin->image);
+            }
+            $file->move(public_path() . '/assets/images/admins/', $input['image']);
+        }
+
+        if (isset($input['password']) && isset($input['confirm_password'])){
+            $input['password'] = bcrypt($input['password']);
+        } else {
+            $input['password'] = $admin->password;
+        }
+
+        $admin->fill($input);
+         
+        if ($admin->save()){
+            return redirect()->route('admin.profile', $id)->with('status','Профиль сохранен');
+        }
     }
 
     /**
@@ -144,11 +183,6 @@ class AdminsController extends Controller
         foreach ($admin->roles()->get() as $role){
             $adminRolesIds[] = $role->id;
         }
-
-//        dump(Gate::forUser(Auth::guard('admin')->user())->allows('VIEW_ADMINS', $admin));
-//        dump($admin->hasPermissions('CREATE_SERVICES'));
-//        dump(GateHelper::all('DELETE_ADMINS','UPDATE_ADMINS', array('user' => $admin)));
-//        return view('admin.404', array('title' => ''))->withErrors('Access Denied');
 
         $data = array(
             'title' => $admin->name,
@@ -178,7 +212,7 @@ class AdminsController extends Controller
             );
             $validator = Validator::make($input, array(
                 'name' => 'required|max:255',
-                'email' => 'required|max:255'
+                'email' => 'required|max:255|unique:admins,email,'.$admin->id,
             ),$messages);
             if($validator->fails()){
                 return redirect()->route('admin.admins.create')->withErrors($validator)->withInput();

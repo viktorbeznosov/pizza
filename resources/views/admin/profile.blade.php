@@ -5,6 +5,26 @@
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
+                    
+                    
+                    <!-- ALERTS -->
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <!-- END ALERTS -->
+                    
                     <!-- BEGIN PAGE HEADER-->
                     <!-- BEGIN PAGE BAR -->
                     <div class="page-bar">
@@ -79,7 +99,7 @@
                             </div>
                             <!-- END BEGIN PROFILE SIDEBAR -->
                             <!-- BEGIN PROFILE CONTENT -->
-                            <form action="{{ route('admin.profile_update', $admin->id) }}" enctype="multipart/form-data" method="post">
+                            <form name="profile" action="{{ route('admin.profile_update', $admin->id) }}" enctype="multipart/form-data" method="post">
                                 {{ csrf_field() }}
                                 @if(isset($admin))
                                     {{ method_field('PUT') }}
@@ -174,5 +194,35 @@
                 <!-- END CONTENT BODY -->
             </div>
             <!-- END CONTENT -->
+            
+<script>
+    $(document).ready(function(){
+        $('form[name="profile"]').on('submit', function(){
+            var error = false;
+            
+            var password = $('input[name="password"]').val();
+            var confirm_password = $('input[name="confirm_password"]').val();
+            if ((password != '' || confirm_password != '') && password != confirm_password){
+                toastr.warning('Пароли не совпадают');
+                error = 1;
+            }
+            var name = $('input[name="name"]').val();
+            var email = $('input[name="email"]').val();
+            if (!name || name == ''){
+                toastr.warning('Введите ваше имя!');
+                error = 1;
+            }
+            if (!email || email == ''){
+                toastr.warning('Введите ваше email!');
+                error = 1;
+            }            
+            
+            if (error){
+                return false;
+            }
+        });
+    })
+</script>
+            
 @endsection
 

@@ -3,17 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Admin.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Helpers/GateHelper.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/Admin/BlogsController.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Helpers/SearchHelper.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/Admin/SearchControlles.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/app/Providers/AuthServiceProvider.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/OrderController.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/profile.blade.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/app/Http/Controllers/Admin/AdminsController.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/routes/web.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/blog.blade.php</file>
             <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/layouts/admin.blade.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/blogs.blade.php</file>
-            <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/search.blade.php</file>
+            <file>file:/C:/OSPanel/domains/pizza.loc/resources/views/admin/lock.blade.php</file>
         </group>
     </open-files>
 </project-private>

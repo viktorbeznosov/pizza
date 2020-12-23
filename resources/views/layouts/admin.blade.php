@@ -775,7 +775,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/metronic/global/scripts/app.min.js') }}" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{ asset('assets/metronic/pages/scripts/dashboard.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/metronic/pages/scripts/dashboard.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/ui-tree.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/metronic/pages/scripts/ui-modals.min.js') }}" type="text/javascript"></script>

@@ -29,4 +29,15 @@ class Order extends Model
         }
         return $total;
     }
+    
+    public static function getTotalProfit(){
+        $orders = self::all();
+        $total = 0;
+        
+        foreach($orders as $order){
+            $total += $order->getTotalPrice();
+        }
+        
+        return $total;
+    }
 }

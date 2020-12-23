@@ -41,9 +41,9 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="1349">0</span>
+                                <span data-counter="counterup" data-value="{{ count($orders) }}">0</span>
                             </div>
-                            <div class="desc"> New Feedbacks </div>
+                            <div class="desc"> Всего заказов </div>
                         </div>
                     </a>
                 </div>
@@ -54,8 +54,8 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="12,5">0</span>M$ </div>
-                            <div class="desc"> Total Profit </div>
+                                <span data-counter="counterup" data-value="{{ $total_profit }} ">0</span>р. </div>
+                            <div class="desc"> Общая прибыль </div>
                         </div>
                     </a>
                 </div>
@@ -66,9 +66,9 @@
                         </div>
                         <div class="details">
                             <div class="number">
-                                <span data-counter="counterup" data-value="549">0</span>
+                                <span data-counter="counterup" data-value="{{ $new_orders_count }}">0</span>
                             </div>
-                            <div class="desc"> New Orders </div>
+                            <div class="desc"> Новых заказов </div>
                         </div>
                     </a>
                 </div>
@@ -79,8 +79,8 @@
                         </div>
                         <div class="details">
                             <div class="number"> +
-                                <span data-counter="counterup" data-value="89"></span>% </div>
-                            <div class="desc"> Brand Popularity </div>
+                                <span data-counter="counterup" data-value="{{ $users_count }}"></span>% </div>
+                            <div class="desc"> Клиенты </div>
                         </div>
                     </a>
                 </div>

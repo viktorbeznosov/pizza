@@ -188,8 +188,8 @@
                             <div class="block-18 text-center">
                                 <div class="text">
                                     <div class="icon"><i class="mdi mdi-pizza"></i></div>
-                                    <strong class="number" data-number="100">0</strong>
-                                    <span>Pizza Branches</span>
+                                    <strong class="number" data-number="{{ count($products) }}">0</strong>
+                                    <span>Видов продукции</span>
                                 </div>
                             </div>
                         </div>
@@ -197,8 +197,8 @@
                             <div class="block-18 text-center">
                                 <div class="text">
                                     <div class="icon"><i class="mdi mdi-medal"></i></div>
-                                    <strong class="number" data-number="85">0</strong>
-                                    <span>Number of Awards</span>
+                                    <strong class="number" data-number="{{ count($categories) }}">0</strong>
+                                    <span>Видов продуктов</span>
                                 </div>
                             </div>
                         </div>
@@ -206,8 +206,8 @@
                             <div class="block-18 text-center">
                                 <div class="text">
                                     <div class="icon"><i class="mdi mdi-emoticon-happy-outline"></i></div>
-                                    <strong class="number" data-number="10567">0</strong>
-                                    <span>Happy Customer</span>
+                                    <strong class="number" data-number="{{ count($users) }}">0</strong>
+                                    <span>Клиенты</span>
                                 </div>
                             </div>
                         </div>
@@ -215,8 +215,8 @@
                             <div class="block-18 text-center">
                                 <div class="text">
                                     <div class="icon"><i class="mdi mdi-chef-hat"></i></div>
-                                    <strong class="number" data-number="900">0</strong>
-                                    <span>Staff</span>
+                                    <strong class="number" data-number="{{ count($admins) }}">0</strong>
+                                    <span>Персонал</span>
                                 </div>
                             </div>
                         </div>

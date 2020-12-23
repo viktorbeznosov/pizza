@@ -66,6 +66,10 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['lock','isAd
     
     Route::get('/search/', 'Admin\SearchControlles@search')->name('search');
 
+    Route::group(['prefix' => 'info', 'as' => 'info.'], function (){
+        Route::get('/users', 'Admin\DashboardController@getUsers')->name('get_users');
+    });
+
 });
 
 

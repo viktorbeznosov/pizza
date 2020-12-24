@@ -16,6 +16,25 @@ var getUsers = function () {
     });
 }
 
+var getOrders = function() {
+    
+    return new Promise((resolve, reject) => {
+        
+        $.ajax({
+            url: 'admin/info/orders',
+            methog: 'GET',
+            success: function (response) {
+                var result = JSON.parse(response);
+                resolve(result);
+            },
+            error: function (error) {
+                reject(error);
+            }
+        });
+        
+    });
+}
+
 var Dashboard = function() {
 
     return {
@@ -243,21 +262,6 @@ var Dashboard = function() {
 
             getUsers().then((data) => {
 
-                // var visitors = [
-                //     ['01.2020', 5],
-                //     ['02.2020', 10],
-                //     ['03.2020', 20],
-                //     ['04.2020', 25],
-                //     ['05.2020', 30],
-                //     ['06.2020', 20],
-                //     ['07.2020', 25],
-                //     ['08.2020', 50],
-                //     ['09.2020', 30],
-                //     ['10.2020', 20],
-                //     ['11.2020', 10],
-                //     ['12.2020', 10],
-                // ];
-
                 var visitors = data;
 
 
@@ -348,86 +352,89 @@ var Dashboard = function() {
                 $('#site_activities_loading').hide();
                 $('#site_activities_content').show();
 
-                var data1 = [
-                    ['ЯНВ', 300],
-                    ['ФЕВ', 600],
-                    ['МАР', 1100],
-                    ['АПР', 1200],
-                    ['МАЙ', 860],
-                    ['ИЮН', 1200],
-                    ['ИЮЛ', 1450],
-                    ['АВГ', 1800],
-                    ['СЕН', 1200],
-                    ['ОКТ', 600],
-                    ['НОЯ', 500],
-                    ['ДЕК', 300],
-                ];
+                getOrders().then((result) => {
+//                    var data1 = [
+//                        ['ЯНВ', 300],
+//                        ['ФЕВ', 600],
+//                        ['МАР', 1100],
+//                        ['АПР', 1200],
+//                        ['МАЙ', 860],
+//                        ['ИЮН', 1200],
+//                        ['ИЮЛ', 1450],
+//                        ['АВГ', 1800],
+//                        ['СЕН', 1200],
+//                        ['ОКТ', 600],
+//                        ['НОЯ', 500],
+//                        ['ДЕК', 300],
+//                    ];
+                    
+                    var data1 = result;
 
+                    var plot_statistics = $.plot($("#site_activities"),
 
-                var plot_statistics = $.plot($("#site_activities"),
+                        [{
+                            data: data1,
+                            lines: {
+                                fill: 0.2,
+                                lineWidth: 0,
+                            },
+                            color: ['#BAD9F5']
+                        }, {
+                            data: data1,
+                            points: {
+                                show: true,
+                                fill: true,
+                                radius: 4,
+                                fillColor: "#9ACAE6",
+                                lineWidth: 2
+                            },
+                            color: '#9ACAE6',
+                            shadowSize: 1
+                        }, {
+                            data: data1,
+                            lines: {
+                                show: true,
+                                fill: false,
+                                lineWidth: 3
+                            },
+                            color: '#9ACAE6',
+                            shadowSize: 0
+                        }],
 
-                    [{
-                        data: data1,
-                        lines: {
-                            fill: 0.2,
-                            lineWidth: 0,
-                        },
-                        color: ['#BAD9F5']
-                    }, {
-                        data: data1,
-                        points: {
-                            show: true,
-                            fill: true,
-                            radius: 4,
-                            fillColor: "#9ACAE6",
-                            lineWidth: 2
-                        },
-                        color: '#9ACAE6',
-                        shadowSize: 1
-                    }, {
-                        data: data1,
-                        lines: {
-                            show: true,
-                            fill: false,
-                            lineWidth: 3
-                        },
-                        color: '#9ACAE6',
-                        shadowSize: 0
-                    }],
+                        {
 
-                    {
-
-                        xaxis: {
-                            tickLength: 0,
-                            tickDecimals: 0,
-                            mode: "categories",
-                            min: 0,
-                            font: {
-                                lineHeight: 18,
-                                style: "normal",
-                                variant: "small-caps",
-                                color: "#6F7B8A"
+                            xaxis: {
+                                tickLength: 0,
+                                tickDecimals: 0,
+                                mode: "categories",
+                                min: 0,
+                                font: {
+                                    lineHeight: 18,
+                                    style: "normal",
+                                    variant: "small-caps",
+                                    color: "#6F7B8A"
+                                }
+                            },
+                            yaxis: {
+                                ticks: 5,
+                                tickDecimals: 0,
+                                tickColor: "#eee",
+                                font: {
+                                    lineHeight: 14,
+                                    style: "normal",
+                                    variant: "small-caps",
+                                    color: "#6F7B8A"
+                                }
+                            },
+                            grid: {
+                                hoverable: true,
+                                clickable: true,
+                                tickColor: "#eee",
+                                borderColor: "#eee",
+                                borderWidth: 1
                             }
-                        },
-                        yaxis: {
-                            ticks: 5,
-                            tickDecimals: 0,
-                            tickColor: "#eee",
-                            font: {
-                                lineHeight: 14,
-                                style: "normal",
-                                variant: "small-caps",
-                                color: "#6F7B8A"
-                            }
-                        },
-                        grid: {
-                            hoverable: true,
-                            clickable: true,
-                            tickColor: "#eee",
-                            borderColor: "#eee",
-                            borderWidth: 1
-                        }
-                    });
+                        });
+                });
 
                 $("#site_activities").bind("plothover", function(event, pos, item) {
                     $("#x").text(pos.x.toFixed(2));

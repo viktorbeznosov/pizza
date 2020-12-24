@@ -68,6 +68,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['lock','isAd
 
     Route::group(['prefix' => 'info', 'as' => 'info.'], function (){
         Route::get('/users', 'Admin\DashboardController@getUsers')->name('get_users');
+        Route::get('/orders', 'Admin\DashboardController@getOrders')->name('get_orders');
     });
 
 });

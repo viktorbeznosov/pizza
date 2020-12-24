@@ -353,21 +353,6 @@ var Dashboard = function() {
                 $('#site_activities_content').show();
 
                 getOrders().then((result) => {
-//                    var data1 = [
-//                        ['ЯНВ', 300],
-//                        ['ФЕВ', 600],
-//                        ['МАР', 1100],
-//                        ['АПР', 1200],
-//                        ['МАЙ', 860],
-//                        ['ИЮН', 1200],
-//                        ['ИЮЛ', 1450],
-//                        ['АВГ', 1800],
-//                        ['СЕН', 1200],
-//                        ['ОКТ', 600],
-//                        ['НОЯ', 500],
-//                        ['ДЕК', 300],
-//                    ];
-                    
                     var data1 = result;
 
                     var plot_statistics = $.plot($("#site_activities"),
@@ -445,7 +430,7 @@ var Dashboard = function() {
                             $("#tooltip").remove();
                             var x = item.datapoint[0].toFixed(2),
                                 y = item.datapoint[1].toFixed(2);
-                            showChartTooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1] + 'M$');
+                            showChartTooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1] + 'р.');
                         }
                     }
                 });

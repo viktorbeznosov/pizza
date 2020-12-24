@@ -68,7 +68,7 @@ class DashboardController extends Controller
             foreach($orders as $order){
                 $totalOrdersPrice += $order->getTotalPrice();                
             }
-            $intervals[] = array($months[$dateYearAgoMax->format('m')], $totalOrdersPrice);
+            $intervals[] = array($months[$dateYearAgoMax->format('m')] . " " . $dateYearAgoMax->format('Y'), $totalOrdersPrice);
         } 
         
         print_r(json_encode($intervals, JSON_UNESCAPED_UNICODE));

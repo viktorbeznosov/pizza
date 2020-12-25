@@ -1,7 +1,7 @@
 @foreach($comments as $comment)
 <li class="comment">
     <div class="vcard bio">
-        <img src="@if(isset($comment->user)){{ asset($comment->user->image) }}@else {{ asset('assets/images/no-image.png') }} @endif" alt="Image placeholder">
+        <img src="@if(isset($comment->user)){{ asset($comment->user->image) }}@else {{ asset('assets/images/no-user.png') }} @endif" alt="Image placeholder">
     </div>
     <div class="comment-body">
         <h3>@if(isset($comment->user)){{ $comment->user->name }}@else {{ $comment->name }} @endif</h3>
